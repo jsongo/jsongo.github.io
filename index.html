@@ -35,8 +35,8 @@
 <a id="who-am-i" class="anchor" href="#who-am-i" aria-hidden="true"><span class="octicon octicon-link"></span></a>Who am I?</h3>
 
 <p>A boy who's spending much time in exploring the magic of code and hack, and sometimes, of life. 
-I'd been working in <a href="http://tencent.com/">Tencent</a> for the past two years till last June(2014-06). And that is the first station beyond my school life. Oh, yeah, I'm quite young but not ignorant. And I've been coding since my college for the past 6 years in C/C++, Java, Php, python(my favorite one), javascript(which is my current job). I've written lots of blogs everywhere most of which were lost due to my carelessness and unsteady mind. Some were lost with the server, and some with the  blog website, and some with no memory of where they'd been written, and others with the wind. But anyway this is the new beginning. I'll collect my future blogs here as long as the github lives. And my private ones are still be going into the evernote. 
-I majored in information security. I chose it because I've been always curious about that. And I'm learning all the time to feed my curiosity.</p>
+I'd been working in <a href="http://tencent.com/">Tencent</a> for the past two years till last June(2014-06). And that is the first station beyond my school life. Oh, yeah, I'm quite young but not ignorant. And I've been coding since my college for the past 6 years in C/C++, Java, Php, python(my favorite one), javascript(which is my current job). I've written lots of blogs everywhere most of which were lost due to my carelessness and unsteady mind. Some were lost with the server, and some with the  blog website, and some with no memory of where they'd been written, and others with the wind. But anyway this is the new beginning. I'll collect my future blogs here as long as the github lives. And my private ones are still be going into the evernote. </p>
+<p>I majored in information security. I chose it because I've been always curious about that. And I'm learning all the time to feed my curiosity.</p>
 
 <h3>
 <a id="to-reach-me" class="anchor" href="#to-reach-me" aria-hidden="true"><span class="octicon octicon-link"></span></a>To reach me</h3>
@@ -44,17 +44,44 @@ I majored in information security. I chose it because I've been always curious a
 <p>Just mail to <a href="mailto:jsongo@jsongo.com">jsongo@jsong.com</a></p>
       </section>
     </div>
+<div class="follow-btns">
+    <a class="twitter-follow-button" href="https://twitter.com/js0ng0" data-size="middle">Follow @js0ng0</a>
+    <div class="fb-follow"></div>
+</div>
+<div id="fb-root"></div>
 
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-63337925-1");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
+<!-- additional script for this page. -->
+<script type="text/javascript" src="http://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v2.3" id="facebook-jssdk"></script>
+<script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
+<script type="text/javascript">
 
+    try {
+        var pageTracker = _gat._getTracker("UA-63337925-1");
+        pageTracker._trackPageview();
+    } 
+    catch(err) {
+
+    }
+
+    window.twttr = (function(d, s, id) {
+        var js, 
+            fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+        if (d.getElementById(id)){
+            return t;
+        } 
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function(f) {
+            t._e.push(f);
+        };
+
+        return t;
+    }(document, "script", "twitter-wjs"));
+</script>
   </body>
 </html>
