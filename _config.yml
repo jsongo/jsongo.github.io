@@ -1,0 +1,14 @@
+# Site settings
+title: (Jsongo) A learning geeker
+email: jsongo@jsongo.com
+description: jsongo. Keep calm and geek on. <br/>
+        The quieter you're, the more you're able to hear.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://yourdomain.com" # the base hostname & protocol for your site
+twitter_username: js0n0
+facebook_username: js0n0
+github_username:  jsongo
+highlighter: pygments
+
+# Build settings
+markdown: kramdown

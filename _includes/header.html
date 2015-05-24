@@ -7,11 +7,11 @@
 
     <!-- 请360浏览器用webkit来渲染 -->
     <meta name="renderer" content="webkit">
-    <meta name="description" content="jsongo. Keep calm and geek on. <br/>
-        The quieter you're, the more you're able to hear.">
+    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
     <meta name="author" content="jsongo">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
     <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="css/stylesheet.css" media="screen">
+    <link rel="stylesheet" href="{{ "/css/style.css" | prepend: site.baseurl }}" type="text/css">
     <link rel="stylesheet" type="text/css" href="css/github-dark.css" media="screen">
-    <title>[Jsongo] A learning geeker</title>
+    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
   </head>

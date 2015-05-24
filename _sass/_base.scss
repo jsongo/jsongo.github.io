@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   padding: 0;
@@ -6,113 +7,6 @@ body {
   font: 16px;
   line-height: 1.5;
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-}
-
-/* black theme */
-.pl-c {
-  color: #969896;
-}
-
-.pl-c1 ,
-.pl-s .pl-v  {
-  color: #0099cd;
-}
-
-.pl-e ,
-.pl-en  {
-  color: #9774cb;
-}
-
-.pl-s .pl-s1 ,
-.pl-smi {
-  color: #ddd;
-}
-
-.pl-ent {
-  color: #7bcc72;
-}
-
-.pl-k {
-  color: #cc2372;
-}
-
-.pl-pds              ,
-.pl-s                ,
-.pl-s .pl-pse .pl-s1 ,
-.pl-sr               ,
-.pl-sr .pl-cce       ,
-.pl-sr .pl-sra       ,
-.pl-sr .pl-sre       {
-  color: #3c66e2;
-}
-
-.pl-v  {
-  color: #fb8764;
-}
-
-.pl-id {
-  color: #e63525;
-}
-
-.pl-ii {
-  background-color: #e63525;
-  color: #f8f8f8;
-}
-
-.pl-sr .pl-cce {
-  color: #7bcc72;
-  font-weight: bold;
-}
-
-.pl-ml {
-  color: #c26b2b;
-}
-
-.pl-mh        ,
-.pl-mh .pl-en ,
-.pl-ms        {
-  color: #264ec5;
-  font-weight: bold;
-}
-
-.pl-mq {
-  color: #00acac;
-}
-
-.pl-mi {
-  color: #ddd;
-  font-style: italic;
-}
-
-.pl-mb {
-  color: #ddd;
-  font-weight: bold;
-}
-
-.pl-md {
-  background-color: #ffecec;
-  color: #bd2c00;
-}
-
-.pl-mi1 {
-  background-color: #eaffea;
-  color: #55a532;
-}
-
-.pl-mdr {
-  color: #9774cb;
-  font-weight: bold;
-}
-
-.pl-mo {
-  color: #264ec5;
-}
-
-/* index */
-.container {
-  width: 90%;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 section {
@@ -128,6 +22,13 @@ li {
   line-height: 1.4 ;
 }
 
+/* index */
+.container {
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 /* Header, <header>
    header   - container
    h1       - project name
@@ -135,11 +36,9 @@ li {
 */
 
 header {
-  background: rgba(0, 0, 0, 0.1);
   width: 100%;
   border-bottom: 1px dashed #b5e853;
-  padding: 20px 0;
-  margin: 0 0 40px 0;
+  padding: 10px 0;
 }
 
 header h1 {
@@ -162,13 +61,8 @@ header h2 {
   color: #666;
 }
 
-#downloads .btn {
-  display: inline-block;
-  text-align: center;
-  margin: 0;
-}
-
-/* Main Content
+/* 
+ * Main Content
 */
 
 #main_content {
@@ -248,7 +142,6 @@ pre {
   border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 10px;
   font-size: 14px;
-  color: #b5e853;
   border-radius: 2px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -339,7 +232,21 @@ a {
 .cf {
   zoom:1;
 }
-/* twitter */
+
+/**
+ * Set `margin-bottom` to maintain vertical rhythm
+ */
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre,
+ul, ol, dl, figure,
+%vertical-rhythm {
+    margin-bottom: $spacing-unit / 2;
+}
+
+/* follow btns */
 .follow-btns {
     text-align: center;
+}
+.follow-btns a {
+    margin: 0 10px;
 }
