@@ -1,17 +1,88 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+---
+title: [Jsongo] A learning geeker
+---
+{% include header.html %}
+  <body>
 
-    <!-- 请360浏览器用webkit来渲染 -->
-    <meta name="renderer" content="webkit">
-    <meta name="description" content="jsongo. Keep calm and geek on. <br/>
-        The quieter you're, the more you're able to hear.">
-    <meta name="author" content="jsongo">
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="css/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="css/github-dark.css" media="screen">
-    <title>A learning geeker by jsongo</title>
-  </head>
+    <header>
+      <div class="container">
+        <h1>A learning geeker</h1>
+        <h2>Keep calm and &lt;geek/&gt; on. <br/>
+        The quieter you&#39;re, the more you&#39;re able to hear.</h2>
+
+      </div>
+    </header>
+
+    <div class="container">
+    {{ site.time | date_to_long_string }}
+      <section id="main_content">
+        <p><img src="images/calm_and_geek.jpg" alt="geek"></p>
+{% highlight python %}
+welcome = '''scxb cx idv tkpw njv hxwi ipwl tth di scjdgp zdda ihjY
+tbdw uathgjdn tzpb scp vcxgpwh ud sagdl rxvpb twi di tbdratL'''
+shift = 15
+
+def dec(s):
+    print ''.join([chr((ord(x)-0x41-shift+26)%26+0x41) if x.isupper() else chr((ord(x)-0x61-shift+26)%26+0x61) if x.isalpha() else x for x in s[::-1]])
+
+dec(welcome)
+{% endhighlight %}
+<p><small>welcome is encode by this:
+''.join([chr((ord(x)-0x41+shift)%26+0x41) if x.isupper() else chr((ord(x)-0x61+shift)%26+0x61) if x.isalpha() else x for x in src[::-1]])
+</small></p>
+<h3>
+<a id="welcome-to-jsongos-github-page" class="anchor" href="#welcome-to-jsongos-github-page" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to Jsongo's github page.</h3>
+
+<p>This is a new place where I'll collect most part of my favorite content named coding, geeking, hacking or something else that may give you much interest and fun.</p>
+
+<h3>
+<a id="who-am-i" class="anchor" href="#who-am-i" aria-hidden="true"><span class="octicon octicon-link"></span></a>Who am I?</h3>
+
+<p>A boy who's spending much time in exploring the magic of code and hack, and sometimes, of life. 
+I'd been working in <a href="http://tencent.com/">Tencent</a> for the past two years till last June(2014-06). And that is the first station beyond my school life. Oh, yeah, I'm quite young but not ignorant. And I've been coding since my college for the past 6 years in C/C++, Java, Php, python(my favorite one), javascript(which is my current job). I've written lots of blogs everywhere most of which were lost due to my carelessness and unsteady mind. Some were lost with the server, and some with the  blog website, and some with no memory of where they'd been written, and others with the wind. But anyway this is the new beginning. I'll collect my future blogs here as long as the github lives. And my private ones are still be going into the evernote. </p>
+<p>I majored in information security. I chose it because I've been always curious about that. And I'm learning all the time to feed my curiosity.</p>
+
+<h3>
+<a id="to-reach-me" class="anchor" href="#to-reach-me" aria-hidden="true"><span class="octicon octicon-link"></span></a>To reach me</h3>
+
+<p>Just mail to <a href="mailto:jsongo@jsongo.com">jsongo@jsong.com</a></p>
+      </section>
+    </div>
+<div class="follow-btns">
+    <a class="twitter-follow-button" href="https://twitter.com/js0ng0" data-size="middle">Follow @js0ng0</a>
+</div>
+
+<!-- additional script for this page. -->
+<script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
+<script type="text/javascript">
+
+    try {
+        var pageTracker = _gat._getTracker("UA-63337925-1");
+        pageTracker._trackPageview();
+    } 
+    catch(err) {
+
+    }
+
+    window.twttr = (function(d, s, id) {
+        var js, 
+            fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+        if (d.getElementById(id)){
+            return t;
+        } 
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function(f) {
+            t._e.push(f);
+        };
+
+        return t;
+    }(document, "script", "twitter-wjs"));
+</script>
+  </body>
+</html>

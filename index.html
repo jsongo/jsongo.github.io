@@ -18,10 +18,18 @@ title: [Jsongo] A learning geeker
       <section id="main_content">
         <p><img src="images/calm_and_geek.jpg" alt="geek"></p>
 {% highlight ruby %}
-def foo
-  puts 'foo'
-end
+welcome = '''scxb cx idv tkpw njv hxwi ipwl tth di scjdgp zdda ihjY
+tbdw uathgjdn tzpb scp vcxgpwh ud sagdl rxvpb twi di tbdratL'''
+shift = 15
+
+def dec(s):
+    print ''.join([chr((ord(x)-0x41-shift+26)%26+0x41) if x.isupper() else chr((ord(x)-0x61-shift+26)%26+0x61) if x.isalpha() else x for x in s[::-1]])
+
+dec(welcome)
 {% endhighlight %}
+<small>welcome is encode by this:
+''.join([chr((ord(x)-0x41+shift)%26+0x41) if x.isupper() else chr((ord(x)-0x61+shift)%26+0x61) if x.isalpha() else x for x in src[::-1]])
+</small>
 <h3>
 <a id="welcome-to-jsongos-github-page" class="anchor" href="#welcome-to-jsongos-github-page" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to Jsongo's github page.</h3>
 
