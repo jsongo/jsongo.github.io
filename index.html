@@ -1,6 +1,7 @@
 ---
 title: [Jsongo] A learning geeker
 ---
+{% include header.html %}
   <body>
 
     <header>
@@ -13,6 +14,7 @@ title: [Jsongo] A learning geeker
     </header>
 
     <div class="container">
+    {{ site.time | date_to_long_string }}
       <section id="main_content">
         <p><img src="images/calm_and_geek.jpg" alt="geek"></p>
 {% highlight ruby %}
