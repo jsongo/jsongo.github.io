@@ -2,8 +2,6 @@
  * Syntax highlighting styles
  */
 .highlight {
-    background: #fff;
-    @extend %vertical-rhythm;
 
     .c     { color: #998; font-style: italic } // Comment
     .err   { color: #a61717; background-color: #e3d2d2 } // Error
@@ -66,7 +64,7 @@
     .il    { color: #099 } // Literal.Number.Integer.Long
 .lineno {
     text-align: right !important;
-    padding: 0 0.5em 0 1em !important;
+    padding: 0 0.5em 10px 1em !important;
     border-right: 3px solid #435a5f !important;
     background-color: #0f192a !important;
     white-space: pre !important;

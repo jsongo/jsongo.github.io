@@ -1,0 +1,20 @@
+<ul>
+  <li class="{% if page.home %}current{% endif %}">
+    <a href="/">Home</a>
+  </li>
+  <li class="{% if page.url contains '/sec/' %}current{% endif %}">
+    <a href="/post/sec/">Security</a>
+  </li>
+  <li class="{% if page.url contains '/py/' %}current{% endif %}">
+    <a href="/post/py/">Python</a>
+  </li>
+  <li class="{% if page.url contains '/js/' %}current{% endif %}">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="{% if page.url contains '/other/' %}current{% endif %}">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="{% if page.about %}current{% endif %}">
+    <a href="/about.html">About</a>
+  </li>
+</ul>

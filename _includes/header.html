@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <!-- 请360浏览器用webkit来渲染 -->
-    <meta name="renderer" content="webkit">
-    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-    <meta name="author" content="jsongo">
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="stylesheet" href="{{ "/css/style.css" | prepend: site.baseurl }}" type="text/css">
-    <link rel="stylesheet" type="text/css" href="css/github-dark.css" media="screen">
-    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
-  </head>
+<header role="banner">
+  <nav class="mobile-nav show-on-mobiles">
+    {% include primary-nav-items.html %}
+  </nav>
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <h1>
+        <a href="/">
+          <span class="sr-only">Jekyll</span>
+          <img src="/img/logo-2.png" height="115" alt="Jsongo Logo">
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav unit two-thirds hide-on-mobiles">
+      {% include primary-nav-items.html %}
+    </nav>
+  </div>
+</header>

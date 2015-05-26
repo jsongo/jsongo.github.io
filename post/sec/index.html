@@ -1,0 +1,11 @@
+---
+layout: post
+title: Post
+permalink: /post/sec/
+author: all
+overview: true
+---
+
+{% for post in site.categories.security %}
+  {% include post_item.html %}
+{% endfor %}
