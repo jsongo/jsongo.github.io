@@ -1,3 +1,12 @@
+---
+layout: post_item
+title: "my first post, just chat about"
+date: "2015-05-28 00:00:00"
+author: jsongo
+version: 1.0.0
+categories: [other]
+---
+
 	This is my first post using github online. Exciting, isn't it.
 	Amazing that markdown in github support tab key indent mode. Much helpful.
 	But I've got to say that, you could not learn anything from this post. This is just a test. But if you'd rather be as boring as me, keep on. I'll talk about what I've got in mind now.
