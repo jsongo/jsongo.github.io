@@ -345,6 +345,16 @@ body {
   font-feature-settings: "kern" 1;
   font-kerning: normal; }
 
+h1, h2, h3 {
+  font-weight: normal;
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  color: #b5e853;
+  letter-spacing: -0.03em;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(181, 232, 83, 0.1), 0 0 10px rgba(181, 232, 83, 0.1); }
+
+h1, h2, h3 {
+  margin-bottom: 15px; }
+
 .clear {
   display: block; }
 
@@ -674,15 +684,17 @@ article {
     padding: 40px 40px 30px; } }
 /* Right-side nav - used by both docs and news */
 aside {
-  padding-top: 30px; }
+  /*padding-top: 30px;*/ }
   aside h4 {
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
     padding: 0 0 10px 30px;
     margin-left: -30px;
     display: inline-block;
-    border-bottom: 1px solid #c00; }
+    border-bottom: 1px solid #b5e853;
+    display: block;
+    color: #3bfc34; }
   aside ul {
     padding-left: 0; }
     aside ul:first-child {
@@ -691,7 +703,8 @@ aside {
     list-style-type: none; }
     aside li a {
       font-size: 16px;
-      position: relative; }
+      position: relative;
+      color: #ddd; }
     aside li.current a:before {
       content: "";
       border-color: transparent transparent transparent #444;
@@ -711,7 +724,6 @@ aside {
 
 .section-nav {
   text-align: center;
-  padding-top: 40px;
   position: relative;
   background: url(../img/article-footer.png) top center no-repeat;
   margin: 40px -20px 10px; }

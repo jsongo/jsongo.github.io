@@ -15,7 +15,7 @@
   </script>
 {% endif %}
 
-{% if site.google_analytics_id %}
+{% if site.googleAnaly.config %}
   <!-- Google Analytics (http://google.com/analytics) -->
   <script>
     !function(j,e,k,y,l,L){j.GoogleAnalyticsObject=y,j[y]||(j[y]=function(){
@@ -23,8 +23,20 @@
     L=e.getElementsByTagName(k)[0],l.src='//www.google-analytics.com/analytics.js',
     L.parentNode.insertBefore(l,L)}(window,document,'script','ga');
 
-    ga('create', '{{ site.google_analytics_id }}', 'jekyllrb.com');
+    ga('create', '{{ site.googleAnaly.id }}', 'jsongo.com');
     ga('send', 'pageview');
 
+  </script>
+{% endif %}
+
+{% if site.baiduTongji.config %}
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?{{site.baiduTongji.id}}";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+      })();
   </script>
 {% endif %}
