@@ -444,6 +444,9 @@ nav li {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 5px rgba(0, 0, 0, 0.5);
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3); }
 
+.pagination span, .pagination em, .pagination a {
+  padding: 5px 10px; }
+
 /*
  * This code is courtesy Ben Balter, modified by Parker Moore for jekyllrb.com
  * http://ben.balter.com/2014/03/13/pages-anchor-links/

@@ -10,6 +10,8 @@ facebook_username: js0n0
 
 repository: https://github.com/jekyll/jekyll
 help_url: https://github.com/jekyll/jekyll-help
+paginate: 2
+paginate_path: /post/ 
 
 googleAnaly:
   config: false

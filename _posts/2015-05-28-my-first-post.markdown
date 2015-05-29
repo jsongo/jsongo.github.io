@@ -1,6 +1,6 @@
 ---
 layout: post_item
-title: "my first post, just chat about"
+title: "my first post, just chattering"
 date: "2015-05-28 00:00:00"
 author: jsongo
 version: 1.0.0

@@ -144,6 +144,12 @@ nav {
   }
 }
 
+.pagination {
+  span, em, a {
+    padding: 5px 10px;
+  }
+}
+
 /*
  * This code is courtesy Ben Balter, modified by Parker Moore for jekyllrb.com
  * http://ben.balter.com/2014/03/13/pages-anchor-links/
