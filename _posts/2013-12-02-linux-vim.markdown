@@ -1,0 +1,140 @@
+---
+layout: post_item
+status: publish
+published: true
+title: linux vim学习汇总
+author: jsongo
+wordpress_id: 130
+wordpress_url: http://jsongo.com/?p=130
+date: '2013-12-02 05:36:22 +0800'
+date_gmt: '2013-12-01 21:36:22 +0800'
+categories: [draft]
+tags: [vi, vim]
+comments: []
+---
+一、简单改造，更适合编程  
+1、ctags  
+先装ctags，用来给代码生成索引  
+{% highlight bash %} 
+apt-get install ctags  
+{% endhighlight %}
+
+
+2、taglist  
+先下载：wget&nbsp;http://vim.sourceforge.net/scripts/download_script.php?src_id=19574  
+重命名下，解压，进入  
+cd doc  
+运行vim，执行:helptags . （注意后面有个点）  
+
+3、整合ctags和taglist  
+打开.vim/plugin/taglist.vim，找if!exist("loaded_taglist")这一行，上面插入：  
+{% highlight bash %}
+let Tlist_Ctags_Cmd="/usr/bin/ctags"
+{% endhighlight %}
+保存，退出就ok了  
+
+4、使用：  
+进入一个源码的目录，执行ctags -R就可以把文件夹及其子文件夹都建立索引了  
+把光标定位到某个函数或变量上，按ctrl+]就可以查看定义，按ctrl+o或者ctrl+t可以返回原地。  
+执行:TlistToggle可以在左侧打开taglist，把所有的tag都列出来。ctrl+w再w可以两个窗口来回切换。  
+参考：[http://roclinux.cn/?p=424](http://roclinux.cn/?p=424)  
+
+二、几个很少人知的快捷键：  
+A: 在本行行尾插入  
+J：可以去除本行和下一行之间的换行符，也就是将下一行续接到本行尾部  
+~：光标所在处的字符进行大小写互换  
+zz： 将当前行放置于页面中间，利于阅读  
+zt：将当前行放置于页面的最顶端，一般阅读函数定义时，非常非常有用  
+ctrl-a：可以将光标所在处的数字加1，负数和多位数都在支持范围内哦。可以用这个快捷键配合宏来干很多事情喽。  
+ctrl-x：有加1就会有减1  
+参考：[http://roclinux.cn/?p=1621](http://roclinux.cn/?p=1621)  
+
+三、文件目录浏览：  
+vim自带netrw，从7.0以后。  
+执行:e your_dir  
+这样就可以浏览你想要的文件夹  
+加入快捷键：  
+打开.vimrc，加入  
+{% highlight bash %}
+let g:netrw_winsize = 30 " 宽度设成30  
+nmap fe :Sexplore!  
+{% endhighlight %}
+
+之后就连续按fe两个按键来打开，退出:q  
+更多netrw的技巧，可以执行:h netrw-ssh-hack来查看  
+http://x3ge.com/?p=851这里有远程编辑的一些说明  
+同时可以装上BufExplorer来查看历史浏览缓存：http://vim.sourceforge.net/scripts/script.php?script_id=42  
+装上WmToggle来整合它们：http://vim.sourceforge.net/scripts/script.php?script_id=95  
+
+四、一些常用快捷键/命令：  
+1、把两行合并为一行：定位在上面那行，esc，按大写J  
+2、撤消：U  
+重做：ctr + r  
+3、插入n个某字符：esc，输入6a#，再按下esc就可以输入6个#  
+4、esc，a在当前光标的后面插入，i在光标前面插入  
+5、:e! 可以不保存而重新载入这个文件  
+6、esc，w向往一个单词，b向后一个单词  
+7、选号，:set nu出现选号，:set nonu取消行号  
+8、删除，esc，dw删除一个单词，dd删除一行，x删除一个字符，d$从光标处往后全删，d^反之  
+9、查找/，如果想忽略大小写，:set ignorecase。  
+也可以/word\c  
+10、esc，光标定位于一个单词，输入*即可高亮所有同名的（没出现的话，:set hlsearch一下），再按n可以跳到下一个词  
+如果要区分大小写，可以:set noignorecase  
+hlsearch前面也可以加no  
+11、做标记：esc，ma，然后`a就可以跳到那个光标处，'a可以跳到那行的行首  
+:marks可以查看所有的标记  
+12、ctrl+o 可以跳到之前跳过的比较老的地方，ctrl+i相反  
+13、跳到某一指定行，可以执行:12跳到12行，也可以按下12G跳过去  
+gg跳到第一行  
+G跳到最后一行  
+14、切换不同窗口  
+Ctrl-W 命令指定光标移动：  
+Ctrl-W s 复制当前窗口  
+Ctrl-W n 新开一个窗口  
+Ctrl-W + 扩大窗口  
+Ctrl-W - 缩小窗口  
+Ctrl-W h 移动到窗口左边  
+Ctrl-W j 移动到窗口下边  
+Ctrl-W k 移动到窗口上边  
+Ctrl-W l 移动到窗口右边  
+15、上/下一页  
+Ctrl+f 下一页  
+Ctrl+b 上一页  
+16、行首/尾  
+按0可以到行首第一个  
+$到行尾  
+^到行首第一个有字符处  
+17、改变窗口的大小  
+n+ctrl+w+>或< 用来增大或减小列宽  
+n+ctrl+w+=或- 用来增大或减小行宽  
+18、全局搜索  
+<blockquote>vimgrep /antiscroll/g doc/favweb/js/**</blockquote>  
+19、缩进  
+n>>可以缩进当前行及以下的n-1行，n<<反之  
+20、多行选中  
+按v进入visual模式，再上下左右就可以选中多个/行  
+21、替换/多行注释  
+:s/xxx/aaa/g  
+这个可以把所有的xxx换成aaa  
+可以指定范围：  
+.,+3 s/^/\/\//g  
+这个指定当前行和以下3行，开关用//替换，也就是把这四行注释起来。  
+另一种方法多行注释：  
+ctrl+v进入列编辑模式，再I（大写），输入你想要的字符，再esc就可以了  
+22、列删除  
+ctrl+v，选中要删除的，再d  
+23、以单词为单位前进/后退  
+按w来前进一个单词，b来后退一个单词。  
+这里一个单词的概念是空格隔开，也可以使它不是空格，设置：  
+set iskeyword=@  
+这样就以#来分单词，可以指定多个，用逗号隔开  
+值如下：  
+a 字符a  
+a-z 所有由a到z的字符  
+@ 由函数isalpha()所定义的所有字符  
+@-@ 字符@  
+^x 除了x以外的字符  
+^a-c 除了a到c以外的字符  
+Vim还有一种概念WORD。虽然这只是大小写的不同，但是他们却代表了两种不同的事物。word是指由iskeyword选项定义的字符串；而WORD则是指用空白符分隔的字符串。  
+ctrl+E 单词前进，ctrl+W  
+ctrl+B 单词后退  

@@ -1,0 +1,27 @@
+---
+layout: post_item
+status: publish
+published: true
+title: "转IP地址为长整数的脚本(python)"
+author: jsongo
+wordpress_id: 38
+wordpress_url: http://jsongo.com/?p=38
+date: '2013-09-25 01:17:45 +0800'
+date_gmt: '2013-09-24 17:17:45 +0800'
+categories: [python]
+tags: [python, masterpiece]
+comments: []
+---
+我们可以用一个ip来代替网址访问一个网站 ，如可以用http://220.181.111.148来访问百度。其实ip地址可以用一个32位的整数来表示，由点隔成四段，每段就是1 byte，由此我们可以试试用一个32位的整数来代替ip地址，看能不能访问百度。220.181.111.148，这个地址转化成整数后，得到3702878100，尝试了下用http://3702878100来访问，果然可以。  
+
+
+用python来实现这个转换过程：  
+{% highlight python %}  
+def ipToInt(ip):  
+    rst = 0  
+    ips = ip.split('.')  
+    for i in range(4):  
+        rst += int(ips[3-i])*(256**i)  
+    print rst  
+    ipToInt(220.181.111.148) # 得到3702878100  
+{% endhighlight %}   

@@ -1,0 +1,34 @@
+---
+layout: post_item
+status: publish
+published: true
+title: "批量转换编码的python实现"
+author: jsongo
+wordpress_id: 44
+wordpress_url: http://jsongo.com/?p=44
+date: '2013-09-25 01:26:48 +0800'
+date_gmt: '2013-09-24 17:26:48 +0800'
+categories: [python]
+tags: [python, masterpiece]
+comments: []
+---
+项目中看到别人代码的编码格式好多gbk的，在有些编辑器里打开经常会各种乱码，写了个脚本，把一个文件夹里的所有文件的编码都改成utf-8的：
+
+
+{% highlight python %} 
+import os;  
+def ncode(recursively = True, srcEncode = 'gbk', destEncode = 'utf8'):  
+    for f in os.listdir('.'):  
+        if os.path.isfile(f):  
+            s=open(f, 'rb').read().decode(srcEncode , 'ignore').encode(destEncode)  
+            open(f, 'wb').write(s)  
+        elif recursively:  
+            os.chdir(f)  
+            chgEncode(True, srcEncode, destEncode)  
+            os.chdir('../')  
+chgEncode()  
+{% endhighlight %}  
+写到一个文件中保存.py，放到你要转换编码的那个文件夹里，运行就行了。当然，前提是你得装个python的环境。  
+如果不是gbk的编码要转成utf8，只要把最后一句chgEncode()改成chgEncode(True, '你的编码格式', 'utf8').  
+第一个参数表示是否要改变当前文件夹下的子文件夹的编码，设成false就只改变当前顶级目录的文件的编码。  
+当然，这个代码也有限制，如果你的文件夹里面有好几种编码格式，就不能用了。  

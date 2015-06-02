@@ -1,0 +1,78 @@
+---
+layout: post_item
+status: publish
+published: true
+title: awk/sed 笔记（一看就会）
+author: jsongo
+wordpress_id: 179
+wordpress_url: http://jsongo.com/?p=179
+date: '2013-12-22 01:22:16 +0800'
+date_gmt: '2013-12-21 17:22:16 +0800'
+categories: [linux]
+tags: [linux]
+comments: []
+---
+awk 选取内容输出  
+格式：awk \'模式 {操作}\' file1 file2 ...  
+模式可以由下面内置变量构成，也可以用正则表达式。操作就是linux提供或自定义的指令
+
+
+常见的内置变量：  
+NR 行号  
+FS 分隔符  
+$n 第n个字段（由FS分隔符决定）  
+$0 当前行的所有文件内容  
+例子：  
+awk \'NR==1 {print}\' /etc/hosts    把hosts的第一行输出，注意两个等号  
+awk \'NR==1,NR==5 {print}\' file.txt      把文件中1到5行输出  
+但如果只输出1和5行，则用NR==1 || NR==5  
+
+* 使用复杂些的逻辑判断  
+awk \'(NR%2)==1 {print}\' file.txt      输出奇数行，要输出偶数行就改成0  
+* 使用正则表达式  
+awk \'/abcd/ {print}\' file.txt      输出第一个包含abcd的那行，要输出所有含abcd的就在正则后面加g  
+awk \'/\d{3}-\d{4}/ {print}\' file.txt       输出文件中含有123-4567这样数字组合的行  
+* 选取指定的字段  
+awk \'NR==2,NR==5 {print $1,$3}\' file.txt     输出2到5行中的第1、3字段  
+字段可以用-F来指定：awk -F. \'NR==2,NR==5 {print $1,$3}\' file.txt    这时的字段就由.分隔行来的。  
+========================================  
+
+sed 文本输出/删除/替换等。  
+使用格式：sed \'指令\' file1 file2 ...  
+这会直接打印出整个文件处理后的结果  
+指令前面可以加参数： 
+
+> -n 只输出受影响的行  
+> -i 直接把修改写到文件中
+
+其中指令的格式：\'数据1[,数据2]操作\'  
+也可以多个操作，在引号同用分号;分隔：\'3p;5p\'  
+还可以多个单引号：\'3p\' -e \'5p\'     后面如果有多个引号指令，则除第一个每一个前面都要加-e  
+操作： 
+
+> p 输出/打印  
+> n 跳过一行  
+> d 删除  
+> s 字符串替换  
+> a 追加新文本
+
+1、输出  
+例：sed -n \'3,5p\' test.txt  打印文件的第3到5行。  
+sed -n \'p;n\' file.txt  输出奇数行  
+sed -n \'n;p\' file.txt 输出偶数行  
+使用正则表达式：  
+sed -n \'/abcd/,$p\' file.txt    把文件里面包含abcd的第一行开始输出到结束  
+sed -n \'/\<json\>/p\' file.txt     匹配json整个单词  
+
+2、删除  
+sed \'2, 3d\' file.txt     删除2到3行  
+sed \'/abcd/d;$d\' file.txt      把包含abcd的行和最后一行删除  
+sed \'/abcd/!d\' file.txt     把文件里面<strong>不</strong>匹配的第一行干掉 
+
+3、替换  
+sed \'3,4s/abcd/efgh/g\' file.txt     把文件里面3、4行中的abcd<strong>全都(g)</strong>替换成efgh  
+sed \'1,5s/^/#/g\' file.txt    把1到5行注释掉（就是把开始的位置替换成#）  
+sed \'s/json//g\' file.txt     把文件中所有的json这个单词干掉。  
+===========================================  
+
+awk的优势是它可以很方便的选择行中的字段输出，sed的优势是它的操作更多样更强大 命令形式更简洁。  

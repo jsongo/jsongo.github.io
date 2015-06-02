@@ -465,8 +465,17 @@ aside {
 
     a {
       font-size: 16px;
+      line-height: 30px;
       position: relative;
       color: #ddd;
+      width: 100%;
+    }
+    a span {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      display: block;
+      width: 92%;
     }
 
     &.current a:before {
@@ -708,9 +717,9 @@ a {
   &:hover { color: #b5e853; }
 }
 
-strong { font-weight: 700; }
+strong { font-weight: 700; color: #fff;}
 
-p { line-height: 1.5em; }
+p { line-height: 1.5em; word-wrap: break-word; }
 
 .left { float: left; }
 .right { float: right; }
@@ -846,7 +855,7 @@ code.output {
 
 /* Note types */
 
-.note {
+.note, blockquote {
   margin: 30px 0;
   margin-left: -30px;
   padding: 20px 20px 24px;
@@ -865,14 +874,14 @@ code.output {
 }
 
 @media (max-width: 568px) {
-  .note { margin-right: -30px; }
+  .note, blockquote { margin-right: -30px; }
 }
 
 @media (min-width: 768px) {
-  .note { margin-left: -50px; }
+  .note, blockquote { margin-left: -50px; }
 }
 
-.note {
+.note, blockquote {
   &:before {
     content: "";
     position: absolute;
@@ -914,7 +923,8 @@ code.output {
   }
 }
 
-.info {
+.info, blockquote {
+  border-left: inherit;
   background-color: #0389aa;
   background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAzODlhYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDYxN2YiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#0389aa), to(#00617f));
@@ -947,7 +957,7 @@ code.output {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cd9239', endColorstr='#a27528',GradientType=0 );
 }
 
-.info:before { border-color: transparent #00617f #00617f transparent; }
+.info:before, blockquote:before { border-color: transparent #00617f #00617f transparent; }
 
 .warning:before { border-color: transparent #6f0d0d #6f0d0d transparent; }
 

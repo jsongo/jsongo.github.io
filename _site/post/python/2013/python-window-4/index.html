@@ -1,0 +1,1056 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- 请360浏览器用webkit来渲染 -->
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="上一篇博客中， 我们可以新建一个进程，附加另一个正在运行的进程，使原来的挂起。而对于调试一个进程，我们最感兴趣的就是能看到它运行的汇编代码和寄存器上的信息，特别是后者，是我们了解当前进程运行环境的关键，而且我们可以根据寄存器上的EIP得到当前正在运行的代码所在的内存地址。。">
+    <meta name="author" content="jsongo">
+    <link rel="canonical" href="/post/python/2013/python-window-4/">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>python的系统底层操作4&mdash;寄存器 [by Jsongo]</title>
+    <meta name="generator" content="Jekyll v2.5.3">
+    <link rel="alternate" type="application/rss+xml" title="Jekyll • Simple, blog-aware, static sites - Feed" href="/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="Recent commits to Jekyll’s master branch" href="https://github.com/jekyll/jekyll/commits/master.atom">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+    <link rel="stylesheet" href="/css/screen.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body class="wrap">
+  <header role="banner">
+  <nav class="mobile-nav show-on-mobiles">
+    <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/post/security/">Security</a>
+  </li>
+  <li class="">
+    <a href="/post/python/">Python</a>
+  </li>
+  <li class="">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="">
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+
+  </nav>
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <h1>
+        <a href="/">
+          <span class="sr-only">Jekyll</span>
+          <img src="/img/logo-2.png" height="115" alt="Jsongo Logo">
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav unit two-thirds hide-on-mobiles">
+      <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/post/security/">Security</a>
+  </li>
+  <li class="">
+    <a href="/post/python/">Python</a>
+  </li>
+  <li class="">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="">
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+
+    </nav>
+  </div>
+</header>
+
+
+    <section class="post">
+    <div class="grid">
+
+      <div class="docs-nav-mobile unit whole show-on-mobiles">
+  <select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Navigate the blog…</option>
+    <option value="/news/">Home</option>
+    <optgroup label="v1.x">
+      
+      <option value="/post/other/2015/markdown-syntax/">Markdown 语法说明[转]</option>
+      
+      <option value="/post/other/2015/my-first-post/">my first post, just chattering</option>
+      
+      <option value="/post/other/2015/jekyll-3-0-0-beta1-released/">Jekyll 3.0.0.beta1 Released</option>
+      
+      <option value="/post/security/2014/nginx-https/">nginx的https设置</option>
+      
+      <option value="/post/chatter/2014/attend-the-startup-meeting/">第一次去参加创业公社的交流会</option>
+      
+      <option value="/post/draft/2014/select-distinct-only-one/">select多个字段，但distinct一个字段的方法</option>
+      
+      <option value="/post/draft/2014/uwsgi-libgcc_s-so-1-installed-pthread_cancel-work/">uwsgi报错libgcc_s.so.1 must be installed for pthread_cancel to work</option>
+      
+      <option value="/post/draft/2014/svn-to-git/">把代码从svn搬到git上</option>
+      
+      <option value="/post/draft/2014/mac-eclipse-tips/">mac上eclipse的一些使用技巧记录</option>
+      
+      <option value="/post/chatter/2014/we-all-have-to-leave/">We all have to leave</option>
+      
+      <option value="/post/draft/2014/uwsgi_django_nginx/">uwsgi+django+nginx，报internal server error的可能原因</option>
+      
+      <option value="/post/draft/2014/stop-visit-via-htaccess/">用htaccess禁止访问目录</option>
+      
+      <option value="/post/draft/2014/nginx-redis-visit/">nginx把资源存入redis访问</option>
+      
+      <option value="/post/draft/2014/redis-error-jemalloc-h-file-directory/">redis编译报错jemalloc/jemalloc.h: No such file or directory</option>
+      
+      <option value="/post/draft/2014/wp-ftp-error/">wp中出现插件安装提示ftp登录的问题排查（nginx）</option>
+      
+      <option value="/post/draft/2014/nginx-php-download/">nginx中的php文件老是变成下载的一种情况</option>
+      
+      <option value="/post/draft/2014/clean-linux-space/">清理linux服务器上的磁盘空间</option>
+      
+      <option value="/post/draft/2014/mac-linux-boot-usb/">mac上制作linux启动安装盘</option>
+      
+      <option value="/post/security/2014/hydra-attack-auth/">hydra，对会话认证的攻击</option>
+      
+      <option value="/post/draft/2014/msf-ruby-version/">msf更换ruby版本</option>
+      
+      <option value="/post/draft/2014/brew-cant-root/">brew 报错，无法用root执行</option>
+      
+      <option value="/post/draft/2014/mac-brew/">mac里的apt-get</option>
+      
+      <option value="/post/draft/2014/mac-linux-terminal-keys/">mac/linux终端里的几个快捷键</option>
+      
+      <option value="/post/draft/2014/redis-redmon/">redis监控</option>
+      
+      <option value="/post/draft/python/2014/django-redis/">django+redis</option>
+      
+      <option value="/post/draft/vi/2014/vim-advance/">vim高级使用技巧</option>
+      
+      <option value="/post/draft/2013/redis-base/">redis简单操作</option>
+      
+      <option value="/post/draft/2013/shell-base/">shell基础 笔记</option>
+      
+      <option value="/post/linux/2013/awk-sed/">awk/sed 笔记（一看就会）</option>
+      
+      <option value="/post/draft/2013/no-module-mysqldb/">ImportError: No module named MySQLdb（python）</option>
+      
+      <option value="/post/draft/2013/postgressql-learning1/">postgressql学习</option>
+      
+      <option value="/post/draft/2013/postgresql-init/">postgresql刚安装完登录不上的问题</option>
+      
+      <option value="/post/draft/2013/openerp-install/">OpenERP安装配置</option>
+      
+      <option value="/post/security/2013/snort-ids-ubuntu/">入侵检测(IDS)和snort</option>
+      
+      <option value="/post/security/2013/snorby-ubuntu/">snorby安装</option>
+      
+      <option value="/post/draft/2013/vim-ctags-javascript/">vim中强化ctags对javascript的支持</option>
+      
+      <option value="/post/chatter/2013/efficiency-time-play/">效率、时间、休整</option>
+      
+      <option value="/post/draft/2013/ubuntu-weinre/">ubuntu上配置weinre，远程调试页面脚本</option>
+      
+      <option value="/post/draft/2013/linux-vim/">linux vim学习汇总</option>
+      
+      <option value="/post/draft/2013/php-qrcode/">PHP生成二维码（phpQRcode）</option>
+      
+      <option value="/post/draft/2013/call-undefined-function-imagecreate/">Call to undefined function ImageCreate错误的解决</option>
+      
+      <option value="/post/draft/2013/apache-ruby-on-rails-redmine/">通过apache访问Ruby on Rails服务（redmine）</option>
+      
+      <option value="/post/draft/2013/ubuntu-reverse-proxy/">ubuntu上配置apache的反向代理</option>
+      
+      <option value="/post/draft/2013/ubuntu-apache2-add-module/">在ubuntu apache2上添加模块</option>
+      
+      <option value="/post/draft/2013/apt-get-subprocess-installed-post-installation-script-returned-error-exit-status-1/">apt-get 出现 "subprocess installed post-installation script returned error exit status 1"</option>
+      
+      <option value="/post/draft/2013/gem-install-mysql_query-error/">gem install 报错 checking for mysql_query() in -lmysqlclient... no</option>
+      
+      <option value="/post/draft/2013/django-ubuntu/">django在ubuntu上的安装</option>
+      
+      <option value="/post/chatter/2013/ie-eg-etc/">英文中的i.e.,e.g.,etc.等</option>
+      
+      <option value="/post/python/2013/python-window-6/">python的系统底层操作6——硬断点</option>
+      
+      <option value="/post/python/2013/python-window-5/">python的系统底层操作5&mdash;软断点</option>
+      
+      <option value="/post/python/2013/python-window-4/">python的系统底层操作4&mdash;寄存器</option>
+      
+      <option value="/post/python/2013/python-window-3/">python的系统底层操作3——进程注入</option>
+      
+      <option value="/post/python/2013/python-window-2/">python的系统底层操作2——调用函数</option>
+      
+      <option value="/post/python/2013/python-window-1/">python的系统底层操作1——基础</option>
+      
+      <option value="/post/python/2013/salt-base64/">加盐base64算法（自创）(python)</option>
+      
+      <option value="/post/python/2013/some-code-about-python/">python的几个语法收集</option>
+      
+      <option value="/post/python/2013/gbk-to-utf8/">批量转换编码的python实现</option>
+      
+      <option value="/post/python/2013/ip-to-int/">转IP地址为长整数的脚本(python)</option>
+      
+      <option value="/post/python/2013/birthday-paradox/">计算生日悖论(python)</option>
+      
+      <option value="/post/theory/2013/arp-rarp/">ARP地址解析协议、RARP逆地址解析协议</option>
+      
+      <option value="/post/theory/2013/ip-intro/">IP，网际协议</option>
+      
+    </optgroup>
+  </select>
+</div>
+
+
+      <div class="unit three-fourths">
+        <article>
+  <h2>
+    python的系统底层操作4&mdash;寄存器
+    <a href="/post/python/2013/python-window-4/" class="permalink" title="Permalink">∞</a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      python
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      25 Sep 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    <p>上一篇博客中， 我们可以新建一个进程，附加另一个正在运行的进程，使原来的挂起。而对于调试一个进程，我们最感兴趣的就是能看到它运行的汇编代码和寄存器上的信息，特别是后者，是我们了解当前进程运行环境的关键，而且我们可以根据寄存器上的EIP得到当前正在运行的代码所在的内存地址。。</p>
+
+<p>本文将用python语言来获取正在运行的一个进程的寄存器信息。。 前面我们已经可以获得一个进程的句柄了，而对于我们所说的CPU状态是相对线程来说的，所以这里还要去获取在这个进程下运行的线程句柄。OpenThread函数可以帮我们办到：</p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">HANDLE</span> <span class="n">WINAPI</span> <span class="nf">OpenThread</span><span class="p">(</span>  
+  <span class="n">__in</span>  <span class="n">DWORD</span> <span class="n">dwDesiredAccess</span><span class="p">,</span>  
+  <span class="n">__in</span>  <span class="n">BOOL</span> <span class="n">bInheritHandle</span><span class="p">,</span>  
+  <span class="n">__in</span>  <span class="n">DWORD</span> <span class="n">dwThreadId</span>  
+<span class="p">);</span></code></pre></div>
+
+<p>我本地MSDN地址 第一个参数，用THREAD_ALL_ACCESS，它的值是0x001F03FF，表示获取所有控制权限，其它选项可以查MSDN。有的MSDN版本没有这些相应的数值，怎么办呢？查winNT.h，这个文件在：C:\Program Files\Microsoft SDKs\Windows\v7.0A\Include 这个目录下，当然路径名不一定完全相同，读者根据这个自己查找。如果懒得找或找不到的话，我上传了：金山快盘附件：WinNT.h（491.31KB） 第二个参数NULL，第三个参数就是这个线程的ID，所以下面我们就要想办法去获取这个TID。 进程没有获取它内部线程的方法，怎么办？遍历所有正在运行的线程，找出其中PID（所在进程的ID）值与当前进程PID相等的线程。 CreateToolhelp32Snapshot ，这个API可以帮助我们实现线程的枚举，在kernel32里面：</p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">HANDLE</span> <span class="n">WINAPI</span> <span class="nf">CreateToolhelp32Snapshot</span><span class="p">(</span>  
+  <span class="n">__in</span>  <span class="n">DWORD</span> <span class="n">dwFlags</span><span class="p">,</span>  
+  <span class="n">__in</span>  <span class="n">DWORD</span> <span class="n">th32ProcessID</span>  
+<span class="p">);</span></code></pre></div>
+
+<p>我本地MSDN地址 第一个参数用TH32CS_SNAPTHREAD，值0x00000004，表示枚举所有的thread。第二个指当前进程的PID。 返回的是一个HANDLER，通过Thread32First()来迈出整个线程枚举的第一步：</p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">BOOL</span> <span class="n">WINAPI</span> <span class="nf">Thread32First</span><span class="p">(</span>  
+  <span class="n">__in</span>     <span class="n">HANDLE</span> <span class="n">hSnapshot</span><span class="p">,</span>  
+  <span class="n">__inout</span>  <span class="n">LPTHREADENTRY32</span> <span class="n">lpte</span>  
+<span class="p">);</span></code></pre></div>
+
+<p>我本地MSDN地址 第一个参数就是上面取得的句柄，第二个参数是一个结构体，定义如下：</p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">tagTHREADENTRY32</span> <span class="p">{</span>  
+  <span class="n">DWORD</span> <span class="n">dwSize</span><span class="p">;</span>  
+  <span class="n">DWORD</span> <span class="n">cntUsage</span><span class="p">;</span>  
+  <span class="n">DWORD</span> <span class="n">th32ThreadID</span><span class="p">;</span>  
+  <span class="n">DWORD</span> <span class="n">th32OwnerProcessID</span><span class="p">;</span>  
+  <span class="n">LONG</span>  <span class="n">tpBasePri</span><span class="p">;</span>  
+  <span class="n">LONG</span>  <span class="n">tpDeltaPri</span><span class="p">;</span>  
+  <span class="n">DWORD</span> <span class="n">dwFlags</span><span class="p">;</span>  
+<span class="p">}</span> <span class="n">THREADENTRY32</span><span class="p">,</span> <span class="o">*</span><span class="n">PTHREADENTRY32</span><span class="p">;</span></code></pre></div>
+
+<p>我本地MSDN地址 对于这个结构体，我们在意的就三个字段：dwSize，这个我们赋给它这个结构体的大小就行，th32ThreadID和th32OwnerProcessID，这两个是Thread32First函数帮我们填进去的，分别表示当前枚举到的线程TID和它所在的进程PID。我们根据这个进程的PID来判断，等于当前进程的PID，则把线程TID加入到一个队列里面。为什么要等于当前进程呢？因为我们当前的进程（即我们运行的这个代码）它已经附加到要调试的进程里面了。 这里，我们得到了First Thread，第一个线程，接着，我们再用Thread32Next来往下遍历。得到的线程同上处理。最后会输出一个线程队列，这个就是我们想要的线程的集合。 接下去我们的工作就是OpenThread，到里面去看看，获取我们想要的寄存器上的数据。这里就要用到GetThreadContext来获得：</p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">BOOL</span> <span class="n">WINAPI</span> <span class="nf">GetThreadContext</span><span class="p">(</span>  
+  <span class="n">__in</span>     <span class="n">HANDLE</span> <span class="n">hThread</span><span class="p">,</span>  
+  <span class="n">__inout</span>  <span class="n">LPCONTEXT</span> <span class="n">lpContext</span>  
+<span class="p">);</span></code></pre></div>
+
+<p>我本地MSDN地址 第一个参数是OpenThread得到的线程的句柄，第二个参数就麻烦了。它是CONTEXT结构体的指针，这个结构体在MSDN中查不到完整的定义，怎么办？ 直接看winNT.h源码。对于32位和64位的系统，它们的定义还不一样，想想也知道，因为它们的CPU工作原理有点差异。。不过，64位是兼容32位的，所以说，我们用32位的结构就可以了。 从winNT.h源码中摘录出32位的定义，如下：</p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">_CONTEXT</span> <span class="p">{</span>  
+    <span class="c1">//  </span>
+    <span class="c1">// The flags values within this flag control the contents of  </span>
+    <span class="c1">// a CONTEXT record.  </span>
+    <span class="c1">//  </span>
+    <span class="c1">// If the context record is used as an input parameter, then  </span>
+    <span class="c1">// for each portion of the context record controlled by a flag  </span>
+    <span class="c1">// whose value is set, it is assumed that that portion of the  </span>
+    <span class="c1">// context record contains valid context. If the context record  </span>
+    <span class="c1">// is being used to modify a threads context, then only that  </span>
+    <span class="c1">// portion of the threads context will be modified.  </span>
+    <span class="c1">//  </span>
+    <span class="c1">// If the context record is used as an IN OUT parameter to capture  </span>
+    <span class="c1">// the context of a thread, then only those portions of the thread&#39;s  </span>
+    <span class="c1">// context corresponding to set flags will be returned.  </span>
+    <span class="c1">//  </span>
+    <span class="c1">// The context record is never used as an OUT only parameter.  </span>
+    <span class="c1">//  </span>
+    <span class="n">DWORD</span> <span class="n">ContextFlags</span><span class="p">;</span>  
+    <span class="c1">//  </span>
+    <span class="c1">// This section is specified/returned if CONTEXT_DEBUG_REGISTERS is  </span>
+    <span class="c1">// set in ContextFlags.  Note that CONTEXT_DEBUG_REGISTERS is NOT  </span>
+    <span class="c1">// included in CONTEXT_FULL.  </span>
+    <span class="c1">//  </span>
+    <span class="n">DWORD</span>   <span class="n">Dr0</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">Dr1</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">Dr2</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">Dr3</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">Dr6</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">Dr7</span><span class="p">;</span>  
+    <span class="c1">//  </span>
+    <span class="c1">// This section is specified/returned if the  </span>
+    <span class="c1">// ContextFlags word contians the flag CONTEXT_FLOATING_POINT.  </span>
+    <span class="c1">//  </span>
+    <span class="n">FLOATING_SAVE_AREA</span> <span class="n">FloatSave</span><span class="p">;</span>  
+    <span class="c1">//  </span>
+    <span class="c1">// This section is specified/returned if the  </span>
+    <span class="c1">// ContextFlags word contians the flag CONTEXT_SEGMENTS.  </span>
+    <span class="c1">//  </span>
+    <span class="n">DWORD</span>   <span class="n">SegGs</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">SegFs</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">SegEs</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">SegDs</span><span class="p">;</span>  
+    <span class="c1">//  </span>
+    <span class="c1">// This section is specified/returned if the  </span>
+    <span class="c1">// ContextFlags word contians the flag CONTEXT_INTEGER.  </span>
+    <span class="c1">//  </span>
+    <span class="n">DWORD</span>   <span class="n">Edi</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">Esi</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">Ebx</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">Edx</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">Ecx</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">Eax</span><span class="p">;</span>  
+    <span class="c1">//  </span>
+    <span class="c1">// This section is specified/returned if the  </span>
+    <span class="c1">// ContextFlags word contians the flag CONTEXT_CONTROL.  </span>
+    <span class="c1">//  </span>
+    <span class="n">DWORD</span>   <span class="n">Ebp</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">Eip</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">SegCs</span><span class="p">;</span>              <span class="c1">// MUST BE SANITIZED  </span>
+    <span class="n">DWORD</span>   <span class="n">EFlags</span><span class="p">;</span>             <span class="c1">// MUST BE SANITIZED  </span>
+    <span class="n">DWORD</span>   <span class="n">Esp</span><span class="p">;</span>  
+    <span class="n">DWORD</span>   <span class="n">SegSs</span><span class="p">;</span>  
+    <span class="c1">//  </span>
+    <span class="c1">// This section is specified/returned if the ContextFlags word  </span>
+    <span class="c1">// contains the flag CONTEXT_EXTENDED_REGISTERS.  </span>
+    <span class="c1">// The format and contexts are processor specific  </span>
+    <span class="c1">//  </span>
+    <span class="n">BYTE</span>    <span class="n">ExtendedRegisters</span><span class="p">[</span><span class="n">MAXIMUM_SUPPORTED_EXTENSION</span><span class="p">];</span>  
+<span class="p">}</span> <span class="n">CONTEXT</span><span class="p">;</span>  
+<span class="k">typedef</span> <span class="n">CONTEXT</span> <span class="o">*</span><span class="n">PCONTEXT</span><span class="p">;</span></code></pre></div>
+
+<p>位于winNT.h的4193行开始的位置。 这里做个说明：作者的系统是win7 64位的，对于xp/win8等系统，以及32位的系统，这个文件可能会有所差异。 MSDN查不到详细信息的结构体最麻烦，你还得去找它里面的每一个字段所对应的值。还好上面的CONTEXT我们只需要给它的第一个字段赋值就可以了，其它字段GetThreadContext会帮我们填充。第一个字段：ContextFlags，在源码中查到，它的值：</p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define CONTEXT_AMD64   0x100000  </span>
+<span class="c1">// end_wx86  </span>
+<span class="cp">#define CONTEXT_CONTROL (CONTEXT_AMD64 | 0x1L)  </span>
+<span class="cp">#define CONTEXT_INTEGER (CONTEXT_AMD64 | 0x2L)  </span>
+<span class="cp">#define CONTEXT_SEGMENTS (CONTEXT_AMD64 | 0x4L)  </span>
+<span class="cp">#define CONTEXT_FLOATING_POINT  (CONTEXT_AMD64 | 0x8L)  </span>
+<span class="cp">#define CONTEXT_DEBUG_REGISTERS (CONTEXT_AMD64 | 0x10L)  </span>
+<span class="cp">#define CONTEXT_FULL (CONTEXT_CONTROL | CONTEXT_INTEGER | CONTEXT_FLOATING_POINT)  </span>
+<span class="cp">#define CONTEXT_ALL (CONTEXT_CONTROL | CONTEXT_INTEGER | CONTEXT_SEGMENTS | CONTEXT_FLOATING_POINT | CONTEXT_DEBUG_REGISTERS)  </span>
+<span class="cp">#define CONTEXT_XSTATE (CONTEXT_AMD64 | 0x20L)  </span>
+<span class="cp">#define CONTEXT_EXCEPTION_ACTIVE 0x8000000  </span>
+<span class="cp">#define CONTEXT_SERVICE_ACTIVE 0x10000000  </span>
+<span class="cp">#define CONTEXT_EXCEPTION_REQUEST 0x40000000  </span>
+<span class="cp">#define CONTEXT_EXCEPTION_REPORTING 0x80000000</span></code></pre></div>
+
+<p>这里我们需要的值有两个： CONTEXT_FULL = 0x00010007 # 得到所有的CPU寄存器CONTEXT_DEBUG_REGISTERS = 0x00010010 # CPU的调试寄存器 到这里，基本上完事了，不过，还要记得CloseHandle(线程) ，有始有终。 最后我们把一些常用的寄存器里面的当前值打出来。所有的代码如下，和前面几篇博客一样，三个文件，一个定义结构体等，一个实现，一个测试。 定义，debug_define.py:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># -*- coding: utf-8 -*-  </span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="o">*</span>  
+<span class="c"># 定义window编程中常用的类型  </span>
+<span class="n">WORD</span> <span class="o">=</span> <span class="n">c_ushort</span>  
+<span class="n">DWORD</span> <span class="o">=</span> <span class="n">c_ulong</span>  
+<span class="n">LPBYTE</span> <span class="o">=</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_ubyte</span><span class="p">)</span>  
+<span class="n">LPTSTR</span> <span class="o">=</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_char</span><span class="p">)</span>  
+<span class="n">HANDLE</span> <span class="o">=</span> <span class="n">c_void_p</span>  
+<span class="n">PVOID</span> <span class="o">=</span> <span class="n">c_void_p</span>  
+<span class="n">LPVOID</span> <span class="o">=</span> <span class="n">c_void_p</span>  
+<span class="n">ULONG_PTR</span> <span class="o">=</span> <span class="n">c_ulong</span>  
+<span class="n">SIZE_T</span> <span class="o">=</span> <span class="n">c_ulong</span>  
+<span class="n">BYTE</span> <span class="o">=</span> <span class="n">c_ubyte</span>  
+<span class="c"># 常量  </span>
+<span class="n">DEBUG_PROCESS</span> <span class="o">=</span> <span class="mh">0x0001</span>  
+<span class="n">CREATE_NEW_CONSOLE</span> <span class="o">=</span> <span class="mh">0x0010</span>  
+<span class="n">PROCESS_ALL_ACCESS</span> <span class="o">=</span> <span class="mh">0x001F0FFF</span>  
+<span class="n">THREAD_ALL_ACCESS</span>   <span class="o">=</span> <span class="mh">0x001F03FF</span>  
+<span class="n">INFINITE</span> <span class="o">=</span> <span class="mh">0xFFFFFFFF</span>  
+<span class="n">DBG_CONTINUE</span> <span class="o">=</span> <span class="mh">0x00010002</span>  
+<span class="n">STARTF_USESHOWWINDOW</span> <span class="o">=</span> <span class="mh">0x0001</span>  
+<span class="n">SW_HIDE</span> <span class="o">=</span> <span class="mi">0</span>  
+<span class="n">TH32CS_SNAPTHREAD</span> <span class="o">=</span> <span class="mh">0x00000004</span>  
+<span class="n">CONTEXT_FULL</span> <span class="o">=</span> <span class="mh">0x00010007</span> <span class="c"># 得到所有的CPU寄存器  </span>
+<span class="n">CONTEXT_DEBUG_REGISTERS</span> <span class="o">=</span> <span class="mh">0x00010010</span> <span class="c"># CPU的调试寄存器  </span>
+<span class="c"># CreateProcessA函数所需结构体  </span>
+<span class="k">class</span> <span class="nc">STARTUPINFO</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>  
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;cb&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;lpReserved&quot;</span><span class="p">,</span><span class="n">LPTSTR</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;lpDesktop&quot;</span><span class="p">,</span><span class="n">LPTSTR</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;lpTitle&quot;</span><span class="p">,</span><span class="n">LPTSTR</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwX&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwY&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwXSize&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwYSize&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwXCountChars&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwYCountChars&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwFillAttribute&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwFlags&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;wShowWindow&quot;</span><span class="p">,</span><span class="n">WORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;cbReserved2&quot;</span><span class="p">,</span><span class="n">WORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;lpReserved2&quot;</span><span class="p">,</span><span class="n">LPBYTE</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;hStdInput&quot;</span><span class="p">,</span><span class="n">HANDLE</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;hStdOutput&quot;</span><span class="p">,</span><span class="n">HANDLE</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;hStdError&quot;</span><span class="p">,</span><span class="n">HANDLE</span><span class="p">)</span>  
+    <span class="p">]</span>  
+<span class="k">class</span> <span class="nc">PROCESS_INFORMATION</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>  
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;hProcess&quot;</span><span class="p">,</span><span class="n">HANDLE</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;hThread&quot;</span><span class="p">,</span><span class="n">HANDLE</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwProcessId&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwThreadId&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">)</span>  
+    <span class="p">]</span>  
+<span class="k">class</span> <span class="nc">EXCEPTION_RECORD</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>  
+    <span class="k">pass</span>  
+<span class="n">EXCEPTION_RECORD</span><span class="o">.</span><span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;ExceptionCode&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;ExceptionFlags&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;ExceptionRecord&quot;</span><span class="p">,</span><span class="n">POINTER</span><span class="p">(</span><span class="n">EXCEPTION_RECORD</span><span class="p">)),</span>  
+        <span class="p">(</span><span class="s">&quot;ExceptionAddress&quot;</span><span class="p">,</span><span class="n">PVOID</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;NumberParameters&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;ExceptionInformation&quot;</span><span class="p">,</span><span class="n">ULONG_PTR</span><span class="o">*</span><span class="mi">15</span><span class="p">)</span> <span class="c"># 最多允许15条错误信息  </span>
+    <span class="p">]</span>  
+<span class="k">class</span> <span class="nc">EXCEPTION_DEBUG_INFO</span> <span class="p">(</span><span class="n">Structure</span><span class="p">):</span>  
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;ExceptionRecord&quot;</span><span class="p">,</span> <span class="n">EXCEPTION_RECORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwFirstChance&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">)</span>  
+    <span class="p">]</span>  
+<span class="k">class</span> <span class="nc">DEBUG_EVENT_UNION</span><span class="p">(</span><span class="n">Union</span><span class="p">):</span>  
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;Exception&quot;</span><span class="p">,</span><span class="n">EXCEPTION_DEBUG_INFO</span><span class="p">),</span> <span class="c">#只用到这一个，下面的不用定义了  </span>
+<span class="c">#        (&quot;CreateThread&quot;,CREATE_THREAD_DEBUG_INFO),  </span>
+<span class="c">#        (&quot;CreateProcessInfo&quot;,CREATE_PROCESS_DEBUG_INFO),  </span>
+<span class="c">#        (&quot;ExitThread&quot;,EXIT_THREAD_DEBUG_INFO),  </span>
+<span class="c">#        (&quot;ExitProcess&quot;,EXIT_PROCESS_DEBUG_INFO),  </span>
+<span class="c">#        (&quot;LoadDll&quot;,LOAD_DLL_DEBUG_INFO),  </span>
+<span class="c">#        (&quot;UnloadDll&quot;,UNLOAD_DLL_DEBUG_INFO),  </span>
+<span class="c">#        (&quot;DebugString&quot;,OUTPUT_DEBUG_STRING_INFO),  </span>
+<span class="c">#        (&quot;RipInfo&quot;,RIP_INFO)  </span>
+    <span class="p">]</span>  
+<span class="k">class</span> <span class="nc">DEBUG_EVENT</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>  
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;dwDebugEventCode&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwProcessId&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwThreadId&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;u&quot;</span><span class="p">,</span><span class="n">DEBUG_EVENT_UNION</span><span class="p">)</span>  
+    <span class="p">]</span>  
+<span class="k">class</span> <span class="nc">THREADENTRY32</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>  
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;dwSize&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;cntUsage&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;th32ThreadID&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;th32OwnerProcessID&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;tpBasePri&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span> <span class="c"># 本来是LONG，它和DWORD一样的位数  </span>
+        <span class="p">(</span><span class="s">&quot;tpDeltaPri&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  <span class="c"># LONG  </span>
+        <span class="p">(</span><span class="s">&quot;dwFlags&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">)</span>  
+    <span class="p">]</span>  
+<span class="c"># Used by the CONTEXT structure  </span>
+<span class="k">class</span> <span class="nc">FLOATING_SAVE_AREA</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>  
+   <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;ControlWord&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;StatusWord&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;TagWord&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;ErrorOffset&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;ErrorSelector&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;DataOffset&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;DataSelector&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;RegisterArea&quot;</span><span class="p">,</span> <span class="n">BYTE</span> <span class="o">*</span> <span class="mi">80</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Cr0NpxState&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+<span class="p">]</span>  
+<span class="k">class</span> <span class="nc">CONTEXT</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>  
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;ContextFlags&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Dr0&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Dr1&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Dr2&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Dr3&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Dr6&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Dr7&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;FloatSave&quot;</span><span class="p">,</span> <span class="n">FLOATING_SAVE_AREA</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;SegGs&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;SegFs&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;SegEs&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;SegDs&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Edi&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Esi&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Ebx&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Edx&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Ecx&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Eax&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Ebp&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Eip&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;SegCs&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;EFlags&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;Esp&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;SegSs&quot;</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;ExtendedRegisters&quot;</span><span class="p">,</span> <span class="n">BYTE</span> <span class="o">*</span> <span class="mi">512</span><span class="p">)</span>  
+    <span class="p">]</span></code></pre></div>
+
+<p>实现，debugger.py:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># -*- coding: utf-8 -*-  </span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="o">*</span>  
+<span class="kn">from</span> <span class="nn">debug_define</span> <span class="kn">import</span> <span class="o">*</span>  
+<span class="n">kernel32</span> <span class="o">=</span> <span class="n">windll</span><span class="o">.</span><span class="n">kernel32</span>  
+<span class="k">class</span> <span class="nc">debugger</span><span class="p">():</span>  
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">h_process</span> <span class="o">=</span> <span class="bp">None</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">pid</span> <span class="o">=</span> <span class="bp">None</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">debugger_active</span> <span class="o">=</span> <span class="bp">False</span>  
+    <span class="k">def</span> <span class="nf">loadExe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exe_path</span><span class="p">):</span>  
+        <span class="n">creation_flags</span> <span class="o">=</span> <span class="n">DEBUG_PROCESS</span>  
+        <span class="n">startupinfo</span> <span class="o">=</span> <span class="n">STARTUPINFO</span><span class="p">()</span> <span class="c">#相当于c的alloc这么大一个空间，初始化为0或NULL  </span>
+        <span class="n">processinfo</span> <span class="o">=</span> <span class="n">PROCESS_INFORMATION</span><span class="p">()</span> <span class="c">#同上  </span>
+        <span class="n">startupinfo</span><span class="o">.</span><span class="n">dwFlags</span> <span class="o">=</span> <span class="n">STARTF_USESHOWWINDOW</span>  
+        <span class="n">startupinfo</span><span class="o">.</span><span class="n">wShowWindow</span> <span class="o">=</span> <span class="n">SW_HIDE</span>  
+        <span class="n">startupinfo</span><span class="o">.</span><span class="n">cb</span> <span class="o">=</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">startupinfo</span><span class="p">)</span>  
+        <span class="c"># 开始创建  </span>
+        <span class="k">if</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">CreateProcessA</span><span class="p">(</span><span class="n">exe_path</span><span class="p">,</span> <span class="c">#lpApplicationName  </span>
+                                  <span class="bp">None</span><span class="p">,</span> <span class="c">#lpCommandLine  </span>
+                                  <span class="bp">None</span><span class="p">,</span> <span class="c">#lpProcessAttributes  </span>
+                                  <span class="bp">None</span><span class="p">,</span> <span class="c">#lpThreadAttributes  </span>
+                                  <span class="bp">None</span><span class="p">,</span> <span class="c">#bInheritHandles  </span>
+                                  <span class="n">creation_flags</span><span class="p">,</span> <span class="c">#dwCreationFlags  </span>
+                                  <span class="bp">None</span><span class="p">,</span> <span class="c">#lpEnvironment  </span>
+                                  <span class="bp">None</span><span class="p">,</span> <span class="c">#lpCurrentDirectory  </span>
+                                  <span class="n">byref</span><span class="p">(</span><span class="n">startupinfo</span><span class="p">),</span> <span class="c">#lpStartupInfo  </span>
+                                  <span class="n">byref</span><span class="p">(</span><span class="n">processinfo</span><span class="p">)):</span> <span class="c">#lpProcessInformation  </span>
+            <span class="k">print</span> <span class="s">&quot;进程ID:</span><span class="si">%d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">processinfo</span><span class="o">.</span><span class="n">dwProcessId</span>  
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="k">print</span> <span class="s">&quot;进程创建失败。&quot;</span>  
+        <span class="c"># 打开这个进程  </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h_process</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_process</span><span class="p">(</span><span class="n">processinfo</span><span class="o">.</span><span class="n">dwProcessId</span><span class="p">)</span>  
+    <span class="c"># 由id取得进程  </span>
+    <span class="k">def</span> <span class="nf">open_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">):</span>  
+        <span class="n">h_progress</span> <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">OpenProcess</span><span class="p">(</span><span class="n">PROCESS_ALL_ACCESS</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span>  
+        <span class="k">return</span> <span class="n">h_progress</span>  
+    <span class="c"># 附加进程  </span>
+    <span class="k">def</span> <span class="nf">attach</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">h_process</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_process</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>  
+        <span class="c"># 调用DebugActiveProcess，附加到pid进程  </span>
+        <span class="k">if</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">DebugActiveProcess</span><span class="p">(</span><span class="n">pid</span><span class="p">):</span>  
+            <span class="bp">self</span><span class="o">.</span><span class="n">debugger_active</span> <span class="o">=</span> <span class="bp">True</span> <span class="c"># 可以开始调试了  </span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>  
+            <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>  
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="k">print</span> <span class="s">&quot;进程附加失败！&quot;</span>  
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">debugger_active</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>  
+            <span class="bp">self</span><span class="o">.</span><span class="n">fire_debug_event</span><span class="p">()</span>  
+    <span class="c"># 等待触发调试事件。。  </span>
+    <span class="k">def</span> <span class="nf">fire_debug_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="n">debug_event</span> <span class="o">=</span> <span class="n">DEBUG_EVENT</span><span class="p">()</span>  
+        <span class="n">continue_status</span> <span class="o">=</span> <span class="n">DBG_CONTINUE</span>  
+        <span class="c"># 接下去就是等待调试的事件被触发  </span>
+        <span class="k">if</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">WaitForDebugEvent</span><span class="p">(</span><span class="n">byref</span><span class="p">(</span><span class="n">debug_event</span><span class="p">),</span> <span class="n">INFINITE</span><span class="p">):</span> <span class="c">#一直等  </span>
+            <span class="c"># 到这里，说明调试的条件被触发了  </span>
+            <span class="c"># 。。。（在这里做些调试相关的事情）  </span>
+            <span class="nb">raw_input</span><span class="p">(</span><span class="s">&quot;按回车键继续...&quot;</span><span class="p">)</span>  
+            <span class="c"># 这个调试事件处理结束，继续  </span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">debugger_active</span> <span class="o">=</span> <span class="bp">False</span>  
+            <span class="n">kernel32</span><span class="o">.</span><span class="n">ContinueDebugEvent</span><span class="p">(</span><span class="n">debug_event</span><span class="o">.</span><span class="n">dwProcessId</span><span class="p">,</span>  
+                                        <span class="n">debug_event</span><span class="o">.</span><span class="n">dwThreadId</span><span class="p">,</span>  
+                                        <span class="n">continue_status</span><span class="p">)</span>  
+    <span class="c"># 解除对进程的附加  </span>
+    <span class="k">def</span> <span class="nf">detach</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="k">if</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">DebugActiveProcessStop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">):</span>  
+            <span class="k">print</span> <span class="s">&quot;完成调试，退出...&quot;</span>  
+            <span class="k">return</span> <span class="bp">True</span>  
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="k">print</span> <span class="s">&quot;调试过程中出错...&quot;</span>  
+            <span class="k">return</span> <span class="bp">False</span>  
+    <span class="c"># 打开线程  </span>
+    <span class="k">def</span> <span class="nf">open_thread</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">):</span>  
+        <span class="n">h_thread</span> <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">OpenThread</span><span class="p">(</span><span class="n">THREAD_ALL_ACCESS</span><span class="p">,</span>  
+                                       <span class="bp">None</span><span class="p">,</span>  
+                                       <span class="n">thread_id</span><span class="p">)</span>  
+        <span class="k">if</span> <span class="n">h_thread</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>  
+            <span class="k">return</span> <span class="n">h_thread</span>  
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="k">print</span> <span class="s">&quot;获取线程ID时出错！&quot;</span>  
+            <span class="k">return</span> <span class="bp">False</span>  
+    <span class="k">def</span> <span class="nf">enumerate_threads</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="n">thread_entry</span> <span class="o">=</span> <span class="n">THREADENTRY32</span><span class="p">()</span>  
+        <span class="n">thread_list</span> <span class="o">=</span> <span class="p">[]</span>  
+        <span class="n">snapshot</span> <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">CreateToolhelp32Snapshot</span><span class="p">(</span><span class="n">TH32CS_SNAPTHREAD</span><span class="p">,</span>  
+                                                     <span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">)</span>  
+        <span class="c"># 上面这个函数要注意help第一个字母是小写CreateToolhelp32Snapshot  </span>
+        <span class="k">if</span> <span class="n">snapshot</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>  
+            <span class="n">thread_entry</span><span class="o">.</span><span class="n">dwSize</span> <span class="o">=</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">thread_entry</span><span class="p">)</span>  
+            <span class="c"># 遍历  </span>
+            <span class="c"># 先取得第一个线程  </span>
+            <span class="nb">next</span> <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">Thread32First</span><span class="p">(</span><span class="n">snapshot</span><span class="p">,</span> <span class="n">byref</span><span class="p">(</span><span class="n">thread_entry</span><span class="p">))</span>  
+            <span class="c"># 循环获取属于本进程的线程  </span>
+            <span class="k">while</span> <span class="nb">next</span><span class="p">:</span>  
+                <span class="k">print</span> <span class="s">&quot;------&amp;amp;gt;</span><span class="si">%d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">thread_entry</span><span class="o">.</span><span class="n">th32OwnerProcessID</span>  
+                <span class="k">if</span> <span class="n">thread_entry</span><span class="o">.</span><span class="n">th32OwnerProcessID</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">:</span>  
+                    <span class="n">thread_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">thread_entry</span><span class="o">.</span><span class="n">th32ThreadID</span><span class="p">)</span>  
+                <span class="nb">next</span> <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">Thread32Next</span><span class="p">(</span><span class="n">snapshot</span><span class="p">,</span> <span class="c"># 获取下一个线程，参数一样  </span>
+                                                 <span class="n">byref</span><span class="p">(</span><span class="n">thread_entry</span><span class="p">))</span>  
+            <span class="n">kernel32</span><span class="o">.</span><span class="n">CloseHandle</span><span class="p">(</span><span class="n">snapshot</span><span class="p">)</span>  
+            <span class="k">return</span> <span class="n">thread_list</span>  
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="k">return</span> <span class="bp">False</span>  
+    <span class="k">def</span> <span class="nf">get_thread_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">thread_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">h_thread</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>  
+        <span class="n">context</span> <span class="o">=</span> <span class="n">CONTEXT</span><span class="p">()</span>  
+        <span class="n">context</span><span class="o">.</span><span class="n">ContextFlags</span> <span class="o">=</span> <span class="n">CONTEXT_FULL</span> <span class="o">|</span> <span class="n">CONTEXT_DEBUG_REGISTERS</span>  
+        <span class="c"># 获得线程句柄  </span>
+        <span class="n">h_thread</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_thread</span><span class="p">(</span><span class="n">thread_id</span><span class="p">)</span>  
+        <span class="k">if</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">GetThreadContext</span><span class="p">(</span><span class="n">h_thread</span><span class="p">,</span> <span class="n">byref</span><span class="p">(</span><span class="n">context</span><span class="p">)):</span>  
+            <span class="n">kernel32</span><span class="o">.</span><span class="n">CloseHandle</span><span class="p">(</span><span class="n">h_thread</span><span class="p">)</span>  
+            <span class="k">return</span> <span class="n">context</span>  
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="k">return</span> <span class="bp">False</span></code></pre></div>
+
+<p>测试，testMyDebugger.py:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># -*- coding: utf-8 -*-  </span>
+<span class="kn">import</span> <span class="nn">debugger.debugger</span> <span class="kn">as</span> <span class="nn">debugger</span>  
+<span class="n">deb</span> <span class="o">=</span> <span class="n">debugger</span><span class="o">.</span><span class="n">debugger</span><span class="p">()</span>  
+<span class="n">pid</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&quot;请输入要调试（附加）的进程ID：&quot;</span><span class="p">)</span>  
+<span class="n">deb</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">))</span>  
+<span class="nb">list</span> <span class="o">=</span> <span class="n">deb</span><span class="o">.</span><span class="n">enumerate_threads</span><span class="p">()</span>  
+<span class="c"># 对于上面获得的列表中的每个线程，打印出它的寄存器信息  </span>
+<span class="k">if</span> <span class="nb">list</span><span class="p">:</span>  
+    <span class="k">for</span> <span class="n">thread</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">:</span>  
+        <span class="n">thread_context</span> <span class="o">=</span> <span class="n">deb</span><span class="o">.</span><span class="n">get_thread_context</span><span class="p">(</span><span class="n">thread</span><span class="p">)</span>  
+        <span class="k">if</span> <span class="n">thread_context</span><span class="p">:</span>  
+            <span class="c"># 打印信息  </span>
+            <span class="k">print</span> <span class="s">&quot;=====================================&quot;</span>  
+            <span class="k">print</span> <span class="s">&quot;[**] 线程ID: </span><span class="si">%d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">thread</span>  
+            <span class="k">print</span> <span class="s">&quot;[**] EAX: 0x</span><span class="si">%08x</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">thread_context</span><span class="o">.</span><span class="n">Eax</span>  
+            <span class="k">print</span> <span class="s">&quot;[**] EBX: 0x</span><span class="si">%08x</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">thread_context</span><span class="o">.</span><span class="n">Ebx</span>  
+            <span class="k">print</span> <span class="s">&quot;[**] ECX: 0x</span><span class="si">%08x</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">thread_context</span><span class="o">.</span><span class="n">Ecx</span>  
+            <span class="k">print</span> <span class="s">&quot;[**] EDX: 0x</span><span class="si">%08x</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">thread_context</span><span class="o">.</span><span class="n">Edx</span>  
+            <span class="k">print</span> <span class="s">&quot;====&quot;</span>  
+            <span class="k">print</span> <span class="s">&quot;[**] ESI: 0x</span><span class="si">%08x</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">thread_context</span><span class="o">.</span><span class="n">Esi</span>  
+            <span class="k">print</span> <span class="s">&quot;[**] EDI: 0x</span><span class="si">%08x</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">thread_context</span><span class="o">.</span><span class="n">Edi</span>  
+            <span class="k">print</span> <span class="s">&quot;====&quot;</span>  
+            <span class="k">print</span> <span class="s">&quot;[**] EBP: 0x</span><span class="si">%08x</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">thread_context</span><span class="o">.</span><span class="n">Ebp</span>  
+            <span class="k">print</span> <span class="s">&quot;[**] ESP: 0x</span><span class="si">%08x</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">thread_context</span><span class="o">.</span><span class="n">Esp</span>  
+            <span class="k">print</span> <span class="s">&quot;[**] EIP: 0x</span><span class="si">%08x</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">thread_context</span><span class="o">.</span><span class="n">Eip</span>  
+            <span class="k">print</span> <span class="s">&quot;=====================================&quot;</span>  
+<span class="n">deb</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span></code></pre></div>
+
+<blockquote>
+  <p>测试结果： 请输入要调试（附加）的进程ID：11912 按回车键继续… ——&gt;0 ………. # 这里省略很长的打印出来的进程号。。。 ——&gt;12804 ===================================== [<strong>] 线程ID: 13124 [</strong>] EAX: 0x007d3f80 [<strong>] EBX: 0x00000000 [</strong>] ECX: 0x00000000 [<strong>] EDX: 0x00000000 ==== [</strong>] ESI: 0x007c31b8 [<strong>] EDI: 0x007c3188 ==== [</strong>] EBP: 0x0018fea8 [<strong>] ESP: 0x0018fe8c [</strong>] EIP: 0x75de78d7 ===================================== ===================================== [<strong>] 线程ID: 9224 [</strong>] EAX: 0x7716f85a [<strong>] EBX: 0x00000000 [</strong>] ECX: 0x00000000 [<strong>] EDX: 0x00000000 ==== [</strong>] ESI: 0x00000000 [<strong>] EDI: 0x00000000 ==== [</strong>] EBP: 0x00000000 [<strong>] ESP: 0x02abfff0 [</strong>] EIP: 0x770e01b4 ===================================== 完成调试，退出…</p>
+</blockquote>
+
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'jsongo';
+      
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</article>
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+    <div class="section-nav">
+      <div class="left align-right">
+          
+            
+            
+            <a href="/post/python/2013/python-window-5/" class="prev">Back</a>
+          
+      </div>
+      <div class="right align-left">
+          
+            
+            
+            
+            <a href="/post/python/2013/python-window-3/" class="next">Next</a>
+          
+      </div>
+    </div>
+    <div class="clear"></div>
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+      </div>
+
+      <div class="unit one-fourth hide-on-mobiles">
+  <aside>
+    <h4>Recent Releases</h4>
+    <ul>
+      
+      <li class="">
+        <a href="/post/other/2015/markdown-syntax/"><span>Markdown 语法说明[转]</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/my-first-post/"><span>my first post, just chattering</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/jekyll-3-0-0-beta1-released/"><span>Jekyll 3.0.0.beta1 Released</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/security/2014/nginx-https/"><span>nginx的https设置</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/chatter/2014/attend-the-startup-meeting/"><span>第一次去参加创业公社的交流会</span></a>
+      </li>
+      
+    </ul>
+    <h4>Categories</h4>
+    <ul>
+      
+        <li class="">
+          <a href="/post/theory">theory</a>
+        </li>
+      
+        <li class="current">
+          <a href="/post/python">python</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/chatter">chatter</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/draft">draft</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/security">security</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/linux">linux</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/vi">vi</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/other">other</a>
+        </li>
+      
+    </ul>
+  </aside>
+</div>
+
+
+      <div class="clear"></div>
+
+    </div>
+  </section>
+
+
+  <footer role="contentinfo">
+  <div class="grid">
+    <div class="unit half center-on-mobiles">
+      <p>The contents of this website are &copy;&nbsp;2015 <br/>
+      Jsongo&nbsp;
+        <a class="twitter-follow-button" href="https://twitter.com/js0ng0" data-size="middle">@Twitter</a>&nbsp;&nbsp;
+        <a class="facebook-follow-button" href="https://facebook.com/js0ng0" data-size="middle">@Facebook</a></p>
+    </div>
+    <div class="unit half align-right center-on-mobiles">
+      <p>
+        Proudly hosted by
+        <a href="https://github.com">
+          <img src="/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+        </a>
+      </p>
+    </div>
+    <div class="follow-btns">
+    </div>
+  </div>
+</footer>
+
+  <script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<span class=\"sr-only\">Permalink</span><i class=\"fa fa-link\"></i>";
+    anchor.title = "Permalink";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("news")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+
+  
+  <!-- Gauges (http://gaug.es/) -->
+  <script>
+    var _gauges = _gauges || [];
+    (function() {
+      var t   = document.createElement('script');
+      t.type  = 'text/javascript';
+      t.async = true;
+      t.id    = 'gauges-tracker';
+      t.setAttribute('data-site-id', '503c5af6613f5d0f19000027');
+      t.src = '//secure.gaug.es/track.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(t, s);
+    })();
+  </script>
+
+
+
+
+
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?35812f595e2a9532207151e3c2bb34af";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+      })();
+  </script>
+
+
+</body>
+</html>

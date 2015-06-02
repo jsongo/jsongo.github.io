@@ -1,6 +1,6 @@
 markdown: kramdown
 highlighter: pygments
-permalink: /post/:year/:month/:day/:title/
+permalink: /post/:categories/:year/:title/
 excerpt_separator: "\n\n\n"
 
 gauges_id: 503c5af6613f5d0f19000027
@@ -10,8 +10,10 @@ facebook_username: js0n0
 
 repository: https://github.com/jekyll/jekyll
 help_url: https://github.com/jekyll/jekyll-help
-paginate: 2
-paginate_path: /post/ 
+paginate: 10
+paginate_path: '/blog/page:num/' 
+gems:
+  - jekyll-sitemap
 
 googleAnaly:
   config: false

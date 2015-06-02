@@ -1,0 +1,995 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- 请360浏览器用webkit来渲染 -->
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <meta name="author" content="jsongo">
+    <link rel="canonical" href="/blog/page4/">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>A learning geeker [by Jsongo]</title>
+    <meta name="generator" content="Jekyll v2.5.3">
+    <link rel="alternate" type="application/rss+xml" title="Jekyll • Simple, blog-aware, static sites - Feed" href="/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="Recent commits to Jekyll’s master branch" href="https://github.com/jekyll/jekyll/commits/master.atom">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+    <link rel="stylesheet" href="/css/screen.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body class="wrap">
+  <header role="banner">
+  <nav class="mobile-nav show-on-mobiles">
+    <ul>
+  <li class="current">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/post/security/">Security</a>
+  </li>
+  <li class="">
+    <a href="/post/python/">Python</a>
+  </li>
+  <li class="">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="">
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+
+  </nav>
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <h1>
+        <a href="/">
+          <span class="sr-only">Jekyll</span>
+          <img src="/img/logo-2.png" height="115" alt="Jsongo Logo">
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav unit two-thirds hide-on-mobiles">
+      <ul>
+  <li class="current">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/post/security/">Security</a>
+  </li>
+  <li class="">
+    <a href="/post/python/">Python</a>
+  </li>
+  <li class="">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="">
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+
+    </nav>
+  </div>
+</header>
+
+
+    <section class="post">
+    <div class="grid">
+
+      <div class="docs-nav-mobile unit whole show-on-mobiles">
+  <select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Navigate the blog…</option>
+    <option value="/news/">Home</option>
+    <optgroup label="v1.x">
+      
+      <option value="/post/other/2015/markdown-syntax/">Markdown 语法说明[转]</option>
+      
+      <option value="/post/other/2015/my-first-post/">my first post, just chattering</option>
+      
+      <option value="/post/other/2015/jekyll-3-0-0-beta1-released/">Jekyll 3.0.0.beta1 Released</option>
+      
+      <option value="/post/security/2014/nginx-https/">nginx的https设置</option>
+      
+      <option value="/post/chatter/2014/attend-the-startup-meeting/">第一次去参加创业公社的交流会</option>
+      
+      <option value="/post/draft/2014/select-distinct-only-one/">select多个字段，但distinct一个字段的方法</option>
+      
+      <option value="/post/draft/2014/uwsgi-libgcc_s-so-1-installed-pthread_cancel-work/">uwsgi报错libgcc_s.so.1 must be installed for pthread_cancel to work</option>
+      
+      <option value="/post/draft/2014/svn-to-git/">把代码从svn搬到git上</option>
+      
+      <option value="/post/draft/2014/mac-eclipse-tips/">mac上eclipse的一些使用技巧记录</option>
+      
+      <option value="/post/chatter/2014/we-all-have-to-leave/">We all have to leave</option>
+      
+      <option value="/post/draft/2014/uwsgi_django_nginx/">uwsgi+django+nginx，报internal server error的可能原因</option>
+      
+      <option value="/post/draft/2014/stop-visit-via-htaccess/">用htaccess禁止访问目录</option>
+      
+      <option value="/post/draft/2014/nginx-redis-visit/">nginx把资源存入redis访问</option>
+      
+      <option value="/post/draft/2014/redis-error-jemalloc-h-file-directory/">redis编译报错jemalloc/jemalloc.h: No such file or directory</option>
+      
+      <option value="/post/draft/2014/wp-ftp-error/">wp中出现插件安装提示ftp登录的问题排查（nginx）</option>
+      
+      <option value="/post/draft/2014/nginx-php-download/">nginx中的php文件老是变成下载的一种情况</option>
+      
+      <option value="/post/draft/2014/clean-linux-space/">清理linux服务器上的磁盘空间</option>
+      
+      <option value="/post/draft/2014/mac-linux-boot-usb/">mac上制作linux启动安装盘</option>
+      
+      <option value="/post/security/2014/hydra-attack-auth/">hydra，对会话认证的攻击</option>
+      
+      <option value="/post/draft/2014/msf-ruby-version/">msf更换ruby版本</option>
+      
+      <option value="/post/draft/2014/brew-cant-root/">brew 报错，无法用root执行</option>
+      
+      <option value="/post/draft/2014/mac-brew/">mac里的apt-get</option>
+      
+      <option value="/post/draft/2014/mac-linux-terminal-keys/">mac/linux终端里的几个快捷键</option>
+      
+      <option value="/post/draft/2014/redis-redmon/">redis监控</option>
+      
+      <option value="/post/draft/python/2014/django-redis/">django+redis</option>
+      
+      <option value="/post/draft/vi/2014/vim-advance/">vim高级使用技巧</option>
+      
+      <option value="/post/draft/2013/redis-base/">redis简单操作</option>
+      
+      <option value="/post/draft/2013/shell-base/">shell基础 笔记</option>
+      
+      <option value="/post/linux/2013/awk-sed/">awk/sed 笔记（一看就会）</option>
+      
+      <option value="/post/draft/2013/no-module-mysqldb/">ImportError: No module named MySQLdb（python）</option>
+      
+      <option value="/post/draft/2013/postgressql-learning1/">postgressql学习</option>
+      
+      <option value="/post/draft/2013/postgresql-init/">postgresql刚安装完登录不上的问题</option>
+      
+      <option value="/post/draft/2013/openerp-install/">OpenERP安装配置</option>
+      
+      <option value="/post/security/2013/snort-ids-ubuntu/">入侵检测(IDS)和snort</option>
+      
+      <option value="/post/security/2013/snorby-ubuntu/">snorby安装</option>
+      
+      <option value="/post/draft/2013/vim-ctags-javascript/">vim中强化ctags对javascript的支持</option>
+      
+      <option value="/post/chatter/2013/efficiency-time-play/">效率、时间、休整</option>
+      
+      <option value="/post/draft/2013/ubuntu-weinre/">ubuntu上配置weinre，远程调试页面脚本</option>
+      
+      <option value="/post/draft/2013/linux-vim/">linux vim学习汇总</option>
+      
+      <option value="/post/draft/2013/php-qrcode/">PHP生成二维码（phpQRcode）</option>
+      
+      <option value="/post/draft/2013/call-undefined-function-imagecreate/">Call to undefined function ImageCreate错误的解决</option>
+      
+      <option value="/post/draft/2013/apache-ruby-on-rails-redmine/">通过apache访问Ruby on Rails服务（redmine）</option>
+      
+      <option value="/post/draft/2013/ubuntu-reverse-proxy/">ubuntu上配置apache的反向代理</option>
+      
+      <option value="/post/draft/2013/ubuntu-apache2-add-module/">在ubuntu apache2上添加模块</option>
+      
+      <option value="/post/draft/2013/apt-get-subprocess-installed-post-installation-script-returned-error-exit-status-1/">apt-get 出现 "subprocess installed post-installation script returned error exit status 1"</option>
+      
+      <option value="/post/draft/2013/gem-install-mysql_query-error/">gem install 报错 checking for mysql_query() in -lmysqlclient... no</option>
+      
+      <option value="/post/draft/2013/django-ubuntu/">django在ubuntu上的安装</option>
+      
+      <option value="/post/chatter/2013/ie-eg-etc/">英文中的i.e.,e.g.,etc.等</option>
+      
+      <option value="/post/python/2013/python-window-6/">python的系统底层操作6——硬断点</option>
+      
+      <option value="/post/python/2013/python-window-5/">python的系统底层操作5&mdash;软断点</option>
+      
+      <option value="/post/python/2013/python-window-4/">python的系统底层操作4&mdash;寄存器</option>
+      
+      <option value="/post/python/2013/python-window-3/">python的系统底层操作3——进程注入</option>
+      
+      <option value="/post/python/2013/python-window-2/">python的系统底层操作2——调用函数</option>
+      
+      <option value="/post/python/2013/python-window-1/">python的系统底层操作1——基础</option>
+      
+      <option value="/post/python/2013/salt-base64/">加盐base64算法（自创）(python)</option>
+      
+      <option value="/post/python/2013/some-code-about-python/">python的几个语法收集</option>
+      
+      <option value="/post/python/2013/gbk-to-utf8/">批量转换编码的python实现</option>
+      
+      <option value="/post/python/2013/ip-to-int/">转IP地址为长整数的脚本(python)</option>
+      
+      <option value="/post/python/2013/birthday-paradox/">计算生日悖论(python)</option>
+      
+      <option value="/post/theory/2013/arp-rarp/">ARP地址解析协议、RARP逆地址解析协议</option>
+      
+      <option value="/post/theory/2013/ip-intro/">IP，网际协议</option>
+      
+    </optgroup>
+  </select>
+</div>
+
+
+      <div class="unit three-fourths">
+        
+  <article>
+  <h2>
+    <a href="/post/draft/2013/postgressql-learning1/">
+      postgressql学习
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      11 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>psql连接上去，后面可以跟库名<br />
+\l 可以列出所有的数据库（list）<br />
+\c 可以切换当前数据库<br />
+\d 列出当前所有的表和序列<br />
+\dt 列表当前所有的表<br />
+\d table_name 可以查看这个表的所有字段详细</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/postgresql-init/">
+      postgresql刚安装完登录不上的问题
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      08 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>因为没有密码，postgresql不让登录，所以要先给postgresql的默认账户postgres设置一个密码。<br />
+先修改/etc/postgresql/9.1/main/pg_hba.conf，加入</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/openerp-install/">
+      OpenERP安装配置
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      08 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>先装postgresql:<br />
+ubuntu上安装奶简单，sudo apt-get install postgresql，其它平台的怎么装就不说了。<br />
+安装openerp时，先加下面的源（/etc/apt/sources.list）</p>
+
+<blockquote>
+  <p>deb http://nightly.openerp.com/7.0/nightly/deb/ ./</p>
+</blockquote>
+
+<p>然后更新下：</p>
+
+<blockquote>
+  <p>apt-get update</p>
+</blockquote>
+
+<p>安装：</p>
+
+<blockquote>
+  <p>apt-get install openerp</p>
+</blockquote>
+
+<p>如果这种方法不行，下载源码，直接运行sudo python setup.py install<br />
+这样也可以直接安装。<br />
+＝＝＝＝＝＝＝＝＝＝＝＝＝<br />
+用postgresql账号运行来创建你自己的postgres账户：</p>
+
+<blockquote>
+  <p>sudo -u postgres -s createuser my_name -P</p>
+</blockquote>
+
+<p>然后再创建一个数据库</p>
+
+<blockquote>
+  <p>sudo -u postgres -s createdb mydb -O my_name</p>
+</blockquote>
+
+<p>上面用setup.py install安装之后，在install目前里面有一个openerp_server.conf，把它拷贝到/etc/openerp/目录下，没有这目录就建一个。<br />
+用apt-get 安装的话，如果在系统里找不到这个conf文件，可以用下面这个：</p>
+
+<div class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">[option]</span>  
+<span class="p">;</span> <span class="k">This</span> <span class="s">is</span> <span class="s">the</span> <span class="s">password</span> <span class="s">that</span> <span class="s">allows</span> <span class="s">database</span> <span class="s">operations:</span>  
+<span class="p">;</span> <span class="k">admin_passwd</span> <span class="p">=</span> <span class="s">admin</span>  
+<span class="s">db_host</span> <span class="p">=</span> <span class="s">False</span>  
+<span class="s">db_port</span> <span class="p">=</span> <span class="s">False</span>  
+<span class="s">db_user</span> <span class="p">=</span> <span class="s">False</span>  
+<span class="s">db_password</span> <span class="p">=</span> <span class="s">False</span>  
+<span class="s">logfile</span> <span class="p">=</span> <span class="s">/etc/openerp/openerp-server.log</span></code></pre></div>
+
+<p>然后运行openerp的服务端：</p>
+
+<blockquote>
+  <p>openerp-server -c /etc/openerp/openerp-server.conf &amp;</p>
+</blockquote>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/security/2013/snort-ids-ubuntu/">
+      入侵检测(IDS)和snort
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      security
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      05 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>  IDS，instrution detection system，入侵检测系统在如今越来越受关注，做一个站点，即使你很小心，做了很多安全防护，但难免还是会受到攻击。被攻击了还不知道别人是怎么得逞的，不知道今后怎么去防御，这就很悲哀。<br />
+  网络入侵检测系统NIDS，在web站点的安全防护中是缺一不可的环节。snort就是其中之一，它同时还有一定程度上的防御功能，也起到了IPS(instrution protection system)的作用。用snort来保护站点，分析网络的实时情况。</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/security/2013/snorby-ubuntu/">
+      snorby安装
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      security
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      04 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>Snorby是一个Ruby on Rails的Web应用程序，网络安全监控与目前流行的入侵检测系统（Snort的项目Suricata和Sagan）的接口。该项目的目标是创建一个免费的，开源和竞争力的网络监控应用，为私人和企业使用。<br />
+Snorby的首页有关于snorby安装的教程：https://snorby.org/</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/vim-ctags-javascript/">
+      vim中强化ctags对javascript的支持
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      04 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>到http://www.vim.org/scripts/script.php?script_id=1491下载javascript.vim，它可以更好地支持oop风格的js语法高亮。<br />
+把它拷贝到.vim/syntax里面就可以了<br />
+vi .vimrc，加入如下一行：</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/chatter/2013/efficiency-time-play/">
+      效率、时间、休整
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      chatter
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      03 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>All work and no play make jack a dull boy.<br />
+劳逸结合的话题已被说烂了，事情那么多，哪有时间来玩。或者光玩，懒得去做事情，想到事情就退缩，一玩了之。</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/ubuntu-weinre/">
+      ubuntu上配置weinre，远程调试页面脚本
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      03 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>先安装nodejs</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">apt-get install nodejs</code></pre></div>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/linux-vim/">
+      linux vim学习汇总
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      02 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>一、简单改造，更适合编程<br />
+1、ctags<br />
+先装ctags，用来给代码生成索引</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">apt-get install ctags</code></pre></div>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/php-qrcode/">
+      PHP生成二维码（phpQRcode）
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      02 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>不用google的开放接口来生成，可以用php-QRcode<br />
+地址：<a href="http://phpqrcode.sourceforge.net/">http://phpqrcode.sourceforge.net</a><br />
+网站提供了一些demo，最简单的一个就是先引入qrlib.php，然后加上：</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+
+
+<div class="pagination">
+  
+    <a href="/blog/page3/">&laquo; Prev</a>
+  
+
+  
+    
+      <a href="/index.html">1</a>
+    
+  
+    
+      <a href="/blog/page2/">2</a>
+    
+  
+    
+      <a href="/blog/page3/">3</a>
+    
+  
+    
+      <em>4</em>
+    
+  
+    
+      <a href="/blog/page5/">5</a>
+    
+  
+    
+      <a href="/blog/page6/">6</a>
+    
+  
+    
+      <a href="/blog/page7/">7</a>
+    
+  
+
+  
+    <a href="/blog/page5/">Next &raquo;</a>
+  
+</div>
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+      </div>
+
+      <div class="unit one-fourth hide-on-mobiles">
+  <aside>
+    <h4>Recent Releases</h4>
+    <ul>
+      
+      <li class="">
+        <a href="/post/other/2015/markdown-syntax/"><span>Markdown 语法说明[转]</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/my-first-post/"><span>my first post, just chattering</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/jekyll-3-0-0-beta1-released/"><span>Jekyll 3.0.0.beta1 Released</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/security/2014/nginx-https/"><span>nginx的https设置</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/chatter/2014/attend-the-startup-meeting/"><span>第一次去参加创业公社的交流会</span></a>
+      </li>
+      
+    </ul>
+    <h4>Categories</h4>
+    <ul>
+      
+        <li class="">
+          <a href="/post/theory">theory</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/python">python</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/chatter">chatter</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/draft">draft</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/security">security</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/linux">linux</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/vi">vi</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/other">other</a>
+        </li>
+      
+    </ul>
+  </aside>
+</div>
+
+
+      <div class="clear"></div>
+
+    </div>
+  </section>
+
+
+  <footer role="contentinfo">
+  <div class="grid">
+    <div class="unit half center-on-mobiles">
+      <p>The contents of this website are &copy;&nbsp;2015 <br/>
+      Jsongo&nbsp;
+        <a class="twitter-follow-button" href="https://twitter.com/js0ng0" data-size="middle">@Twitter</a>&nbsp;&nbsp;
+        <a class="facebook-follow-button" href="https://facebook.com/js0ng0" data-size="middle">@Facebook</a></p>
+    </div>
+    <div class="unit half align-right center-on-mobiles">
+      <p>
+        Proudly hosted by
+        <a href="https://github.com">
+          <img src="/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+        </a>
+      </p>
+    </div>
+    <div class="follow-btns">
+    </div>
+  </div>
+</footer>
+
+  <script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<span class=\"sr-only\">Permalink</span><i class=\"fa fa-link\"></i>";
+    anchor.title = "Permalink";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("news")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+
+  
+  <!-- Gauges (http://gaug.es/) -->
+  <script>
+    var _gauges = _gauges || [];
+    (function() {
+      var t   = document.createElement('script');
+      t.type  = 'text/javascript';
+      t.async = true;
+      t.id    = 'gauges-tracker';
+      t.setAttribute('data-site-id', '503c5af6613f5d0f19000027');
+      t.src = '//secure.gaug.es/track.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(t, s);
+    })();
+  </script>
+
+
+
+
+
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?35812f595e2a9532207151e3c2bb34af";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+      })();
+  </script>
+
+
+</body>
+</html>

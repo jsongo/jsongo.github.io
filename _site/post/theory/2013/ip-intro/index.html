@@ -1,0 +1,675 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- 请360浏览器用webkit来渲染 -->
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="TCP, UDP, ICMP, IGMP等底层都是以IP数据报的格式传输的。IP协议不是一个可靠的协议，它的安全性需要上一层来保证。当传输出错时，它只会简单地丢弃包，然后回发一个ICMP消息给信源端。">
+    <meta name="author" content="jsongo">
+    <link rel="canonical" href="/post/theory/2013/ip-intro/">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>IP，网际协议 [by Jsongo]</title>
+    <meta name="generator" content="Jekyll v2.5.3">
+    <link rel="alternate" type="application/rss+xml" title="Jekyll • Simple, blog-aware, static sites - Feed" href="/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="Recent commits to Jekyll’s master branch" href="https://github.com/jekyll/jekyll/commits/master.atom">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+    <link rel="stylesheet" href="/css/screen.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body class="wrap">
+  <header role="banner">
+  <nav class="mobile-nav show-on-mobiles">
+    <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/post/security/">Security</a>
+  </li>
+  <li class="">
+    <a href="/post/python/">Python</a>
+  </li>
+  <li class="">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="">
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+
+  </nav>
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <h1>
+        <a href="/">
+          <span class="sr-only">Jekyll</span>
+          <img src="/img/logo-2.png" height="115" alt="Jsongo Logo">
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav unit two-thirds hide-on-mobiles">
+      <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/post/security/">Security</a>
+  </li>
+  <li class="">
+    <a href="/post/python/">Python</a>
+  </li>
+  <li class="">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="">
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+
+    </nav>
+  </div>
+</header>
+
+
+    <section class="post">
+    <div class="grid">
+
+      <div class="docs-nav-mobile unit whole show-on-mobiles">
+  <select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Navigate the blog…</option>
+    <option value="/news/">Home</option>
+    <optgroup label="v1.x">
+      
+      <option value="/post/other/2015/markdown-syntax/">Markdown 语法说明[转]</option>
+      
+      <option value="/post/other/2015/my-first-post/">my first post, just chattering</option>
+      
+      <option value="/post/other/2015/jekyll-3-0-0-beta1-released/">Jekyll 3.0.0.beta1 Released</option>
+      
+      <option value="/post/security/2014/nginx-https/">nginx的https设置</option>
+      
+      <option value="/post/chatter/2014/attend-the-startup-meeting/">第一次去参加创业公社的交流会</option>
+      
+      <option value="/post/draft/2014/select-distinct-only-one/">select多个字段，但distinct一个字段的方法</option>
+      
+      <option value="/post/draft/2014/uwsgi-libgcc_s-so-1-installed-pthread_cancel-work/">uwsgi报错libgcc_s.so.1 must be installed for pthread_cancel to work</option>
+      
+      <option value="/post/draft/2014/svn-to-git/">把代码从svn搬到git上</option>
+      
+      <option value="/post/draft/2014/mac-eclipse-tips/">mac上eclipse的一些使用技巧记录</option>
+      
+      <option value="/post/chatter/2014/we-all-have-to-leave/">We all have to leave</option>
+      
+      <option value="/post/draft/2014/uwsgi_django_nginx/">uwsgi+django+nginx，报internal server error的可能原因</option>
+      
+      <option value="/post/draft/2014/stop-visit-via-htaccess/">用htaccess禁止访问目录</option>
+      
+      <option value="/post/draft/2014/nginx-redis-visit/">nginx把资源存入redis访问</option>
+      
+      <option value="/post/draft/2014/redis-error-jemalloc-h-file-directory/">redis编译报错jemalloc/jemalloc.h: No such file or directory</option>
+      
+      <option value="/post/draft/2014/wp-ftp-error/">wp中出现插件安装提示ftp登录的问题排查（nginx）</option>
+      
+      <option value="/post/draft/2014/nginx-php-download/">nginx中的php文件老是变成下载的一种情况</option>
+      
+      <option value="/post/draft/2014/clean-linux-space/">清理linux服务器上的磁盘空间</option>
+      
+      <option value="/post/draft/2014/mac-linux-boot-usb/">mac上制作linux启动安装盘</option>
+      
+      <option value="/post/security/2014/hydra-attack-auth/">hydra，对会话认证的攻击</option>
+      
+      <option value="/post/draft/2014/msf-ruby-version/">msf更换ruby版本</option>
+      
+      <option value="/post/draft/2014/brew-cant-root/">brew 报错，无法用root执行</option>
+      
+      <option value="/post/draft/2014/mac-brew/">mac里的apt-get</option>
+      
+      <option value="/post/draft/2014/mac-linux-terminal-keys/">mac/linux终端里的几个快捷键</option>
+      
+      <option value="/post/draft/2014/redis-redmon/">redis监控</option>
+      
+      <option value="/post/draft/python/2014/django-redis/">django+redis</option>
+      
+      <option value="/post/draft/vi/2014/vim-advance/">vim高级使用技巧</option>
+      
+      <option value="/post/draft/2013/redis-base/">redis简单操作</option>
+      
+      <option value="/post/draft/2013/shell-base/">shell基础 笔记</option>
+      
+      <option value="/post/linux/2013/awk-sed/">awk/sed 笔记（一看就会）</option>
+      
+      <option value="/post/draft/2013/no-module-mysqldb/">ImportError: No module named MySQLdb（python）</option>
+      
+      <option value="/post/draft/2013/postgressql-learning1/">postgressql学习</option>
+      
+      <option value="/post/draft/2013/postgresql-init/">postgresql刚安装完登录不上的问题</option>
+      
+      <option value="/post/draft/2013/openerp-install/">OpenERP安装配置</option>
+      
+      <option value="/post/security/2013/snort-ids-ubuntu/">入侵检测(IDS)和snort</option>
+      
+      <option value="/post/security/2013/snorby-ubuntu/">snorby安装</option>
+      
+      <option value="/post/draft/2013/vim-ctags-javascript/">vim中强化ctags对javascript的支持</option>
+      
+      <option value="/post/chatter/2013/efficiency-time-play/">效率、时间、休整</option>
+      
+      <option value="/post/draft/2013/ubuntu-weinre/">ubuntu上配置weinre，远程调试页面脚本</option>
+      
+      <option value="/post/draft/2013/linux-vim/">linux vim学习汇总</option>
+      
+      <option value="/post/draft/2013/php-qrcode/">PHP生成二维码（phpQRcode）</option>
+      
+      <option value="/post/draft/2013/call-undefined-function-imagecreate/">Call to undefined function ImageCreate错误的解决</option>
+      
+      <option value="/post/draft/2013/apache-ruby-on-rails-redmine/">通过apache访问Ruby on Rails服务（redmine）</option>
+      
+      <option value="/post/draft/2013/ubuntu-reverse-proxy/">ubuntu上配置apache的反向代理</option>
+      
+      <option value="/post/draft/2013/ubuntu-apache2-add-module/">在ubuntu apache2上添加模块</option>
+      
+      <option value="/post/draft/2013/apt-get-subprocess-installed-post-installation-script-returned-error-exit-status-1/">apt-get 出现 "subprocess installed post-installation script returned error exit status 1"</option>
+      
+      <option value="/post/draft/2013/gem-install-mysql_query-error/">gem install 报错 checking for mysql_query() in -lmysqlclient... no</option>
+      
+      <option value="/post/draft/2013/django-ubuntu/">django在ubuntu上的安装</option>
+      
+      <option value="/post/chatter/2013/ie-eg-etc/">英文中的i.e.,e.g.,etc.等</option>
+      
+      <option value="/post/python/2013/python-window-6/">python的系统底层操作6——硬断点</option>
+      
+      <option value="/post/python/2013/python-window-5/">python的系统底层操作5&mdash;软断点</option>
+      
+      <option value="/post/python/2013/python-window-4/">python的系统底层操作4&mdash;寄存器</option>
+      
+      <option value="/post/python/2013/python-window-3/">python的系统底层操作3——进程注入</option>
+      
+      <option value="/post/python/2013/python-window-2/">python的系统底层操作2——调用函数</option>
+      
+      <option value="/post/python/2013/python-window-1/">python的系统底层操作1——基础</option>
+      
+      <option value="/post/python/2013/salt-base64/">加盐base64算法（自创）(python)</option>
+      
+      <option value="/post/python/2013/some-code-about-python/">python的几个语法收集</option>
+      
+      <option value="/post/python/2013/gbk-to-utf8/">批量转换编码的python实现</option>
+      
+      <option value="/post/python/2013/ip-to-int/">转IP地址为长整数的脚本(python)</option>
+      
+      <option value="/post/python/2013/birthday-paradox/">计算生日悖论(python)</option>
+      
+      <option value="/post/theory/2013/arp-rarp/">ARP地址解析协议、RARP逆地址解析协议</option>
+      
+      <option value="/post/theory/2013/ip-intro/">IP，网际协议</option>
+      
+    </optgroup>
+  </select>
+</div>
+
+
+      <div class="unit three-fourths">
+        <article>
+  <h2>
+    IP，网际协议
+    <a href="/post/theory/2013/ip-intro/" class="permalink" title="Permalink">∞</a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      theory
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      10 Sep 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    <p>TCP, UDP, ICMP, IGMP等底层都是以IP数据报的格式传输的。<br />
+IP协议不是一个可靠的协议，它的安全性需要上一层来保证。当传输出错时，它只会简单地丢弃包，然后回发一个ICMP消息给信源端。</p>
+
+<p>同时它也是无连接的，它不维护任何关于后续数据报的状态信息。它发送的数据报之间是独立，不保证哪个包先到。<br />
+IP数据报的首部：<br />
+<img src="/img/201211/21/185446ky892r9ny2fcr9uw.jpg" alt="" />
+图中可以看出，每一层都有4个字节，传输次序是从左到右四个字节一起传的，这个方式称作big endian字节序。TCP/IP首部中的所有的二进制整数在网络中传输时都要求以这种次序来传，因此它又被称为：网络字节序<br />
+以其它形式存储二进制整数的机器（如little endian）在传输前都得转换成网络字节序。<br />
+首部长度最多为60个字节（为什么？因为首部长度是用4bit表示的，它最大可表示15，即15层，一层4个字节，共60个，笔者猜）。<br />
+服务类型：TOS，包括一个3bit的优先权子字段（现已被忽略），4bit的TOS子字段和1bit的未用位，但必须置0。其中4bit的TOS分别表示：最小时延，最大吞吐量，最高可靠性，最小费用。这四个bit中，一次只能有一个是1，其它都为0。若都0，则表示这是一般的服务。详细如下表：<br />
+<img src="/img/201211/21/185451tdeg63ii06ijh7gh.jpg" alt="" />
+Telnet和Rlogin这两个交互应用要求最小的传输时延，因为人们主要用它们来传输少量的交互数据。另一方面，FTP文件传输则要求有最大的吞吐量。最高可靠性被指明给网络管理SNMP，和路由选择协议。用户网络新闻（Usenet news，NNTP）是唯一要求最小费用的应用。<br />
+但现在大多数的TCP/IP都不支持TOS特性了，不过自4.3BSD Reno以后的新版系统都以它进行了设置。另一方面，新的路由协议如OSPF和IS-IS都能根据这些字段的值进行路由决策。<br />
+16位的总长度是指整个IP数据报的长度，单位byte。16位可表示65535byte，但实际的应用中都不会这么大，大多数链路层都会对它进行切片。以太网最小帧长为46字节（上一篇文章图），但IP数据报可能会更短。总长度字段是必须的。<br />
+16位的标识字段唯一的标识主机发送的每一份数据报，每发送一份，它的值就会加1。<br />
+标志字段和片偏移在讨论分片的时候再讲<br />
+TTL（time to live）生存时间，设置了数据报可以经过的最多路由器数，每经过一个，值就减1，直到为0时，它就被丢弃，并发送ICMP报文通知源主机。<br />
+协议字段，用来确定上层协议，根据它可以知道是哪个协议向IP传送数据。<br />
+首部检验和，它不对首部后面的数据进行计算。ICMP、IGMP、UDP、TCP在它们各自的首部中均含有同时覆盖首部和数据检验和码。它们计算首部检验和时，都是先把检验和字段重置0，再对首部中每个16bit进行二进制反码求和，结果放回这个检验和字段中。收到数据时，同样对首部每16bit进行反码求和，结果为全1时，说明没问题，否则IP就会丢弃收到的这个数据报，而不生成ICMP。另外，路由器会修改TTL字段，每次把它减1，这时不用重新计算，只需把检验和加1。<br />
+IP路由选择<br />
+先简单地分析一下。如果只是主机的话，IP路由选择是很简单的：<br />
+如果目的主机与源主机直接相连，如点对点，或都在一个共享网络上（以太网或信息环网），那么IP数据报就直接送到目的主机上。<br />
+否则，主机把数据报发往一默认的路由器上，由路由器来转发该数据报。<br />
+主机和路由器对于数据报的处理，区别在于主机从不把数据报从一个接口转发到另一个接口，而路由器则要转发数据报。<br />
+在主机上，当数据报是来自某个网络接口时，IP首先检查目的IP地址是否为本机的IP地址之一或者IP广播地址。如果确实是这样，数据报就被送到由IP首部协议字段所指定的协议模块进行处理。如果数据报的目的不是这些地址，那么：如果IP层被设置成路由器的功能，那么就对数据报进行转发；否则数据报被丢弃。<br />
+对于路由器，它也不知道到达任何目的地的完整路径，它只知道下一站路由器的IP地址，它都假定下一站比自己更接近目的地。<br />
+IP路由主要完成下面功能：<br />
+1、搜索路由表，找与目的IP完全IP地址完全匹配的表目（网络号/主机号都匹配），如果是则把报文发送给该表目指定的下一站路由器或直接连接的网络接口（由标志字段的值来确定）。<br />
+2、搜索路由表，找能与目的网络号匹配的表目（也就是同网络号，不同主机号）。找到则把报文发送给该表目指定的下一站路由器或直接连接的网络接口。<br />
+3、搜索路由表，找标为“默认default”的表目。找到就把报文发送给该表目指定的下一站路由器。<br />
+第二点还和子网掩码有关，下面会讲。<br />
+如果这些步骤都没找到的话，则该数据报不会被传送，如果这个数据报是本机发出的，那么生成该数据报的应用程序会收到一个“主机不可达”或“网络不可达”。<br />
+子网寻址<br />
+1.0.0.1–126.255.255.255 —— A类地址，00xxxxxx和01xxxxxx都是，（二进制表示为：00000001 00000000 00000000 00000001 - 01111110 11111111 11111111 11111111）<br />
+128.0.0.1–191.255.255.255 —— B类地址，10xxxxxx都是，（二进制表示为：10000000 00000000 00000000 00000001—-10111111 11111111 11111111 11111111）<br />
+192.0.0.1–223.255.255.255 —— C类地址，110xxxxx都是，（二进制表示为: 11000000 00000000 00000000 00000001 - 11011111 11111111 11111111 11111111）<br />
+224.0.0.1–239.255.255.254 —— D类地址，1110xxxx都是，（二进制表示为：11100000 00000000 00000000 00000001 - 11101111 11111111 11111111 11111111）<br />
+240.0.0.1–255.255.255.254 —— E类地址，1111xxxx都是，（二进制表示为：11110000 00000000 00000000 00000001 - 11111111 11111111 11111111 11111111）<br />
+D类地址用于多点播送，作为备用地址。E类则只作实验和开发用。<br />
+现在的网络的IP大都分为三个段：网络号、子网号、主机号。<br />
+举例：一个大公司，有一个自己的B类的网络号140.252，它底下又有好几个网段140.252.1~140.252.10，每一个网段用一个子网掩码，每个网段里面有很多主机，如140.252.3.3。<br />
+自然的划分是把前16bit给网络号，接着8bit给子网号，最后8位给主机号。但这也可以改。如：后16位中，拿10位当子网号，剩下的6位当主机号<br />
+大多数子网例子都是B类地址。其实还可以用于C类地址，只是它可用的比特数较少而已。很少用A类，因为它本来就少，不过大部分的A类地址都是进行子网划分的。<br />
+本文主要拿B类地址来描述。被分成多个子网的事实是对外网透明的。外部只要知道总路由的地址就行，因此140.252只需一个路由表目。<br />
+由IP地址和子网掩码就可以知道这个IP是外网还同一子网中的主机，或是不同子网中的主机。<br />
+特殊的IP地址<br />
+<img src="/img/201211/21/185456xsi36ptducsc8xcj.png" alt="" /></p>
+
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'jsongo';
+      
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</article>
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+    <div class="section-nav">
+      <div class="left align-right">
+          
+            
+            
+            <a href="/post/theory/2013/arp-rarp/" class="prev">Back</a>
+          
+      </div>
+      <div class="right align-left">
+          
+            <span class="next disabled">Next</span>
+          
+      </div>
+    </div>
+    <div class="clear"></div>
+  
+
+      </div>
+
+      <div class="unit one-fourth hide-on-mobiles">
+  <aside>
+    <h4>Recent Releases</h4>
+    <ul>
+      
+      <li class="">
+        <a href="/post/other/2015/markdown-syntax/"><span>Markdown 语法说明[转]</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/my-first-post/"><span>my first post, just chattering</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/jekyll-3-0-0-beta1-released/"><span>Jekyll 3.0.0.beta1 Released</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/security/2014/nginx-https/"><span>nginx的https设置</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/chatter/2014/attend-the-startup-meeting/"><span>第一次去参加创业公社的交流会</span></a>
+      </li>
+      
+    </ul>
+    <h4>Categories</h4>
+    <ul>
+      
+        <li class="current">
+          <a href="/post/theory">theory</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/python">python</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/chatter">chatter</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/draft">draft</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/security">security</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/linux">linux</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/vi">vi</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/other">other</a>
+        </li>
+      
+    </ul>
+  </aside>
+</div>
+
+
+      <div class="clear"></div>
+
+    </div>
+  </section>
+
+
+  <footer role="contentinfo">
+  <div class="grid">
+    <div class="unit half center-on-mobiles">
+      <p>The contents of this website are &copy;&nbsp;2015 <br/>
+      Jsongo&nbsp;
+        <a class="twitter-follow-button" href="https://twitter.com/js0ng0" data-size="middle">@Twitter</a>&nbsp;&nbsp;
+        <a class="facebook-follow-button" href="https://facebook.com/js0ng0" data-size="middle">@Facebook</a></p>
+    </div>
+    <div class="unit half align-right center-on-mobiles">
+      <p>
+        Proudly hosted by
+        <a href="https://github.com">
+          <img src="/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+        </a>
+      </p>
+    </div>
+    <div class="follow-btns">
+    </div>
+  </div>
+</footer>
+
+  <script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<span class=\"sr-only\">Permalink</span><i class=\"fa fa-link\"></i>";
+    anchor.title = "Permalink";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("news")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+
+  
+  <!-- Gauges (http://gaug.es/) -->
+  <script>
+    var _gauges = _gauges || [];
+    (function() {
+      var t   = document.createElement('script');
+      t.type  = 'text/javascript';
+      t.async = true;
+      t.id    = 'gauges-tracker';
+      t.setAttribute('data-site-id', '503c5af6613f5d0f19000027');
+      t.src = '//secure.gaug.es/track.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(t, s);
+    })();
+  </script>
+
+
+
+
+
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?35812f595e2a9532207151e3c2bb34af";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+      })();
+  </script>
+
+
+</body>
+</html>

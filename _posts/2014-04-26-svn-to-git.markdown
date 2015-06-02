@@ -1,0 +1,36 @@
+---
+layout: post_item
+status: publish
+published: true
+title: "把代码从svn搬到git上"
+author: jsongo
+wordpress_id: 298
+wordpress_url: http://jsongo.com/?p=298
+date: '2014-04-26 15:42:37 +0800'
+date_gmt: '2014-04-26 07:42:37 +0800'
+categories: [draft]
+tags: [svn, git]
+---
+先把目录里面的svn信息都干掉：
+{% highlight bash %}
+find . -type d -name ".svn"|xargs rm -rf 
+{% endhighlight %}
+
+
+然后
+{% highlight bash %}
+git init 
+git remote add origin https://xxx/xxx.git
+git add *
+git config --global user.email "your_email@xxx.com"
+git config --global user.name "your_name"
+git commit -m 'first submit'
+git push -u origin master 
+{% endhighlight %}
+这时，如果报error: server certificate verification failed. CAfile: /etc/ssl/certs/ca-certificates.crt CRLfile: none while accessing https://xxx/xxx.git/info/refs
+
+这是有些系统的问题。这时可以执行：
+{% highlight bash %}
+export GIT_SSL_NO_VERIFY=1
+{% endhighlight %}
+再push一次，这时就会让你输入用户名密码了。

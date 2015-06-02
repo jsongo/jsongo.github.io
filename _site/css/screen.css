@@ -706,8 +706,16 @@ aside {
     list-style-type: none; }
     aside li a {
       font-size: 16px;
+      line-height: 30px;
       position: relative;
-      color: #ddd; }
+      color: #ddd;
+      width: 100%; }
+    aside li a span {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      display: block;
+      width: 92%; }
     aside li.current a:before {
       content: "";
       border-color: transparent transparent transparent #444;
@@ -929,10 +937,12 @@ a {
     color: #b5e853; }
 
 strong {
-  font-weight: 700; }
+  font-weight: 700;
+  color: #fff; }
 
 p {
-  line-height: 1.5em; }
+  line-height: 1.5em;
+  word-wrap: break-word; }
 
 .left {
   float: left; }
@@ -1066,7 +1076,7 @@ code.output {
   margin-bottom: 2px; }
 
 /* Note types */
-.note {
+.note, blockquote {
   margin: 30px 0;
   margin-left: -30px;
   padding: 20px 20px 24px;
@@ -1088,12 +1098,12 @@ code.output {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7e6d42', endColorstr='#5c4e35',GradientType=0 ); }
 
 @media (max-width: 568px) {
-  .note {
+  .note, blockquote {
     margin-right: -30px; } }
 @media (min-width: 768px) {
-  .note {
+  .note, blockquote {
     margin-left: -50px; } }
-.note:before {
+.note:before, blockquote:before {
   content: "";
   position: absolute;
   top: -10px;
@@ -1104,17 +1114,18 @@ code.output {
   width: 0;
   height: 0; }
 .note h5,
-.note p {
+.note p, blockquote h5,
+blockquote p {
   margin: 0;
   color: #fff; }
-.note h5 {
+.note h5, blockquote h5 {
   line-height: 1.5em;
   font-weight: 900;
   font-style: normal; }
-.note p {
+.note p, blockquote p {
   font-weight: 400;
   font-size: .75em; }
-.note:after {
+.note:after, blockquote:after {
   content: '\2605';
   color: #3bfc34;
   position: absolute;
@@ -1124,7 +1135,8 @@ code.output {
   font-weight: 700;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5); }
 
-.info {
+.info, blockquote {
+  border-left: inherit;
   background-color: #0389aa;
   background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAzODlhYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDYxN2YiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#0389aa), to(#00617f));
@@ -1154,7 +1166,7 @@ code.output {
   background-image: linear-gradient(to bottom, #cd9239 0%, #a27528 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cd9239', endColorstr='#a27528',GradientType=0 ); }
 
-.info:before {
+.info:before, blockquote:before {
   border-color: transparent #00617f #00617f transparent; }
 
 .warning:before {

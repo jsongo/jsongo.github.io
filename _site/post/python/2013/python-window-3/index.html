@@ -1,0 +1,811 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- 请360浏览器用webkit来渲染 -->
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="为了能够取得在运行的某个进程在内存中的数据，就得附加到某个进程里面去。由进程的pid调用OpenProcess来取得进程的句柄，之后有了这个句柄就可以做很多事情啦！  ">
+    <meta name="author" content="jsongo">
+    <link rel="canonical" href="/post/python/2013/python-window-3/">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>python的系统底层操作3——进程注入 [by Jsongo]</title>
+    <meta name="generator" content="Jekyll v2.5.3">
+    <link rel="alternate" type="application/rss+xml" title="Jekyll • Simple, blog-aware, static sites - Feed" href="/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="Recent commits to Jekyll’s master branch" href="https://github.com/jekyll/jekyll/commits/master.atom">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+    <link rel="stylesheet" href="/css/screen.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body class="wrap">
+  <header role="banner">
+  <nav class="mobile-nav show-on-mobiles">
+    <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/post/security/">Security</a>
+  </li>
+  <li class="">
+    <a href="/post/python/">Python</a>
+  </li>
+  <li class="">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="">
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+
+  </nav>
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <h1>
+        <a href="/">
+          <span class="sr-only">Jekyll</span>
+          <img src="/img/logo-2.png" height="115" alt="Jsongo Logo">
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav unit two-thirds hide-on-mobiles">
+      <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/post/security/">Security</a>
+  </li>
+  <li class="">
+    <a href="/post/python/">Python</a>
+  </li>
+  <li class="">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="">
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+
+    </nav>
+  </div>
+</header>
+
+
+    <section class="post">
+    <div class="grid">
+
+      <div class="docs-nav-mobile unit whole show-on-mobiles">
+  <select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Navigate the blog…</option>
+    <option value="/news/">Home</option>
+    <optgroup label="v1.x">
+      
+      <option value="/post/other/2015/markdown-syntax/">Markdown 语法说明[转]</option>
+      
+      <option value="/post/other/2015/my-first-post/">my first post, just chattering</option>
+      
+      <option value="/post/other/2015/jekyll-3-0-0-beta1-released/">Jekyll 3.0.0.beta1 Released</option>
+      
+      <option value="/post/security/2014/nginx-https/">nginx的https设置</option>
+      
+      <option value="/post/chatter/2014/attend-the-startup-meeting/">第一次去参加创业公社的交流会</option>
+      
+      <option value="/post/draft/2014/select-distinct-only-one/">select多个字段，但distinct一个字段的方法</option>
+      
+      <option value="/post/draft/2014/uwsgi-libgcc_s-so-1-installed-pthread_cancel-work/">uwsgi报错libgcc_s.so.1 must be installed for pthread_cancel to work</option>
+      
+      <option value="/post/draft/2014/svn-to-git/">把代码从svn搬到git上</option>
+      
+      <option value="/post/draft/2014/mac-eclipse-tips/">mac上eclipse的一些使用技巧记录</option>
+      
+      <option value="/post/chatter/2014/we-all-have-to-leave/">We all have to leave</option>
+      
+      <option value="/post/draft/2014/uwsgi_django_nginx/">uwsgi+django+nginx，报internal server error的可能原因</option>
+      
+      <option value="/post/draft/2014/stop-visit-via-htaccess/">用htaccess禁止访问目录</option>
+      
+      <option value="/post/draft/2014/nginx-redis-visit/">nginx把资源存入redis访问</option>
+      
+      <option value="/post/draft/2014/redis-error-jemalloc-h-file-directory/">redis编译报错jemalloc/jemalloc.h: No such file or directory</option>
+      
+      <option value="/post/draft/2014/wp-ftp-error/">wp中出现插件安装提示ftp登录的问题排查（nginx）</option>
+      
+      <option value="/post/draft/2014/nginx-php-download/">nginx中的php文件老是变成下载的一种情况</option>
+      
+      <option value="/post/draft/2014/clean-linux-space/">清理linux服务器上的磁盘空间</option>
+      
+      <option value="/post/draft/2014/mac-linux-boot-usb/">mac上制作linux启动安装盘</option>
+      
+      <option value="/post/security/2014/hydra-attack-auth/">hydra，对会话认证的攻击</option>
+      
+      <option value="/post/draft/2014/msf-ruby-version/">msf更换ruby版本</option>
+      
+      <option value="/post/draft/2014/brew-cant-root/">brew 报错，无法用root执行</option>
+      
+      <option value="/post/draft/2014/mac-brew/">mac里的apt-get</option>
+      
+      <option value="/post/draft/2014/mac-linux-terminal-keys/">mac/linux终端里的几个快捷键</option>
+      
+      <option value="/post/draft/2014/redis-redmon/">redis监控</option>
+      
+      <option value="/post/draft/python/2014/django-redis/">django+redis</option>
+      
+      <option value="/post/draft/vi/2014/vim-advance/">vim高级使用技巧</option>
+      
+      <option value="/post/draft/2013/redis-base/">redis简单操作</option>
+      
+      <option value="/post/draft/2013/shell-base/">shell基础 笔记</option>
+      
+      <option value="/post/linux/2013/awk-sed/">awk/sed 笔记（一看就会）</option>
+      
+      <option value="/post/draft/2013/no-module-mysqldb/">ImportError: No module named MySQLdb（python）</option>
+      
+      <option value="/post/draft/2013/postgressql-learning1/">postgressql学习</option>
+      
+      <option value="/post/draft/2013/postgresql-init/">postgresql刚安装完登录不上的问题</option>
+      
+      <option value="/post/draft/2013/openerp-install/">OpenERP安装配置</option>
+      
+      <option value="/post/security/2013/snort-ids-ubuntu/">入侵检测(IDS)和snort</option>
+      
+      <option value="/post/security/2013/snorby-ubuntu/">snorby安装</option>
+      
+      <option value="/post/draft/2013/vim-ctags-javascript/">vim中强化ctags对javascript的支持</option>
+      
+      <option value="/post/chatter/2013/efficiency-time-play/">效率、时间、休整</option>
+      
+      <option value="/post/draft/2013/ubuntu-weinre/">ubuntu上配置weinre，远程调试页面脚本</option>
+      
+      <option value="/post/draft/2013/linux-vim/">linux vim学习汇总</option>
+      
+      <option value="/post/draft/2013/php-qrcode/">PHP生成二维码（phpQRcode）</option>
+      
+      <option value="/post/draft/2013/call-undefined-function-imagecreate/">Call to undefined function ImageCreate错误的解决</option>
+      
+      <option value="/post/draft/2013/apache-ruby-on-rails-redmine/">通过apache访问Ruby on Rails服务（redmine）</option>
+      
+      <option value="/post/draft/2013/ubuntu-reverse-proxy/">ubuntu上配置apache的反向代理</option>
+      
+      <option value="/post/draft/2013/ubuntu-apache2-add-module/">在ubuntu apache2上添加模块</option>
+      
+      <option value="/post/draft/2013/apt-get-subprocess-installed-post-installation-script-returned-error-exit-status-1/">apt-get 出现 "subprocess installed post-installation script returned error exit status 1"</option>
+      
+      <option value="/post/draft/2013/gem-install-mysql_query-error/">gem install 报错 checking for mysql_query() in -lmysqlclient... no</option>
+      
+      <option value="/post/draft/2013/django-ubuntu/">django在ubuntu上的安装</option>
+      
+      <option value="/post/chatter/2013/ie-eg-etc/">英文中的i.e.,e.g.,etc.等</option>
+      
+      <option value="/post/python/2013/python-window-6/">python的系统底层操作6——硬断点</option>
+      
+      <option value="/post/python/2013/python-window-5/">python的系统底层操作5&mdash;软断点</option>
+      
+      <option value="/post/python/2013/python-window-4/">python的系统底层操作4&mdash;寄存器</option>
+      
+      <option value="/post/python/2013/python-window-3/">python的系统底层操作3——进程注入</option>
+      
+      <option value="/post/python/2013/python-window-2/">python的系统底层操作2——调用函数</option>
+      
+      <option value="/post/python/2013/python-window-1/">python的系统底层操作1——基础</option>
+      
+      <option value="/post/python/2013/salt-base64/">加盐base64算法（自创）(python)</option>
+      
+      <option value="/post/python/2013/some-code-about-python/">python的几个语法收集</option>
+      
+      <option value="/post/python/2013/gbk-to-utf8/">批量转换编码的python实现</option>
+      
+      <option value="/post/python/2013/ip-to-int/">转IP地址为长整数的脚本(python)</option>
+      
+      <option value="/post/python/2013/birthday-paradox/">计算生日悖论(python)</option>
+      
+      <option value="/post/theory/2013/arp-rarp/">ARP地址解析协议、RARP逆地址解析协议</option>
+      
+      <option value="/post/theory/2013/ip-intro/">IP，网际协议</option>
+      
+    </optgroup>
+  </select>
+</div>
+
+
+      <div class="unit three-fourths">
+        <article>
+  <h2>
+    python的系统底层操作3——进程注入
+    <a href="/post/python/2013/python-window-3/" class="permalink" title="Permalink">∞</a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      python
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      25 Sep 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    <pre><code>为了能够取得在运行的某个进程在内存中的数据，就得附加到某个进程里面去。由进程的pid调用OpenProcess来取得进程的句柄，之后有了这个句柄就可以做很多事情啦！  
+
+
+本文中的代码是上一篇《python的系统底层操作2&amp;mdash;调用函数》的扩展，也是要实现调试的功能。用DebugActiveProcess来附加到进程里面去，然后调用WaitForDebugEvent来等待调试事件的发生，一旦调试事件被触发，进程就被挂起，我们就可以操作进程中的数据，进行一些调试相关的处理，完成后，调用ContinueDebugEvent回到原进程，最后可以调用DebugActiveProcessStop与被调试的进程分离。   代码：   debugger.py  
+</code></pre>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># -*- coding: utf-8 -*-  </span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="o">*</span>  
+<span class="kn">from</span> <span class="nn">debug_define</span> <span class="kn">import</span> <span class="o">*</span>  
+<span class="n">kernel32</span> <span class="o">=</span> <span class="n">windll</span><span class="o">.</span><span class="n">kernel32</span>  
+<span class="k">class</span> <span class="nc">debugger</span><span class="p">():</span>  
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">h_process</span> <span class="o">=</span> <span class="bp">None</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">pid</span> <span class="o">=</span> <span class="bp">None</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">debugger_active</span> <span class="o">=</span> <span class="bp">False</span>  
+
+    <span class="k">def</span> <span class="nf">loadExe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exe_path</span><span class="p">):</span>  
+        <span class="n">creation_flags</span> <span class="o">=</span> <span class="n">DEBUG_PROCESS</span>  
+        <span class="n">startupinfo</span> <span class="o">=</span> <span class="n">STARTUPINFO</span><span class="p">()</span> <span class="c">#相当于c的alloc这么大一个空间，初始化为0或NULL  </span>
+        <span class="n">processinfo</span> <span class="o">=</span> <span class="n">PROCESS_INFORMATION</span><span class="p">()</span> <span class="c">#同上  </span>
+        <span class="n">startupinfo</span><span class="o">.</span><span class="n">dwFlags</span> <span class="o">=</span> <span class="n">STARTF_USESHOWWINDOW</span>  
+        <span class="n">startupinfo</span><span class="o">.</span><span class="n">wShowWindow</span> <span class="o">=</span> <span class="n">SW_HIDE</span>  
+        <span class="n">startupinfo</span><span class="o">.</span><span class="n">cb</span> <span class="o">=</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">startupinfo</span><span class="p">)</span>  
+        <span class="c"># 开始创建  </span>
+        <span class="k">if</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">CreateProcessA</span><span class="p">(</span><span class="n">exe_path</span><span class="p">,</span> <span class="c">#lpApplicationName  </span>
+                                  <span class="bp">None</span><span class="p">,</span> <span class="c">#lpCommandLine  </span>
+                                  <span class="bp">None</span><span class="p">,</span> <span class="c">#lpProcessAttributes  </span>
+                                  <span class="bp">None</span><span class="p">,</span> <span class="c">#lpThreadAttributes  </span>
+                                  <span class="bp">None</span><span class="p">,</span> <span class="c">#bInheritHandles  </span>
+                                  <span class="n">creation_flags</span><span class="p">,</span> <span class="c">#dwCreationFlags  </span>
+                                  <span class="bp">None</span><span class="p">,</span> <span class="c">#lpEnvironment  </span>
+                                  <span class="bp">None</span><span class="p">,</span> <span class="c">#lpCurrentDirectory  </span>
+                                  <span class="n">byref</span><span class="p">(</span><span class="n">startupinfo</span><span class="p">),</span> <span class="c">#lpStartupInfo  </span>
+                                  <span class="n">byref</span><span class="p">(</span><span class="n">processinfo</span><span class="p">)):</span> <span class="c">#lpProcessInformation  </span>
+            <span class="k">print</span> <span class="s">&quot;进程ID:</span><span class="si">%d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">processinfo</span><span class="o">.</span><span class="n">dwProcessId</span>  
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="k">print</span> <span class="s">&quot;进程创建失败。&quot;</span>  
+        <span class="c"># 打开这个进程  </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h_process</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_process</span><span class="p">(</span><span class="n">processinfo</span><span class="o">.</span><span class="n">dwProcessId</span><span class="p">)</span>  
+    <span class="c"># 由id取得进程  </span>
+    <span class="k">def</span> <span class="nf">open_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">):</span>  
+        <span class="n">h_progress</span> <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">OpenProcess</span><span class="p">(</span><span class="n">PROCESS_ALL_ACCESS</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span>  
+        <span class="k">return</span> <span class="n">h_progress</span>  
+    <span class="c"># 附加进程  </span>
+    <span class="k">def</span> <span class="nf">attach</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">h_process</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_process</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>  
+        <span class="c"># 调用DebugActiveProcess，附加到pid进程  </span>
+        <span class="k">if</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">DebugActiveProcess</span><span class="p">(</span><span class="n">pid</span><span class="p">):</span>  
+            <span class="bp">self</span><span class="o">.</span><span class="n">debugger_active</span> <span class="o">=</span> <span class="bp">True</span> <span class="c"># 可以开始调试了  </span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>  
+            <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>  
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="k">print</span> <span class="s">&quot;进程附加失败！&quot;</span>  
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">debugger_active</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>  
+            <span class="bp">self</span><span class="o">.</span><span class="n">fire_debug_event</span><span class="p">()</span>  
+    <span class="c"># 等待触发调试事件。。  </span>
+    <span class="k">def</span> <span class="nf">fire_debug_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="n">debug_event</span> <span class="o">=</span> <span class="n">DEBUG_EVENT</span><span class="p">()</span>  
+        <span class="n">continue_status</span> <span class="o">=</span> <span class="n">DBG_CONTINUE</span>  
+        <span class="c"># 接下去就是等待调试的事件被触发  </span>
+        <span class="k">if</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">WaitForDebugEvent</span><span class="p">(</span><span class="n">byref</span><span class="p">(</span><span class="n">debug_event</span><span class="p">),</span> <span class="n">INFINITE</span><span class="p">):</span> <span class="c">#一直等  </span>
+            <span class="c"># 到这里，说明调试的条件被触发了  </span>
+            <span class="c"># 。。。（在这里做些调试相关的事情）  </span>
+            <span class="nb">raw_input</span><span class="p">(</span><span class="s">&quot;按回车键继续...&quot;</span><span class="p">)</span>  
+            <span class="c"># 这个调试事件处理结束，继续  </span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">debugger_active</span> <span class="o">=</span> <span class="bp">False</span>  
+            <span class="n">kernel32</span><span class="o">.</span><span class="n">ContinueDebugEvent</span><span class="p">(</span><span class="n">debug_event</span><span class="o">.</span><span class="n">dwProcessId</span><span class="p">,</span>  
+                                        <span class="n">debug_event</span><span class="o">.</span><span class="n">dwThreadId</span><span class="p">,</span>  
+                                        <span class="n">continue_status</span><span class="p">)</span>  
+    <span class="c"># 解除对进程的附加  </span>
+    <span class="k">def</span> <span class="nf">detach</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="k">if</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">DebugActiveProcessStop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">):</span>  
+            <span class="k">print</span> <span class="s">&quot;完成调试，退出...&quot;</span>  
+            <span class="k">return</span> <span class="bp">True</span>  
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="k">print</span> <span class="s">&quot;调试过程中出错...&quot;</span>  
+            <span class="k">return</span> <span class="bp">False</span></code></pre></div>
+
+<p>上面用到的常量、结构体、联合体等都在debug_define.py里面定义：</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># -*- coding: utf-8 -*-  </span>
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="o">*</span>  
+<span class="c"># 定义window编程中常用的类型  </span>
+<span class="n">WORD</span> <span class="o">=</span> <span class="n">c_ushort</span>  
+<span class="n">DWORD</span> <span class="o">=</span> <span class="n">c_ulong</span>  
+<span class="n">LPBYTE</span> <span class="o">=</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_ubyte</span><span class="p">)</span>  
+<span class="n">LPTSTR</span> <span class="o">=</span> <span class="n">POINTER</span><span class="p">(</span><span class="n">c_char</span><span class="p">)</span>  
+<span class="n">HANDLE</span> <span class="o">=</span> <span class="n">c_void_p</span>  
+<span class="n">PVOID</span>     <span class="o">=</span> <span class="n">c_void_p</span>  
+<span class="n">LPVOID</span>    <span class="o">=</span> <span class="n">c_void_p</span>  
+<span class="n">ULONG_PTR</span>  <span class="o">=</span> <span class="n">c_ulong</span>  
+<span class="n">SIZE_T</span>    <span class="o">=</span> <span class="n">c_ulong</span>  
+<span class="c"># 常量  </span>
+<span class="n">DEBUG_PROCESS</span> <span class="o">=</span> <span class="mh">0x0001</span>  
+<span class="n">CREATE_NEW_CONSOLE</span> <span class="o">=</span> <span class="mh">0x0010</span>  
+<span class="n">PROCESS_ALL_ACCESS</span> <span class="o">=</span> <span class="mh">0x001F0FFF</span>  
+<span class="n">INFINITE</span> <span class="o">=</span> <span class="mh">0xFFFFFFFF</span>  
+<span class="n">DBG_CONTINUE</span> <span class="o">=</span> <span class="mh">0x00010002</span>  
+<span class="n">STARTF_USESHOWWINDOW</span> <span class="o">=</span> <span class="mh">0x0001</span>  
+<span class="n">SW_HIDE</span> <span class="o">=</span> <span class="mi">0</span>  
+<span class="c"># CreateProcessA函数所需结构体  </span>
+<span class="k">class</span> <span class="nc">STARTUPINFO</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>  
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;cb&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;lpReserved&quot;</span><span class="p">,</span><span class="n">LPTSTR</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;lpDesktop&quot;</span><span class="p">,</span><span class="n">LPTSTR</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;lpTitle&quot;</span><span class="p">,</span><span class="n">LPTSTR</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwX&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwY&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwXSize&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwYSize&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwXCountChars&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwYCountChars&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwFillAttribute&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwFlags&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;wShowWindow&quot;</span><span class="p">,</span><span class="n">WORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;cbReserved2&quot;</span><span class="p">,</span><span class="n">WORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;lpReserved2&quot;</span><span class="p">,</span><span class="n">LPBYTE</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;hStdInput&quot;</span><span class="p">,</span><span class="n">HANDLE</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;hStdOutput&quot;</span><span class="p">,</span><span class="n">HANDLE</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;hStdError&quot;</span><span class="p">,</span><span class="n">HANDLE</span><span class="p">)</span>  
+    <span class="p">]</span>  
+<span class="k">class</span> <span class="nc">PROCESS_INFORMATION</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>  
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;hProcess&quot;</span><span class="p">,</span><span class="n">HANDLE</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;hThread&quot;</span><span class="p">,</span><span class="n">HANDLE</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwProcessId&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwThreadId&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">)</span>  
+    <span class="p">]</span>  
+<span class="k">class</span> <span class="nc">EXCEPTION_RECORD</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>  
+    <span class="k">pass</span>  
+<span class="n">EXCEPTION_RECORD</span><span class="o">.</span><span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;ExceptionCode&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;ExceptionFlags&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;ExceptionRecord&quot;</span><span class="p">,</span><span class="n">POINTER</span><span class="p">(</span><span class="n">EXCEPTION_RECORD</span><span class="p">)),</span>  
+        <span class="p">(</span><span class="s">&quot;ExceptionAddress&quot;</span><span class="p">,</span><span class="n">PVOID</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;NumberParameters&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;ExceptionInformation&quot;</span><span class="p">,</span><span class="n">ULONG_PTR</span><span class="o">*</span><span class="mi">15</span><span class="p">)</span> <span class="c"># 最多允许15条错误信息  </span>
+    <span class="p">]</span>  
+<span class="k">class</span> <span class="nc">EXCEPTION_DEBUG_INFO</span> <span class="p">(</span><span class="n">Structure</span><span class="p">):</span>  
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;ExceptionRecord&quot;</span><span class="p">,</span> <span class="n">EXCEPTION_RECORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwFirstChance&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">)</span>  
+    <span class="p">]</span>  
+<span class="k">class</span> <span class="nc">DEBUG_EVENT_UNION</span><span class="p">(</span><span class="n">Union</span><span class="p">):</span>  
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;Exception&quot;</span><span class="p">,</span><span class="n">EXCEPTION_DEBUG_INFO</span><span class="p">),</span> <span class="c">#只用到这一个，下面的不用定义了  </span>
+<span class="c">#        (&quot;CreateThread&quot;,CREATE_THREAD_DEBUG_INFO),  </span>
+<span class="c">#        (&quot;CreateProcessInfo&quot;,CREATE_PROCESS_DEBUG_INFO),  </span>
+<span class="c">#        (&quot;ExitThread&quot;,EXIT_THREAD_DEBUG_INFO),  </span>
+<span class="c">#        (&quot;ExitProcess&quot;,EXIT_PROCESS_DEBUG_INFO),  </span>
+<span class="c">#        (&quot;LoadDll&quot;,LOAD_DLL_DEBUG_INFO),  </span>
+<span class="c">#        (&quot;UnloadDll&quot;,UNLOAD_DLL_DEBUG_INFO),  </span>
+<span class="c">#        (&quot;DebugString&quot;,OUTPUT_DEBUG_STRING_INFO),  </span>
+<span class="c">#        (&quot;RipInfo&quot;,RIP_INFO)  </span>
+    <span class="p">]</span>  
+<span class="k">class</span> <span class="nc">DEBUG_EVENT</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>  
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>  
+        <span class="p">(</span><span class="s">&quot;dwDebugEventCode&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwProcessId&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;dwThreadId&quot;</span><span class="p">,</span><span class="n">DWORD</span><span class="p">),</span>  
+        <span class="p">(</span><span class="s">&quot;u&quot;</span><span class="p">,</span><span class="n">DEBUG_EVENT_UNION</span><span class="p">)</span>  
+    <span class="p">]</span></code></pre></div>
+
+<p>DEBUG_EVENT里面需要DEBUG_EVENT_UNION的联合体，而这个联合体则用到了EXCEPTION_DEBUG_INFO的结构体，然而这个结构体也里面还用到了EXCEPTION_RECORD结构体，这个结构体的定义比较特殊，因为它的_fields_里面引用了自身结构体的指针，所以分开定义好些。<br />
+最后，我们来测试：</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># -*- coding: utf-8 -*-  </span>
+<span class="kn">import</span> <span class="nn">debugger.debugger</span> <span class="kn">as</span> <span class="nn">debugger</span>  
+<span class="n">deb</span> <span class="o">=</span> <span class="n">debugger</span><span class="o">.</span><span class="n">debugger</span><span class="p">()</span>  
+<span class="n">pid</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&quot;请输入要调试（附加）的进程ID：&quot;</span><span class="p">)</span>  
+<span class="n">deb</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">))</span>  
+<span class="n">deb</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span></code></pre></div>
+
+<p>打开任务管理器，找一个自己打开的程序的进程，读取它的pid，运行上面的代码，输出的结果：<br />
+请输入要调试（附加）的进程ID：5968<br />
+按回车键继续…<br />
+完成调试，退出…<br />
+测试说明：win7，注入windows/system32里面的程序，测试了几个都失败了。试一下其它的进程，比如QQ，附加成功！失败的原因，可能是系统设置了保护，具体原因有朋友知道的，可以在下面回复一下！感谢！</p>
+
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'jsongo';
+      
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</article>
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+    <div class="section-nav">
+      <div class="left align-right">
+          
+            
+            
+            <a href="/post/python/2013/python-window-4/" class="prev">Back</a>
+          
+      </div>
+      <div class="right align-left">
+          
+            
+            
+            
+            <a href="/post/python/2013/python-window-2/" class="next">Next</a>
+          
+      </div>
+    </div>
+    <div class="clear"></div>
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+      </div>
+
+      <div class="unit one-fourth hide-on-mobiles">
+  <aside>
+    <h4>Recent Releases</h4>
+    <ul>
+      
+      <li class="">
+        <a href="/post/other/2015/markdown-syntax/"><span>Markdown 语法说明[转]</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/my-first-post/"><span>my first post, just chattering</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/jekyll-3-0-0-beta1-released/"><span>Jekyll 3.0.0.beta1 Released</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/security/2014/nginx-https/"><span>nginx的https设置</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/chatter/2014/attend-the-startup-meeting/"><span>第一次去参加创业公社的交流会</span></a>
+      </li>
+      
+    </ul>
+    <h4>Categories</h4>
+    <ul>
+      
+        <li class="">
+          <a href="/post/theory">theory</a>
+        </li>
+      
+        <li class="current">
+          <a href="/post/python">python</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/chatter">chatter</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/draft">draft</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/security">security</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/linux">linux</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/vi">vi</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/other">other</a>
+        </li>
+      
+    </ul>
+  </aside>
+</div>
+
+
+      <div class="clear"></div>
+
+    </div>
+  </section>
+
+
+  <footer role="contentinfo">
+  <div class="grid">
+    <div class="unit half center-on-mobiles">
+      <p>The contents of this website are &copy;&nbsp;2015 <br/>
+      Jsongo&nbsp;
+        <a class="twitter-follow-button" href="https://twitter.com/js0ng0" data-size="middle">@Twitter</a>&nbsp;&nbsp;
+        <a class="facebook-follow-button" href="https://facebook.com/js0ng0" data-size="middle">@Facebook</a></p>
+    </div>
+    <div class="unit half align-right center-on-mobiles">
+      <p>
+        Proudly hosted by
+        <a href="https://github.com">
+          <img src="/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+        </a>
+      </p>
+    </div>
+    <div class="follow-btns">
+    </div>
+  </div>
+</footer>
+
+  <script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<span class=\"sr-only\">Permalink</span><i class=\"fa fa-link\"></i>";
+    anchor.title = "Permalink";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("news")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+
+  
+  <!-- Gauges (http://gaug.es/) -->
+  <script>
+    var _gauges = _gauges || [];
+    (function() {
+      var t   = document.createElement('script');
+      t.type  = 'text/javascript';
+      t.async = true;
+      t.id    = 'gauges-tracker';
+      t.setAttribute('data-site-id', '503c5af6613f5d0f19000027');
+      t.src = '//secure.gaug.es/track.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(t, s);
+    })();
+  </script>
+
+
+
+
+
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?35812f595e2a9532207151e3c2bb34af";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+      })();
+  </script>
+
+
+</body>
+</html>

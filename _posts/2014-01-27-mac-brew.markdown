@@ -1,0 +1,22 @@
+---
+layout: post_item
+status: publish
+published: true
+title: mac里的apt-get
+author: jsongo
+wordpress_id: 218
+wordpress_url: http://jsongo.com/?p=218
+date: '2014-01-27 00:24:48 +0800'
+date_gmt: '2014-01-26 16:24:48 +0800'
+categories: [draft]
+tags: [mac]
+comments: []
+---
+mac系统也可以像ubuntu里的apt-get一样安装系统软件包或库，brew。 
+https:&#47;&#47;github.com&#47;Homebrew&#47;homebrew用git clone下来之后，安装，然后就可以用了： 
+brew search [表达式] 
+用来搜索想着的软件包，如brew search apache 
+安装： 
+brew install [软件名] 
+卸载： 
+brew uninstall [软件名] 

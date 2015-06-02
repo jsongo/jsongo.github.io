@@ -1,0 +1,754 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- 请360浏览器用webkit来渲染 -->
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="一、简单改造，更适合编程1、ctags先装ctags，用来给代码生成索引apt-get install ctags">
+    <meta name="author" content="jsongo">
+    <link rel="canonical" href="/post/draft/2013/linux-vim/">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>linux vim学习汇总 [by Jsongo]</title>
+    <meta name="generator" content="Jekyll v2.5.3">
+    <link rel="alternate" type="application/rss+xml" title="Jekyll • Simple, blog-aware, static sites - Feed" href="/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="Recent commits to Jekyll’s master branch" href="https://github.com/jekyll/jekyll/commits/master.atom">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+    <link rel="stylesheet" href="/css/screen.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body class="wrap">
+  <header role="banner">
+  <nav class="mobile-nav show-on-mobiles">
+    <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/post/security/">Security</a>
+  </li>
+  <li class="">
+    <a href="/post/python/">Python</a>
+  </li>
+  <li class="">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="">
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+
+  </nav>
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <h1>
+        <a href="/">
+          <span class="sr-only">Jekyll</span>
+          <img src="/img/logo-2.png" height="115" alt="Jsongo Logo">
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav unit two-thirds hide-on-mobiles">
+      <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/post/security/">Security</a>
+  </li>
+  <li class="">
+    <a href="/post/python/">Python</a>
+  </li>
+  <li class="">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="">
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+
+    </nav>
+  </div>
+</header>
+
+
+    <section class="post">
+    <div class="grid">
+
+      <div class="docs-nav-mobile unit whole show-on-mobiles">
+  <select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Navigate the blog…</option>
+    <option value="/news/">Home</option>
+    <optgroup label="v1.x">
+      
+      <option value="/post/other/2015/markdown-syntax/">Markdown 语法说明[转]</option>
+      
+      <option value="/post/other/2015/my-first-post/">my first post, just chattering</option>
+      
+      <option value="/post/other/2015/jekyll-3-0-0-beta1-released/">Jekyll 3.0.0.beta1 Released</option>
+      
+      <option value="/post/security/2014/nginx-https/">nginx的https设置</option>
+      
+      <option value="/post/chatter/2014/attend-the-startup-meeting/">第一次去参加创业公社的交流会</option>
+      
+      <option value="/post/draft/2014/select-distinct-only-one/">select多个字段，但distinct一个字段的方法</option>
+      
+      <option value="/post/draft/2014/uwsgi-libgcc_s-so-1-installed-pthread_cancel-work/">uwsgi报错libgcc_s.so.1 must be installed for pthread_cancel to work</option>
+      
+      <option value="/post/draft/2014/svn-to-git/">把代码从svn搬到git上</option>
+      
+      <option value="/post/draft/2014/mac-eclipse-tips/">mac上eclipse的一些使用技巧记录</option>
+      
+      <option value="/post/chatter/2014/we-all-have-to-leave/">We all have to leave</option>
+      
+      <option value="/post/draft/2014/uwsgi_django_nginx/">uwsgi+django+nginx，报internal server error的可能原因</option>
+      
+      <option value="/post/draft/2014/stop-visit-via-htaccess/">用htaccess禁止访问目录</option>
+      
+      <option value="/post/draft/2014/nginx-redis-visit/">nginx把资源存入redis访问</option>
+      
+      <option value="/post/draft/2014/redis-error-jemalloc-h-file-directory/">redis编译报错jemalloc/jemalloc.h: No such file or directory</option>
+      
+      <option value="/post/draft/2014/wp-ftp-error/">wp中出现插件安装提示ftp登录的问题排查（nginx）</option>
+      
+      <option value="/post/draft/2014/nginx-php-download/">nginx中的php文件老是变成下载的一种情况</option>
+      
+      <option value="/post/draft/2014/clean-linux-space/">清理linux服务器上的磁盘空间</option>
+      
+      <option value="/post/draft/2014/mac-linux-boot-usb/">mac上制作linux启动安装盘</option>
+      
+      <option value="/post/security/2014/hydra-attack-auth/">hydra，对会话认证的攻击</option>
+      
+      <option value="/post/draft/2014/msf-ruby-version/">msf更换ruby版本</option>
+      
+      <option value="/post/draft/2014/brew-cant-root/">brew 报错，无法用root执行</option>
+      
+      <option value="/post/draft/2014/mac-brew/">mac里的apt-get</option>
+      
+      <option value="/post/draft/2014/mac-linux-terminal-keys/">mac/linux终端里的几个快捷键</option>
+      
+      <option value="/post/draft/2014/redis-redmon/">redis监控</option>
+      
+      <option value="/post/draft/python/2014/django-redis/">django+redis</option>
+      
+      <option value="/post/draft/vi/2014/vim-advance/">vim高级使用技巧</option>
+      
+      <option value="/post/draft/2013/redis-base/">redis简单操作</option>
+      
+      <option value="/post/draft/2013/shell-base/">shell基础 笔记</option>
+      
+      <option value="/post/linux/2013/awk-sed/">awk/sed 笔记（一看就会）</option>
+      
+      <option value="/post/draft/2013/no-module-mysqldb/">ImportError: No module named MySQLdb（python）</option>
+      
+      <option value="/post/draft/2013/postgressql-learning1/">postgressql学习</option>
+      
+      <option value="/post/draft/2013/postgresql-init/">postgresql刚安装完登录不上的问题</option>
+      
+      <option value="/post/draft/2013/openerp-install/">OpenERP安装配置</option>
+      
+      <option value="/post/security/2013/snort-ids-ubuntu/">入侵检测(IDS)和snort</option>
+      
+      <option value="/post/security/2013/snorby-ubuntu/">snorby安装</option>
+      
+      <option value="/post/draft/2013/vim-ctags-javascript/">vim中强化ctags对javascript的支持</option>
+      
+      <option value="/post/chatter/2013/efficiency-time-play/">效率、时间、休整</option>
+      
+      <option value="/post/draft/2013/ubuntu-weinre/">ubuntu上配置weinre，远程调试页面脚本</option>
+      
+      <option value="/post/draft/2013/linux-vim/">linux vim学习汇总</option>
+      
+      <option value="/post/draft/2013/php-qrcode/">PHP生成二维码（phpQRcode）</option>
+      
+      <option value="/post/draft/2013/call-undefined-function-imagecreate/">Call to undefined function ImageCreate错误的解决</option>
+      
+      <option value="/post/draft/2013/apache-ruby-on-rails-redmine/">通过apache访问Ruby on Rails服务（redmine）</option>
+      
+      <option value="/post/draft/2013/ubuntu-reverse-proxy/">ubuntu上配置apache的反向代理</option>
+      
+      <option value="/post/draft/2013/ubuntu-apache2-add-module/">在ubuntu apache2上添加模块</option>
+      
+      <option value="/post/draft/2013/apt-get-subprocess-installed-post-installation-script-returned-error-exit-status-1/">apt-get 出现 "subprocess installed post-installation script returned error exit status 1"</option>
+      
+      <option value="/post/draft/2013/gem-install-mysql_query-error/">gem install 报错 checking for mysql_query() in -lmysqlclient... no</option>
+      
+      <option value="/post/draft/2013/django-ubuntu/">django在ubuntu上的安装</option>
+      
+      <option value="/post/chatter/2013/ie-eg-etc/">英文中的i.e.,e.g.,etc.等</option>
+      
+      <option value="/post/python/2013/python-window-6/">python的系统底层操作6——硬断点</option>
+      
+      <option value="/post/python/2013/python-window-5/">python的系统底层操作5&mdash;软断点</option>
+      
+      <option value="/post/python/2013/python-window-4/">python的系统底层操作4&mdash;寄存器</option>
+      
+      <option value="/post/python/2013/python-window-3/">python的系统底层操作3——进程注入</option>
+      
+      <option value="/post/python/2013/python-window-2/">python的系统底层操作2——调用函数</option>
+      
+      <option value="/post/python/2013/python-window-1/">python的系统底层操作1——基础</option>
+      
+      <option value="/post/python/2013/salt-base64/">加盐base64算法（自创）(python)</option>
+      
+      <option value="/post/python/2013/some-code-about-python/">python的几个语法收集</option>
+      
+      <option value="/post/python/2013/gbk-to-utf8/">批量转换编码的python实现</option>
+      
+      <option value="/post/python/2013/ip-to-int/">转IP地址为长整数的脚本(python)</option>
+      
+      <option value="/post/python/2013/birthday-paradox/">计算生日悖论(python)</option>
+      
+      <option value="/post/theory/2013/arp-rarp/">ARP地址解析协议、RARP逆地址解析协议</option>
+      
+      <option value="/post/theory/2013/ip-intro/">IP，网际协议</option>
+      
+    </optgroup>
+  </select>
+</div>
+
+
+      <div class="unit three-fourths">
+        <article>
+  <h2>
+    linux vim学习汇总
+    <a href="/post/draft/2013/linux-vim/" class="permalink" title="Permalink">∞</a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      02 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    <p>一、简单改造，更适合编程<br />
+1、ctags<br />
+先装ctags，用来给代码生成索引</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">apt-get install ctags</code></pre></div>
+
+<p>2、taglist<br />
+先下载：wget http://vim.sourceforge.net/scripts/download_script.php?src_id=19574<br />
+重命名下，解压，进入<br />
+cd doc<br />
+运行vim，执行:helptags . （注意后面有个点）</p>
+
+<p>3、整合ctags和taglist<br />
+打开.vim/plugin/taglist.vim，找if!exist(“loaded_taglist”)这一行，上面插入：</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">let </span><span class="nv">Tlist_Ctags_Cmd</span><span class="o">=</span><span class="s2">&quot;/usr/bin/ctags&quot;</span></code></pre></div>
+
+<p>保存，退出就ok了</p>
+
+<p>4、使用：<br />
+进入一个源码的目录，执行ctags -R就可以把文件夹及其子文件夹都建立索引了<br />
+把光标定位到某个函数或变量上，按ctrl+]就可以查看定义，按ctrl+o或者ctrl+t可以返回原地。<br />
+执行:TlistToggle可以在左侧打开taglist，把所有的tag都列出来。ctrl+w再w可以两个窗口来回切换。<br />
+参考：<a href="http://roclinux.cn/?p=424">http://roclinux.cn/?p=424</a></p>
+
+<p>二、几个很少人知的快捷键：<br />
+A: 在本行行尾插入<br />
+J：可以去除本行和下一行之间的换行符，也就是将下一行续接到本行尾部<br />
+~：光标所在处的字符进行大小写互换<br />
+zz： 将当前行放置于页面中间，利于阅读<br />
+zt：将当前行放置于页面的最顶端，一般阅读函数定义时，非常非常有用<br />
+ctrl-a：可以将光标所在处的数字加1，负数和多位数都在支持范围内哦。可以用这个快捷键配合宏来干很多事情喽。<br />
+ctrl-x：有加1就会有减1<br />
+参考：<a href="http://roclinux.cn/?p=1621">http://roclinux.cn/?p=1621</a></p>
+
+<p>三、文件目录浏览：<br />
+vim自带netrw，从7.0以后。<br />
+执行:e your_dir<br />
+这样就可以浏览你想要的文件夹<br />
+加入快捷键：<br />
+打开.vimrc，加入</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">let </span>g:netrw_winsize <span class="o">=</span> <span class="m">30</span> <span class="err">&quot;</span> 宽度设成30  
+nmap fe :Sexplore!</code></pre></div>
+
+<p>之后就连续按fe两个按键来打开，退出:q<br />
+更多netrw的技巧，可以执行:h netrw-ssh-hack来查看<br />
+http://x3ge.com/?p=851这里有远程编辑的一些说明<br />
+同时可以装上BufExplorer来查看历史浏览缓存：http://vim.sourceforge.net/scripts/script.php?script_id=42<br />
+装上WmToggle来整合它们：http://vim.sourceforge.net/scripts/script.php?script_id=95</p>
+
+<p>四、一些常用快捷键/命令：<br />
+1、把两行合并为一行：定位在上面那行，esc，按大写J<br />
+2、撤消：U<br />
+重做：ctr + r<br />
+3、插入n个某字符：esc，输入6a#，再按下esc就可以输入6个#<br />
+4、esc，a在当前光标的后面插入，i在光标前面插入<br />
+5、:e! 可以不保存而重新载入这个文件<br />
+6、esc，w向往一个单词，b向后一个单词<br />
+7、选号，:set nu出现选号，:set nonu取消行号<br />
+8、删除，esc，dw删除一个单词，dd删除一行，x删除一个字符，d$从光标处往后全删，d^反之<br />
+9、查找/，如果想忽略大小写，:set ignorecase。<br />
+也可以/word\c<br />
+10、esc，光标定位于一个单词，输入*即可高亮所有同名的（没出现的话，:set hlsearch一下），再按n可以跳到下一个词<br />
+如果要区分大小写，可以:set noignorecase<br />
+hlsearch前面也可以加no<br />
+11、做标记：esc，ma，然后`a就可以跳到那个光标处，’a可以跳到那行的行首<br />
+:marks可以查看所有的标记<br />
+12、ctrl+o 可以跳到之前跳过的比较老的地方，ctrl+i相反<br />
+13、跳到某一指定行，可以执行:12跳到12行，也可以按下12G跳过去<br />
+gg跳到第一行<br />
+G跳到最后一行<br />
+14、切换不同窗口<br />
+Ctrl-W 命令指定光标移动：<br />
+Ctrl-W s 复制当前窗口<br />
+Ctrl-W n 新开一个窗口<br />
+Ctrl-W + 扩大窗口<br />
+Ctrl-W - 缩小窗口<br />
+Ctrl-W h 移动到窗口左边<br />
+Ctrl-W j 移动到窗口下边<br />
+Ctrl-W k 移动到窗口上边<br />
+Ctrl-W l 移动到窗口右边<br />
+15、上/下一页<br />
+Ctrl+f 下一页<br />
+Ctrl+b 上一页<br />
+16、行首/尾<br />
+按0可以到行首第一个<br />
+$到行尾<br />
+^到行首第一个有字符处<br />
+17、改变窗口的大小<br />
+n+ctrl+w+&gt;或&lt; 用来增大或减小列宽<br />
+n+ctrl+w+=或- 用来增大或减小行宽<br />
+18、全局搜索</p>
+<blockquote>vimgrep /antiscroll/g doc/favweb/js/**</blockquote>
+<p>19、缩进<br />
+n»可以缩进当前行及以下的n-1行，n«反之<br />
+20、多行选中<br />
+按v进入visual模式，再上下左右就可以选中多个/行<br />
+21、替换/多行注释<br />
+:s/xxx/aaa/g<br />
+这个可以把所有的xxx换成aaa<br />
+可以指定范围：<br />
+.,+3 s/^/\/\//g<br />
+这个指定当前行和以下3行，开关用//替换，也就是把这四行注释起来。<br />
+另一种方法多行注释：<br />
+ctrl+v进入列编辑模式，再I（大写），输入你想要的字符，再esc就可以了<br />
+22、列删除<br />
+ctrl+v，选中要删除的，再d<br />
+23、以单词为单位前进/后退<br />
+按w来前进一个单词，b来后退一个单词。<br />
+这里一个单词的概念是空格隔开，也可以使它不是空格，设置：<br />
+set iskeyword=@<br />
+这样就以#来分单词，可以指定多个，用逗号隔开<br />
+值如下：<br />
+a 字符a<br />
+a-z 所有由a到z的字符<br />
+@ 由函数isalpha()所定义的所有字符<br />
+@-@ 字符@<br />
+^x 除了x以外的字符<br />
+^a-c 除了a到c以外的字符<br />
+Vim还有一种概念WORD。虽然这只是大小写的不同，但是他们却代表了两种不同的事物。word是指由iskeyword选项定义的字符串；而WORD则是指用空白符分隔的字符串。<br />
+ctrl+E 单词前进，ctrl+W<br />
+ctrl+B 单词后退</p>
+
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'jsongo';
+      
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</article>
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+    <div class="section-nav">
+      <div class="left align-right">
+          
+            
+            
+            <a href="/post/draft/2013/ubuntu-weinre/" class="prev">Back</a>
+          
+      </div>
+      <div class="right align-left">
+          
+            
+            
+            
+            <a href="/post/draft/2013/php-qrcode/" class="next">Next</a>
+          
+      </div>
+    </div>
+    <div class="clear"></div>
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+      </div>
+
+      <div class="unit one-fourth hide-on-mobiles">
+  <aside>
+    <h4>Recent Releases</h4>
+    <ul>
+      
+      <li class="">
+        <a href="/post/other/2015/markdown-syntax/"><span>Markdown 语法说明[转]</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/my-first-post/"><span>my first post, just chattering</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/jekyll-3-0-0-beta1-released/"><span>Jekyll 3.0.0.beta1 Released</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/security/2014/nginx-https/"><span>nginx的https设置</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/chatter/2014/attend-the-startup-meeting/"><span>第一次去参加创业公社的交流会</span></a>
+      </li>
+      
+    </ul>
+    <h4>Categories</h4>
+    <ul>
+      
+        <li class="">
+          <a href="/post/theory">theory</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/python">python</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/chatter">chatter</a>
+        </li>
+      
+        <li class="current">
+          <a href="/post/draft">draft</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/security">security</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/linux">linux</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/vi">vi</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/other">other</a>
+        </li>
+      
+    </ul>
+  </aside>
+</div>
+
+
+      <div class="clear"></div>
+
+    </div>
+  </section>
+
+
+  <footer role="contentinfo">
+  <div class="grid">
+    <div class="unit half center-on-mobiles">
+      <p>The contents of this website are &copy;&nbsp;2015 <br/>
+      Jsongo&nbsp;
+        <a class="twitter-follow-button" href="https://twitter.com/js0ng0" data-size="middle">@Twitter</a>&nbsp;&nbsp;
+        <a class="facebook-follow-button" href="https://facebook.com/js0ng0" data-size="middle">@Facebook</a></p>
+    </div>
+    <div class="unit half align-right center-on-mobiles">
+      <p>
+        Proudly hosted by
+        <a href="https://github.com">
+          <img src="/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+        </a>
+      </p>
+    </div>
+    <div class="follow-btns">
+    </div>
+  </div>
+</footer>
+
+  <script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<span class=\"sr-only\">Permalink</span><i class=\"fa fa-link\"></i>";
+    anchor.title = "Permalink";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("news")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+
+  
+  <!-- Gauges (http://gaug.es/) -->
+  <script>
+    var _gauges = _gauges || [];
+    (function() {
+      var t   = document.createElement('script');
+      t.type  = 'text/javascript';
+      t.async = true;
+      t.id    = 'gauges-tracker';
+      t.setAttribute('data-site-id', '503c5af6613f5d0f19000027');
+      t.src = '//secure.gaug.es/track.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(t, s);
+    })();
+  </script>
+
+
+
+
+
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?35812f595e2a9532207151e3c2bb34af";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+      })();
+  </script>
+
+
+</body>
+</html>

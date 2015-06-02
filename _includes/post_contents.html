@@ -4,8 +4,16 @@
     <ul>
       {% for post in site.posts limit:5 %}
       <li class="{% if page.title == post.title %}current{% endif %}">
-        <a href="{{ post.url }}">Version {{ post.version }}</a>
+        <a href="{{ post.url }}"><span>{{ post.title }}</span></a>
       </li>
+      {% endfor %}
+    </ul>
+    <h4>Categories</h4>
+    <ul>
+      {% for category in site.categories %}
+        <li class="{% if page.categories contains category[0] %}current{% endif %}">
+          <a href="/post/{{ category[0] }}">{{ category[0] }}</a>
+        </li>
       {% endfor %}
     </ul>
   </aside>

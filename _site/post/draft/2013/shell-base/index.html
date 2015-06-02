@@ -1,0 +1,770 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- 请360浏览器用webkit来渲染 -->
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="1、case流程控制case &quot;$key&quot; in  [a-z])  echo &quot;小写字母&quot;  ;;  [A-Z])  echo &quot;大写字母&quot;  ;;  *)  echo &quot;其它字符&quot;  esac">
+    <meta name="author" content="jsongo">
+    <link rel="canonical" href="/post/draft/2013/shell-base/">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>shell基础 笔记 [by Jsongo]</title>
+    <meta name="generator" content="Jekyll v2.5.3">
+    <link rel="alternate" type="application/rss+xml" title="Jekyll • Simple, blog-aware, static sites - Feed" href="/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="Recent commits to Jekyll’s master branch" href="https://github.com/jekyll/jekyll/commits/master.atom">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+    <link rel="stylesheet" href="/css/screen.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body class="wrap">
+  <header role="banner">
+  <nav class="mobile-nav show-on-mobiles">
+    <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/post/security/">Security</a>
+  </li>
+  <li class="">
+    <a href="/post/python/">Python</a>
+  </li>
+  <li class="">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="">
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+
+  </nav>
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <h1>
+        <a href="/">
+          <span class="sr-only">Jekyll</span>
+          <img src="/img/logo-2.png" height="115" alt="Jsongo Logo">
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav unit two-thirds hide-on-mobiles">
+      <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/post/security/">Security</a>
+  </li>
+  <li class="">
+    <a href="/post/python/">Python</a>
+  </li>
+  <li class="">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="">
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+
+    </nav>
+  </div>
+</header>
+
+
+    <section class="post">
+    <div class="grid">
+
+      <div class="docs-nav-mobile unit whole show-on-mobiles">
+  <select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Navigate the blog…</option>
+    <option value="/news/">Home</option>
+    <optgroup label="v1.x">
+      
+      <option value="/post/other/2015/markdown-syntax/">Markdown 语法说明[转]</option>
+      
+      <option value="/post/other/2015/my-first-post/">my first post, just chattering</option>
+      
+      <option value="/post/other/2015/jekyll-3-0-0-beta1-released/">Jekyll 3.0.0.beta1 Released</option>
+      
+      <option value="/post/security/2014/nginx-https/">nginx的https设置</option>
+      
+      <option value="/post/chatter/2014/attend-the-startup-meeting/">第一次去参加创业公社的交流会</option>
+      
+      <option value="/post/draft/2014/select-distinct-only-one/">select多个字段，但distinct一个字段的方法</option>
+      
+      <option value="/post/draft/2014/uwsgi-libgcc_s-so-1-installed-pthread_cancel-work/">uwsgi报错libgcc_s.so.1 must be installed for pthread_cancel to work</option>
+      
+      <option value="/post/draft/2014/svn-to-git/">把代码从svn搬到git上</option>
+      
+      <option value="/post/draft/2014/mac-eclipse-tips/">mac上eclipse的一些使用技巧记录</option>
+      
+      <option value="/post/chatter/2014/we-all-have-to-leave/">We all have to leave</option>
+      
+      <option value="/post/draft/2014/uwsgi_django_nginx/">uwsgi+django+nginx，报internal server error的可能原因</option>
+      
+      <option value="/post/draft/2014/stop-visit-via-htaccess/">用htaccess禁止访问目录</option>
+      
+      <option value="/post/draft/2014/nginx-redis-visit/">nginx把资源存入redis访问</option>
+      
+      <option value="/post/draft/2014/redis-error-jemalloc-h-file-directory/">redis编译报错jemalloc/jemalloc.h: No such file or directory</option>
+      
+      <option value="/post/draft/2014/wp-ftp-error/">wp中出现插件安装提示ftp登录的问题排查（nginx）</option>
+      
+      <option value="/post/draft/2014/nginx-php-download/">nginx中的php文件老是变成下载的一种情况</option>
+      
+      <option value="/post/draft/2014/clean-linux-space/">清理linux服务器上的磁盘空间</option>
+      
+      <option value="/post/draft/2014/mac-linux-boot-usb/">mac上制作linux启动安装盘</option>
+      
+      <option value="/post/security/2014/hydra-attack-auth/">hydra，对会话认证的攻击</option>
+      
+      <option value="/post/draft/2014/msf-ruby-version/">msf更换ruby版本</option>
+      
+      <option value="/post/draft/2014/brew-cant-root/">brew 报错，无法用root执行</option>
+      
+      <option value="/post/draft/2014/mac-brew/">mac里的apt-get</option>
+      
+      <option value="/post/draft/2014/mac-linux-terminal-keys/">mac/linux终端里的几个快捷键</option>
+      
+      <option value="/post/draft/2014/redis-redmon/">redis监控</option>
+      
+      <option value="/post/draft/python/2014/django-redis/">django+redis</option>
+      
+      <option value="/post/draft/vi/2014/vim-advance/">vim高级使用技巧</option>
+      
+      <option value="/post/draft/2013/redis-base/">redis简单操作</option>
+      
+      <option value="/post/draft/2013/shell-base/">shell基础 笔记</option>
+      
+      <option value="/post/linux/2013/awk-sed/">awk/sed 笔记（一看就会）</option>
+      
+      <option value="/post/draft/2013/no-module-mysqldb/">ImportError: No module named MySQLdb（python）</option>
+      
+      <option value="/post/draft/2013/postgressql-learning1/">postgressql学习</option>
+      
+      <option value="/post/draft/2013/postgresql-init/">postgresql刚安装完登录不上的问题</option>
+      
+      <option value="/post/draft/2013/openerp-install/">OpenERP安装配置</option>
+      
+      <option value="/post/security/2013/snort-ids-ubuntu/">入侵检测(IDS)和snort</option>
+      
+      <option value="/post/security/2013/snorby-ubuntu/">snorby安装</option>
+      
+      <option value="/post/draft/2013/vim-ctags-javascript/">vim中强化ctags对javascript的支持</option>
+      
+      <option value="/post/chatter/2013/efficiency-time-play/">效率、时间、休整</option>
+      
+      <option value="/post/draft/2013/ubuntu-weinre/">ubuntu上配置weinre，远程调试页面脚本</option>
+      
+      <option value="/post/draft/2013/linux-vim/">linux vim学习汇总</option>
+      
+      <option value="/post/draft/2013/php-qrcode/">PHP生成二维码（phpQRcode）</option>
+      
+      <option value="/post/draft/2013/call-undefined-function-imagecreate/">Call to undefined function ImageCreate错误的解决</option>
+      
+      <option value="/post/draft/2013/apache-ruby-on-rails-redmine/">通过apache访问Ruby on Rails服务（redmine）</option>
+      
+      <option value="/post/draft/2013/ubuntu-reverse-proxy/">ubuntu上配置apache的反向代理</option>
+      
+      <option value="/post/draft/2013/ubuntu-apache2-add-module/">在ubuntu apache2上添加模块</option>
+      
+      <option value="/post/draft/2013/apt-get-subprocess-installed-post-installation-script-returned-error-exit-status-1/">apt-get 出现 "subprocess installed post-installation script returned error exit status 1"</option>
+      
+      <option value="/post/draft/2013/gem-install-mysql_query-error/">gem install 报错 checking for mysql_query() in -lmysqlclient... no</option>
+      
+      <option value="/post/draft/2013/django-ubuntu/">django在ubuntu上的安装</option>
+      
+      <option value="/post/chatter/2013/ie-eg-etc/">英文中的i.e.,e.g.,etc.等</option>
+      
+      <option value="/post/python/2013/python-window-6/">python的系统底层操作6——硬断点</option>
+      
+      <option value="/post/python/2013/python-window-5/">python的系统底层操作5&mdash;软断点</option>
+      
+      <option value="/post/python/2013/python-window-4/">python的系统底层操作4&mdash;寄存器</option>
+      
+      <option value="/post/python/2013/python-window-3/">python的系统底层操作3——进程注入</option>
+      
+      <option value="/post/python/2013/python-window-2/">python的系统底层操作2——调用函数</option>
+      
+      <option value="/post/python/2013/python-window-1/">python的系统底层操作1——基础</option>
+      
+      <option value="/post/python/2013/salt-base64/">加盐base64算法（自创）(python)</option>
+      
+      <option value="/post/python/2013/some-code-about-python/">python的几个语法收集</option>
+      
+      <option value="/post/python/2013/gbk-to-utf8/">批量转换编码的python实现</option>
+      
+      <option value="/post/python/2013/ip-to-int/">转IP地址为长整数的脚本(python)</option>
+      
+      <option value="/post/python/2013/birthday-paradox/">计算生日悖论(python)</option>
+      
+      <option value="/post/theory/2013/arp-rarp/">ARP地址解析协议、RARP逆地址解析协议</option>
+      
+      <option value="/post/theory/2013/ip-intro/">IP，网际协议</option>
+      
+    </optgroup>
+  </select>
+</div>
+
+
+      <div class="unit three-fourths">
+        <article>
+  <h2>
+    shell基础 笔记
+    <a href="/post/draft/2013/shell-base/" class="permalink" title="Permalink">∞</a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      22 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    <p>1、case流程控制</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">case</span> <span class="s2">&quot;$key&quot;</span> in  
+<span class="o">[</span>a-z<span class="o">])</span>  
+<span class="nb">echo</span> <span class="s2">&quot;小写字母&quot;</span>  
+<span class="p">;;</span>  
+<span class="o">[</span>A-Z<span class="o">])</span>  
+<span class="nb">echo</span> <span class="s2">&quot;大写字母&quot;</span>  
+<span class="p">;;</span>  
+*<span class="o">)</span>  
+<span class="nb">echo</span> <span class="s2">&quot;其它字符&quot;</span>  
+<span class="k">esac</span></code></pre></div>
+
+<p>2、for循环</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for</span> <span class="nv">$key</span> in list  
+<span class="k">do</span>  
+....  
+<span class="k">done</span></code></pre></div>
+
+<p>如 可以for num in 12 33 35<br />
+取文件内容 for word in $(cat /etc/host.conf)<br />
+$()用来执行其它指令，并把结果返回<br />
+例子：</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for</span> name in <span class="k">$(</span>cat user.txt<span class="k">)</span>  
+<span class="k">do</span>  
+useradd <span class="nv">$name</span>  
+<span class="nb">echo</span> <span class="s2">&quot;123456&quot;</span> <span class="p">|</span> passwd -stdin <span class="nv">$name</span>  
+chage -d <span class="m">0</span> <span class="nv">$name</span> <span class="c">#让用户的密码过期，强制让其重新设置密码  </span>
+<span class="k">done</span></code></pre></div>
+
+<hr />
+<p>2、if判断</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">if</span> 条件  
+<span class="k">then</span> ...  
+<span class="k">fi</span></code></pre></div>
+
+<p>很简单，其中的条件，每个判断可以用[ ]来包起来<br />
+例子：</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span>! -d <span class="s1">&#39;/home/json&#39;</span><span class="o">]</span> <span class="c">#-d用来判断是否是一个文件夹  </span>
+<span class="k">then</span>  
+<span class="nb">echo</span> <span class="s2">&quot;文件夹不存在&quot;</span>  
+<span class="k">fi</span></code></pre></div>
+
+<h2 id="thenelseifelif">then可以并列一个else，多if的可以用elif</h2>
+<p>3、字符串</p>
+
+<ul>
+  <li>字符串截取</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">str</span><span class="o">=</span><span class="s2">&quot;/etc/host.conf&quot;</span>  
+dirname <span class="nv">$str</span>     <span class="c">#得到/etc  </span>
+basename <span class="nv">$str</span>    <span class="c">#得到host.conf  </span>
+<span class="c">#用substr：  </span>
+expr substr <span class="nv">$str</span> <span class="m">6</span> <span class="m">10</span>      从位置6截取10个长度，得到host.conf。注意这里是从1开始算起的  
+<span class="nb">echo</span> <span class="k">${</span><span class="nv">str</span><span class="p">:</span><span class="nv">5</span><span class="p">:</span><span class="nv">10</span><span class="k">}</span>   一样的结果，这里是从0开始算起的。可空</code></pre></div>
+
+<ul>
+  <li>替换</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="k">${</span><span class="nv">str</span><span class="p">/old/new</span><span class="k">}</span>    str的值不变。这个只会替换一个，要全部替换，使用下面的：  
+<span class="nb">echo</span> <span class="k">${</span><span class="nv">str</span><span class="p">//old/new</span><span class="k">}</span>  使用两个/     在vi里面也有类似的，不过它表示全部替换时是用/g</code></pre></div>
+
+<ul>
+  <li>生成随机串</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">head -1 /dev/urandom <span class="p">|</span> md5sum <span class="p">|</span> cut -b 0-9</code></pre></div>
+
+<p>cut中0可省略。/dev/urandom是用来产生随机字符的设备。md5sum得到md5摘要，结果后面有空格和横杠，用cut来截取需要的。</p>
+
+<p>4、条件测试<br />
+test 或者[条件]<br />
+[-d /home/abc] &amp;&amp; echo YES      如果/home/abc是目录，则打印出YES<br />
+参数有：<br />
+-e 是否存在exist<br />
+-d 是否是目录<br />
+-f 是否是文件<br />
+-x 是否可执行<br />
+-r 是否可读<br />
+-w 是否可写<br />
+另外数值比较：<br />
+-eq 等于    -ne 不等于     -gt  大于     -lt 小于     -ge   大于等于     -le 小于等于<br />
+例子：</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">[</span><span class="k">$(</span>who <span class="p">|</span> wc -l<span class="k">)</span> -eq 2<span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo </span>YES</code></pre></div>
+
+<ul>
+  <li>字符串比较 =和!=</li>
+</ul>
+
+<p>5、其它<br />
+（1）find /etc -name "*.conf" -type f | wc -l        统计/etc目录下所有的conf后缀的文件（算出个数）<br />
+（2）标准错误输出：<br />
+2&gt;、2»      将错误信息覆盖、追加到文件中<br />
+（3）正常输出和错误输出一起<br />
+&amp;&gt;、&amp;»<br />
+（4）||来隔开两个命令，那么第一个执行如果成功，第二个就不会执行。<br />
+mkdir /home/abc 2&gt;/dev/null &amp;&amp; echo "创建成功"<br />
+换成||就echo "执行失败"<br />
+（5）分隔符来分隔多个命令，则前面的执行完后，会回车再执行第二个<br />
+（6）双引号：允许引用和转义<br />
+单引号禁止引用、转义<br />
+$(命令) 或 `命令`<br />
+特殊的反撇号引起来的表示执行后用结果替换当前位置<br />
+（7）系统变量<br />
+可以用    env | awk -F= '/=/ {print $1}'    来查看<br />
+（8）脚本特殊变量<br />
+$? 前一条命令的状态值，0为执行正常<br />
+$0 脚本自身的程序名<br />
+$1-9  第1-9个参数<br />
+$* 命令行的所有参数<br />
+$# 命令行的参数个数<br />
+（9）运算</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">expr 1+1  
+<span class="c">#乘法要注意，expr 1\*2  </span>
+<span class="nv">x</span><span class="o">=</span>11<span class="p">;</span> <span class="nv">y</span><span class="o">=</span>22<span class="p">;</span> <span class="nb">echo</span> <span class="nv">$[</span>x+y<span class="o">]</span></code></pre></div>
+
+<p>$[]放中括号里面的变量不用再加$<br />
+自增自减等用let         let x++        let x+=2           let后的变量不用再加$<br />
+（10）随机数 $RANDOM<br />
+值默认是从0到32767<br />
+（11）生成序列，像python里面的range，shell里面用seq<br />
+seq 3   输出1 2 3<br />
+seq 2 4  输出2 3 4<br />
+seq 3 2 10  中间的数表示step，输出3 5 7 9<br />
+（12）小数运算<br />
+使用bc</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&quot;23.31-18.97&quot;</span> <span class="p">|</span> bc  
+<span class="c">#用除法时可以用scale来限定小数的位数：  </span>
+<span class="nb">echo</span> <span class="s2">&quot;scale=4;10/3&quot;</span> <span class="p">|</span> bc</code></pre></div>
+
+
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'jsongo';
+      
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</article>
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+    <div class="section-nav">
+      <div class="left align-right">
+          
+            
+            
+            <a href="/post/draft/2013/redis-base/" class="prev">Back</a>
+          
+      </div>
+      <div class="right align-left">
+          
+            
+            
+            
+            <a href="/post/linux/2013/awk-sed/" class="next">Next</a>
+          
+      </div>
+    </div>
+    <div class="clear"></div>
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+      </div>
+
+      <div class="unit one-fourth hide-on-mobiles">
+  <aside>
+    <h4>Recent Releases</h4>
+    <ul>
+      
+      <li class="">
+        <a href="/post/other/2015/markdown-syntax/"><span>Markdown 语法说明[转]</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/my-first-post/"><span>my first post, just chattering</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/jekyll-3-0-0-beta1-released/"><span>Jekyll 3.0.0.beta1 Released</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/security/2014/nginx-https/"><span>nginx的https设置</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/chatter/2014/attend-the-startup-meeting/"><span>第一次去参加创业公社的交流会</span></a>
+      </li>
+      
+    </ul>
+    <h4>Categories</h4>
+    <ul>
+      
+        <li class="">
+          <a href="/post/theory">theory</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/python">python</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/chatter">chatter</a>
+        </li>
+      
+        <li class="current">
+          <a href="/post/draft">draft</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/security">security</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/linux">linux</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/vi">vi</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/other">other</a>
+        </li>
+      
+    </ul>
+  </aside>
+</div>
+
+
+      <div class="clear"></div>
+
+    </div>
+  </section>
+
+
+  <footer role="contentinfo">
+  <div class="grid">
+    <div class="unit half center-on-mobiles">
+      <p>The contents of this website are &copy;&nbsp;2015 <br/>
+      Jsongo&nbsp;
+        <a class="twitter-follow-button" href="https://twitter.com/js0ng0" data-size="middle">@Twitter</a>&nbsp;&nbsp;
+        <a class="facebook-follow-button" href="https://facebook.com/js0ng0" data-size="middle">@Facebook</a></p>
+    </div>
+    <div class="unit half align-right center-on-mobiles">
+      <p>
+        Proudly hosted by
+        <a href="https://github.com">
+          <img src="/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+        </a>
+      </p>
+    </div>
+    <div class="follow-btns">
+    </div>
+  </div>
+</footer>
+
+  <script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<span class=\"sr-only\">Permalink</span><i class=\"fa fa-link\"></i>";
+    anchor.title = "Permalink";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("news")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+
+  
+  <!-- Gauges (http://gaug.es/) -->
+  <script>
+    var _gauges = _gauges || [];
+    (function() {
+      var t   = document.createElement('script');
+      t.type  = 'text/javascript';
+      t.async = true;
+      t.id    = 'gauges-tracker';
+      t.setAttribute('data-site-id', '503c5af6613f5d0f19000027');
+      t.src = '//secure.gaug.es/track.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(t, s);
+    })();
+  </script>
+
+
+
+
+
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?35812f595e2a9532207151e3c2bb34af";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+      })();
+  </script>
+
+
+</body>
+</html>
