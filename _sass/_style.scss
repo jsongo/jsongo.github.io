@@ -58,7 +58,7 @@ footer {
 header {
 
   h1,
-  nav { display: inline-block; }
+  nav { display: inline-block; margin: 0;}
 
 }
 
@@ -1036,4 +1036,10 @@ div.post-content {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+/* search */
+a.st-ui-search-tab {
+  bottom: inherit!important;
+  top: 100px;
 }

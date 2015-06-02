@@ -376,7 +376,8 @@ footer {
 /* Header */
 header h1,
 header nav {
-  display: inline-block; }
+  display: inline-block;
+  margin: 0; }
 
 nav ul {
   padding: 0;
@@ -1235,6 +1236,11 @@ blockquote p {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0; }
+
+/* search */
+a.st-ui-search-tab {
+  bottom: inherit !important;
+  top: 100px; }
 
 /**
  * Syntax highlighting styles
