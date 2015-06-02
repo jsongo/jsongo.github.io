@@ -83,6 +83,14 @@
 
     </nav>
   </div>
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','2Udxm6kkHjbbfGVntsEy','2.0.0');
+  </script>
 </header>
 
 
@@ -94,6 +102,8 @@
     <option value="">Navigate the blog…</option>
     <option value="/news/">Home</option>
     <optgroup label="v1.x">
+      
+      <option value="/post/draft/2015/git-re-commit-brand-new-code/">git全新版本代码如何提交（不覆盖原代码）</option>
       
       <option value="/post/other/2015/markdown-syntax/">Markdown 语法说明[转]</option>
       
@@ -224,6 +234,37 @@
 
       <div class="unit three-fourths">
         
+  <article>
+  <h2>
+    <a href="/post/chatter/2014/we-all-have-to-leave/">
+      We all have to leave
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      chatter
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      25 Apr 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>&nbsp;Every time I drink too much , things appear in my mind are all expressed in En. I don&rsquo;t know why. Since middle high school, My English is always the best in the whole grade. I love speaking it, using it. But I&rsquo;ve no Idea why I would do that. Many of my high school diaries are written in En, event the daily schedules.</p>
+
+
+    
+  </div>
+  
+</article>
+
+
   <article>
   <h2>
     <a href="/post/draft/2014/uwsgi_django_nginx/">
@@ -513,111 +554,6 @@
 
 <p>它支持破解很多种协议，常见的有HTTP-FORM-GET，HTTP-FORM-POST，SSH等，另外还有（来自官网）：</p>
 
-<p>Asterisk，AFP，思科，CVS，Firebird，FTP，HTTP-GET，HTTP头，HTTP代理，HTTPS-FORM-GET，HTTPS-FORM POST，IMAP，HTTP代理，HTTPS的GET，HTTPS头，ICQ，IRC，LDAP，MS-SQL，MYSQL，NCP，NNTP，Oracle的监听，Oracle的SID，oracle数据库，PCAnywhere，PCNFS，POP3，POSTGRES，RDP，REXEC，Rlogin，RSH，SAP/R3，SIP，SMB，SMTP，SMTP枚举，SNMP，SOCKS5，SSH（v1和v2），Subversion，TeamSpeak（TS2），telnet，VMware的认证，VNC和XMPP</p>
-
-<p>(Asterisk, AFP, Cisco AAA, Cisco auth, Cisco enable, CVS, Firebird, FTP, HTTP-FORM-GET, HTTP-FORM-POST, HTTP-GET, HTTP-HEAD, HTTP-PROXY, HTTPS-FORM-GET, HTTPS-FORM-POST, HTTPS-GET, HTTPS-HEAD, HTTP-Proxy, ICQ, IMAP, IRC, LDAP, MS-SQL, MYSQL, NCP, NNTP, Oracle Listener, Oracle SID, Oracle, PC-Anywhere, PCNFS, POP3, POSTGRES, RDP, Rexec, Rlogin, Rsh, S7-300, SAP/R3, SIP, SMB, SMTP, SMTP Enum, SNMP, SOCKS5, SSH (v1 and v2), Subversion, Teamspeak (TS2), Telnet, VMware-Auth, VNC and XMPP)</p>
-
-<p>可谓无所不能。不过使用的时候，一般都需要一个字典文件。只要你的字典够强大，网络任你行。</p>
-
-<p>在mac上实验。下载源码包，需要手动编译。安装前先装好pcre和libssh两个库。</p>
-
-<p>然后就是./configure &amp;&amp; make &amp;&amp; make install了</p>
-
-<p>破解ssh登录认证：</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">hydra jsongo.com ssh<span class="p">&amp;</span>nbsp<span class="p">;&amp;</span>nbsp<span class="p">;</span>-l root -P tmp.txt</code></pre></div>
-
-<p>破解post用户名密码：</p>
-
-<p>破解ftp：</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># hydra ip ftp -l 用户名 -P 密码字典 -t 线程(默认16) -vV&lt;br /&gt;</span>
-<span class="c"># hydra ip ftp -l 用户名 -P 密码字典 -e ns -vV&lt;br /&gt;</span></code></pre></div>
-
-<p>get方式提交，破解web登录：</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns ip http-get /admin/&lt;br /&gt;</span>
-<span class="c"># hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns -f ip http-get /admin/index.php&lt;br /&gt;</span></code></pre></div>
-
-<p>post方式提交，破解web登录：<br />
-该软件的强大之处就在于支持多种协议的破解，同样也支持对于web用户界面的登录破解，get方式提交的表单比较简单，这里通过post方式提交密码破解提供思路。该工具有一个不好的地方就是，如果目标网站登录时候需要验证码就无法破解了。带参数破解如下：</p>
-
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;index.php&quot;</span> <span class="na">method=</span><span class="s">&quot;POST&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="nt">/&gt;&lt;BR&gt;&lt;br&gt;&lt;br</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;password&quot;</span> <span class="na">name=</span><span class="s">&quot;pwd&quot;</span> <span class="nt">/&gt;&lt;br&gt;&lt;br&gt;&lt;br</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">name=</span><span class="s">&quot;sub&quot;</span> <span class="na">value=</span><span class="s">&quot;提交&quot;</span><span class="nt">&gt;&lt;br</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;/form&gt;&lt;br</span> <span class="nt">/&gt;</span></code></pre></div>
-
-<p>假设有以上一个密码登录表单，我们执行命令：</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># hydra -l admin -P pass.lst -o ok.lst -t 1 -f 127.0.0.1 http-post-form &amp;ldquo;index.php:name=^USER^&amp;amp;pwd=^PASS^:&lt;title&gt;invalido&lt;/title&gt;&amp;rdquo;&lt;br /&gt;</span></code></pre></div>
-
-<p>说明：破解的用户名是admin，密码字典是pass.lst，破解结果保存在ok.lst，-t 是同时线程数为1，-f 是当破解了一个密码就停止，ip 是本地，就是目标ip，http-post-form表示破解是采用http 的post 方式提交的表单密码破解。</p>
-
-<p>后面参数是网页中对应的表单字段的name 属性，后面<title>中的内容是表示错误猜解的返回信息提示，可以自定义。</title></p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">破解https：
-<span class="c"># hydra -m /index.php -l muts -P pass.txt 10.36.16.18 https</span>
-破解teamspeak：
-<span class="c"># hydra -l 用户名 -P 密码字典 -s 端口号 -vV ip teamspeak</span>
-破解cisco：
-<span class="c"># hydra -P pass.txt 10.36.16.18 cisco</span>
-<span class="c"># hydra -m cloud -P pass.txt 10.36.16.18 cisco-enable</span>
-破解smb：
-<span class="c"># hydra -l administrator -P pass.txt 10.36.16.18 smb</span>
-破解pop3：
-<span class="c"># hydra -l muts -P pass.txt my.pop3.mail pop3</span>
-破解rdp：
-<span class="c"># hydra ip rdp -l administrator -P pass.txt -V</span>
-破解http-proxy：
-<span class="c"># hydra -l admin -P pass.txt http-proxy://10.36.16.18</span>
-破解imap：
-<span class="c"># hydra -L user.txt -p secret 10.36.16.18 imap PLAIN</span>
-<span class="c"># hydra -C defaults.txt -6 imap://[fe80::2c:31ff:fe12:ac11]:143/PLAIN</span>
-破解telnet
-<span class="c"># hydra ip telnet -l 用户 -P 密码字典 -t 32 -s 23 -e ns -f -V</span></code></pre></div>
-
-<p>最后的示例来自：http://www.cnblogs.com/patf/p/3142564.html</p>
-
-
-    
-  </div>
-  
-</article>
-
-
-  <article>
-  <h2>
-    <a href="/post/draft/2014/msf-ruby-version/">
-      msf更换ruby版本
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      draft
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      16 Feb 2014
-    </span>
-    <a href="https://github.com/jsongo" class="post-author">
-      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
-      jsongo
-    </a>
-  </div>
-  <div class="post-content">
-    
-    <p>msf和ruby2.0兼容貌似不是很好，在mac安装时，运行msfconsole总是运行不起来。网上查了下，是和ruby2.0的兼容问题。官方是声称可以支持2.0，不过是有不少问题。所以干脆把版本切换回1.9</p>
-
-<p>先安装rvm，即ruby version manager，用来管理ruby的版本的。教程很多，不列举了。</p>
-
-<p>然后运行rvm 1.9.3-p484 –default</p>
-
-<p>写这篇文章时，msf最新开发版引用的是ruby的这个版本。</p>
-
-<p>之后再bundle install一下，再运行msf，可能之前的问题就消失了！</p>
-
 
     
   </div>
@@ -852,12 +788,19 @@
 
   
 
+
+  
+
       </div>
 
       <div class="unit one-fourth hide-on-mobiles">
   <aside>
     <h4>Recent Releases</h4>
     <ul>
+      
+      <li class="">
+        <a href="/post/draft/2015/git-re-commit-brand-new-code/"><span>git全新版本代码如何提交（不覆盖原代码）</span></a>
+      </li>
       
       <li class="">
         <a href="/post/other/2015/markdown-syntax/"><span>Markdown 语法说明[转]</span></a>
@@ -873,10 +816,6 @@
       
       <li class="">
         <a href="/post/security/2014/nginx-https/"><span>nginx的https设置</span></a>
-      </li>
-      
-      <li class="">
-        <a href="/post/chatter/2014/attend-the-startup-meeting/"><span>第一次去参加创业公社的交流会</span></a>
       </li>
       
     </ul>

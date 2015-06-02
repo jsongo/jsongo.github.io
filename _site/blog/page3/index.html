@@ -83,6 +83,14 @@
 
     </nav>
   </div>
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','2Udxm6kkHjbbfGVntsEy','2.0.0');
+  </script>
 </header>
 
 
@@ -94,6 +102,8 @@
     <option value="">Navigate the blog…</option>
     <option value="/news/">Home</option>
     <optgroup label="v1.x">
+      
+      <option value="/post/draft/2015/git-re-commit-brand-new-code/">git全新版本代码如何提交（不覆盖原代码）</option>
       
       <option value="/post/other/2015/markdown-syntax/">Markdown 语法说明[转]</option>
       
@@ -224,6 +234,45 @@
 
       <div class="unit three-fourths">
         
+  <article>
+  <h2>
+    <a href="/post/draft/2014/msf-ruby-version/">
+      msf更换ruby版本
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      16 Feb 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>msf和ruby2.0兼容貌似不是很好，在mac安装时，运行msfconsole总是运行不起来。网上查了下，是和ruby2.0的兼容问题。官方是声称可以支持2.0，不过是有不少问题。所以干脆把版本切换回1.9</p>
+
+<p>先安装rvm，即ruby version manager，用来管理ruby的版本的。教程很多，不列举了。</p>
+
+<p>然后运行rvm 1.9.3-p484 –default</p>
+
+<p>写这篇文章时，msf最新开发版引用的是ruby的这个版本。</p>
+
+<p>之后再bundle install一下，再运行msf，可能之前的问题就消失了！</p>
+
+
+    
+  </div>
+  
+</article>
+
+
   <article>
   <h2>
     <a href="/post/draft/2014/brew-cant-root/">
@@ -363,15 +412,6 @@ Ctrl + Z 将当前程序放置于后台运行，可以用 fg 来恢复</p>
     
     <p>监控redis的实时情况和总体数据，界面：</p>
 
-<p><img src="/img/201401/redmon.png" alt="" /></p>
-
-<p>安装很简单，直接用gem:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">gem install redmon</code></pre></div>
-
-<p>然后运行redmon，它就会自己开一个端口，默认是4567，用浏览器直接访问就可以了。<br />
-redmon的详细说明在：https://github.com/steelThread/redmon</p>
-
 
     
   </div>
@@ -504,17 +544,6 @@ git clone下来后，运行python setup.py install 就ok了</p>
     
     <p>1、case流程控制</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">case</span> <span class="s2">&quot;$key&quot;</span> in  
-<span class="o">[</span>a-z<span class="o">])</span>  
-<span class="nb">echo</span> <span class="s2">&quot;小写字母&quot;</span>  
-<span class="p">;;</span>  
-<span class="o">[</span>A-Z<span class="o">])</span>  
-<span class="nb">echo</span> <span class="s2">&quot;大写字母&quot;</span>  
-<span class="p">;;</span>  
-*<span class="o">)</span>  
-<span class="nb">echo</span> <span class="s2">&quot;其它字符&quot;</span>  
-<span class="k">esac</span></code></pre></div>
-
 
     
   </div>
@@ -547,37 +576,6 @@ git clone下来后，运行python setup.py install 就ok了</p>
     <p>awk 选取内容输出<br />
 格式：awk '模式 {操作}' file1 file2 …<br />
 模式可以由下面内置变量构成，也可以用正则表达式。操作就是linux提供或自定义的指令</p>
-
-
-    
-  </div>
-  
-</article>
-
-
-  <article>
-  <h2>
-    <a href="/post/draft/2013/no-module-mysqldb/">
-      ImportError: No module named MySQLdb（python）
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      draft
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      13 Dec 2013
-    </span>
-    <a href="https://github.com/jsongo" class="post-author">
-      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
-      jsongo
-    </a>
-  </div>
-  <div class="post-content">
-    
-    <p>python连接数据库时，报错：</p>
 
 
     
@@ -813,12 +811,19 @@ git clone下来后，运行python setup.py install 就ok了</p>
 
   
 
+
+  
+
       </div>
 
       <div class="unit one-fourth hide-on-mobiles">
   <aside>
     <h4>Recent Releases</h4>
     <ul>
+      
+      <li class="">
+        <a href="/post/draft/2015/git-re-commit-brand-new-code/"><span>git全新版本代码如何提交（不覆盖原代码）</span></a>
+      </li>
       
       <li class="">
         <a href="/post/other/2015/markdown-syntax/"><span>Markdown 语法说明[转]</span></a>
@@ -834,10 +839,6 @@ git clone下来后，运行python setup.py install 就ok了</p>
       
       <li class="">
         <a href="/post/security/2014/nginx-https/"><span>nginx的https设置</span></a>
-      </li>
-      
-      <li class="">
-        <a href="/post/chatter/2014/attend-the-startup-meeting/"><span>第一次去参加创业公社的交流会</span></a>
       </li>
       
     </ul>

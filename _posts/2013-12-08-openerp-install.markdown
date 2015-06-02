@@ -16,6 +16,7 @@ comments: []
 ubuntu上安装奶简单，sudo apt-get install postgresql，其它平台的怎么装就不说了。  
 安装openerp时，先加下面的源（/etc/apt/sources.list）  
 
+
 > deb http://nightly.openerp.com/7.0/nightly/deb/ ./  
 
 然后更新下：  

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>/post/draft/2015/git-re-commit-brand-new-code/</loc>
+    <lastmod>2015-06-01T13:01:14+08:00</lastmod>
+  </url>
+  <url>
     <loc>/post/other/2015/markdown-syntax/</loc>
     <lastmod>2015-05-30T20:30:39+08:00</lastmod>
   </url>
@@ -248,40 +252,37 @@
     <loc>/about.html</loc>
   </url>
   <url>
-    <loc>/post/python/</loc>
-  </url>
-  <url>
-    <loc>/post/js/</loc>
-  </url>
-  <url>
-    <loc>/post/</loc>
+    <loc>/post/draft/</loc>
   </url>
   <url>
     <loc>/</loc>
   </url>
   <url>
-    <loc>/post/security/</loc>
+    <loc>/post/chatter/</loc>
+  </url>
+  <url>
+    <loc>/post/</loc>
   </url>
   <url>
     <loc>/post/other/</loc>
   </url>
   <url>
-    <loc>/blog/page2/</loc>
+    <loc>/post/security/</loc>
   </url>
   <url>
-    <loc>/blog/page3/</loc>
+    <loc>/post/vi/</loc>
   </url>
   <url>
-    <loc>/blog/page4/</loc>
+    <loc>/post/js/</loc>
   </url>
   <url>
-    <loc>/blog/page5/</loc>
+    <loc>/post/python/</loc>
   </url>
   <url>
-    <loc>/blog/page6/</loc>
+    <loc>/post/linux/</loc>
   </url>
   <url>
-    <loc>/blog/page7/</loc>
+    <loc>/post/theory/</loc>
   </url>
   <url>
     <loc>/img/201211/21/index.html</loc>

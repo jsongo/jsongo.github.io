@@ -12,7 +12,9 @@ categories: [draft]
 tags: [redis]
 comments: []
 ---
-1、case流程控制  
+1、case流程控制
+
+
 {% highlight bash %}  
 case "$key" in  
 [a-z])  

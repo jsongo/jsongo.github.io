@@ -1075,6 +1075,9 @@ code.filter,
 code.output {
   margin-bottom: 2px; }
 
+div.post-content {
+  overflow: hidden; }
+
 /* Note types */
 .note, blockquote {
   margin: 30px 0;

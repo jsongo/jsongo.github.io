@@ -16,6 +16,7 @@ comments: []
 
 它支持破解很多种协议，常见的有HTTP-FORM-GET，HTTP-FORM-POST，SSH等，另外还有（来自官网）：
 
+
 Asterisk，AFP，思科，CVS，Firebird，FTP，HTTP-GET，HTTP头，HTTP代理，HTTPS-FORM-GET，HTTPS-FORM POST，IMAP，HTTP代理，HTTPS的GET，HTTPS头，ICQ，IRC，LDAP，MS-SQL，MYSQL，NCP，NNTP，Oracle的监听，Oracle的SID，oracle数据库，PCAnywhere，PCNFS，POP3，POSTGRES，RDP，REXEC，Rlogin，RSH，SAP/R3，SIP，SMB，SMTP，SMTP枚举，SNMP，SOCKS5，SSH（v1和v2），Subversion，TeamSpeak（TS2），telnet，VMware的认证，VNC和XMPP
 
 (Asterisk, AFP, Cisco AAA, Cisco auth, Cisco enable, CVS, Firebird, FTP, HTTP-FORM-GET, HTTP-FORM-POST, HTTP-GET, HTTP-HEAD, HTTP-PROXY, HTTPS-FORM-GET, HTTPS-FORM-POST, HTTPS-GET, HTTPS-HEAD, HTTP-Proxy, ICQ, IMAP, IRC, LDAP, MS-SQL, MYSQL, NCP, NNTP, Oracle Listener, Oracle SID, Oracle, PC-Anywhere, PCNFS, POP3, POSTGRES, RDP, Rexec, Rlogin, Rsh, S7-300, SAP/R3, SIP, SMB, SMTP, SMTP Enum, SNMP, SOCKS5, SSH (v1 and v2), Subversion, Teamspeak (TS2), Telnet, VMware-Auth, VNC and XMPP)

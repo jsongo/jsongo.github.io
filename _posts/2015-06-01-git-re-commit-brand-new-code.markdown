@@ -40,7 +40,7 @@ git push origin master
 到新代码目录执行
 {% highlight bash %}
 git init
-git remote add origin http://git.8pig.net/8pig/pc-intro.git
+git remote add origin http://xxx/xxx.git
 git pull origin master
 git add --all
 git commit -m 'commit new version'

@@ -14,6 +14,7 @@ comments: []
 ---
 监控redis的实时情况和总体数据，界面： 
 
+
 ![](/img/201401/redmon.png)
 
 安装很简单，直接用gem: 

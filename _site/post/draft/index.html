@@ -1,0 +1,1834 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- 请360浏览器用webkit来渲染 -->
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <meta name="author" content="jsongo">
+    <link rel="canonical" href="/post/draft/">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>草草笔记 [by Jsongo]</title>
+    <meta name="generator" content="Jekyll v2.5.3">
+    <link rel="alternate" type="application/rss+xml" title="Jekyll • Simple, blog-aware, static sites - Feed" href="/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="Recent commits to Jekyll’s master branch" href="https://github.com/jekyll/jekyll/commits/master.atom">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+    <link rel="stylesheet" href="/css/screen.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body class="wrap">
+  <header role="banner">
+  <nav class="mobile-nav show-on-mobiles">
+    <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/post/security/">Security</a>
+  </li>
+  <li class="">
+    <a href="/post/python/">Python</a>
+  </li>
+  <li class="">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="">
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+
+  </nav>
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <h1>
+        <a href="/">
+          <span class="sr-only">Jekyll</span>
+          <img src="/img/logo-2.png" height="115" alt="Jsongo Logo">
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav unit two-thirds hide-on-mobiles">
+      <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/post/security/">Security</a>
+  </li>
+  <li class="">
+    <a href="/post/python/">Python</a>
+  </li>
+  <li class="">
+    <a href="/post/js/">H5-JS-CSS3</a>
+  </li>
+  <li class="">
+    <a href="/post/other/">Other</a>
+  </li>
+  <li class="">
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+
+    </nav>
+  </div>
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','2Udxm6kkHjbbfGVntsEy','2.0.0');
+  </script>
+</header>
+
+
+    <section class="post">
+    <div class="grid">
+
+      <div class="docs-nav-mobile unit whole show-on-mobiles">
+  <select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Navigate the blog…</option>
+    <option value="/news/">Home</option>
+    <optgroup label="v1.x">
+      
+      <option value="/post/draft/2015/git-re-commit-brand-new-code/">git全新版本代码如何提交（不覆盖原代码）</option>
+      
+      <option value="/post/other/2015/markdown-syntax/">Markdown 语法说明[转]</option>
+      
+      <option value="/post/other/2015/my-first-post/">my first post, just chattering</option>
+      
+      <option value="/post/other/2015/jekyll-3-0-0-beta1-released/">Jekyll 3.0.0.beta1 Released</option>
+      
+      <option value="/post/security/2014/nginx-https/">nginx的https设置</option>
+      
+      <option value="/post/chatter/2014/attend-the-startup-meeting/">第一次去参加创业公社的交流会</option>
+      
+      <option value="/post/draft/2014/select-distinct-only-one/">select多个字段，但distinct一个字段的方法</option>
+      
+      <option value="/post/draft/2014/uwsgi-libgcc_s-so-1-installed-pthread_cancel-work/">uwsgi报错libgcc_s.so.1 must be installed for pthread_cancel to work</option>
+      
+      <option value="/post/draft/2014/svn-to-git/">把代码从svn搬到git上</option>
+      
+      <option value="/post/draft/2014/mac-eclipse-tips/">mac上eclipse的一些使用技巧记录</option>
+      
+      <option value="/post/chatter/2014/we-all-have-to-leave/">We all have to leave</option>
+      
+      <option value="/post/draft/2014/uwsgi_django_nginx/">uwsgi+django+nginx，报internal server error的可能原因</option>
+      
+      <option value="/post/draft/2014/stop-visit-via-htaccess/">用htaccess禁止访问目录</option>
+      
+      <option value="/post/draft/2014/nginx-redis-visit/">nginx把资源存入redis访问</option>
+      
+      <option value="/post/draft/2014/redis-error-jemalloc-h-file-directory/">redis编译报错jemalloc/jemalloc.h: No such file or directory</option>
+      
+      <option value="/post/draft/2014/wp-ftp-error/">wp中出现插件安装提示ftp登录的问题排查（nginx）</option>
+      
+      <option value="/post/draft/2014/nginx-php-download/">nginx中的php文件老是变成下载的一种情况</option>
+      
+      <option value="/post/draft/2014/clean-linux-space/">清理linux服务器上的磁盘空间</option>
+      
+      <option value="/post/draft/2014/mac-linux-boot-usb/">mac上制作linux启动安装盘</option>
+      
+      <option value="/post/security/2014/hydra-attack-auth/">hydra，对会话认证的攻击</option>
+      
+      <option value="/post/draft/2014/msf-ruby-version/">msf更换ruby版本</option>
+      
+      <option value="/post/draft/2014/brew-cant-root/">brew 报错，无法用root执行</option>
+      
+      <option value="/post/draft/2014/mac-brew/">mac里的apt-get</option>
+      
+      <option value="/post/draft/2014/mac-linux-terminal-keys/">mac/linux终端里的几个快捷键</option>
+      
+      <option value="/post/draft/2014/redis-redmon/">redis监控</option>
+      
+      <option value="/post/draft/python/2014/django-redis/">django+redis</option>
+      
+      <option value="/post/draft/vi/2014/vim-advance/">vim高级使用技巧</option>
+      
+      <option value="/post/draft/2013/redis-base/">redis简单操作</option>
+      
+      <option value="/post/draft/2013/shell-base/">shell基础 笔记</option>
+      
+      <option value="/post/linux/2013/awk-sed/">awk/sed 笔记（一看就会）</option>
+      
+      <option value="/post/draft/2013/no-module-mysqldb/">ImportError: No module named MySQLdb（python）</option>
+      
+      <option value="/post/draft/2013/postgressql-learning1/">postgressql学习</option>
+      
+      <option value="/post/draft/2013/postgresql-init/">postgresql刚安装完登录不上的问题</option>
+      
+      <option value="/post/draft/2013/openerp-install/">OpenERP安装配置</option>
+      
+      <option value="/post/security/2013/snort-ids-ubuntu/">入侵检测(IDS)和snort</option>
+      
+      <option value="/post/security/2013/snorby-ubuntu/">snorby安装</option>
+      
+      <option value="/post/draft/2013/vim-ctags-javascript/">vim中强化ctags对javascript的支持</option>
+      
+      <option value="/post/chatter/2013/efficiency-time-play/">效率、时间、休整</option>
+      
+      <option value="/post/draft/2013/ubuntu-weinre/">ubuntu上配置weinre，远程调试页面脚本</option>
+      
+      <option value="/post/draft/2013/linux-vim/">linux vim学习汇总</option>
+      
+      <option value="/post/draft/2013/php-qrcode/">PHP生成二维码（phpQRcode）</option>
+      
+      <option value="/post/draft/2013/call-undefined-function-imagecreate/">Call to undefined function ImageCreate错误的解决</option>
+      
+      <option value="/post/draft/2013/apache-ruby-on-rails-redmine/">通过apache访问Ruby on Rails服务（redmine）</option>
+      
+      <option value="/post/draft/2013/ubuntu-reverse-proxy/">ubuntu上配置apache的反向代理</option>
+      
+      <option value="/post/draft/2013/ubuntu-apache2-add-module/">在ubuntu apache2上添加模块</option>
+      
+      <option value="/post/draft/2013/apt-get-subprocess-installed-post-installation-script-returned-error-exit-status-1/">apt-get 出现 "subprocess installed post-installation script returned error exit status 1"</option>
+      
+      <option value="/post/draft/2013/gem-install-mysql_query-error/">gem install 报错 checking for mysql_query() in -lmysqlclient... no</option>
+      
+      <option value="/post/draft/2013/django-ubuntu/">django在ubuntu上的安装</option>
+      
+      <option value="/post/chatter/2013/ie-eg-etc/">英文中的i.e.,e.g.,etc.等</option>
+      
+      <option value="/post/python/2013/python-window-6/">python的系统底层操作6——硬断点</option>
+      
+      <option value="/post/python/2013/python-window-5/">python的系统底层操作5&mdash;软断点</option>
+      
+      <option value="/post/python/2013/python-window-4/">python的系统底层操作4&mdash;寄存器</option>
+      
+      <option value="/post/python/2013/python-window-3/">python的系统底层操作3——进程注入</option>
+      
+      <option value="/post/python/2013/python-window-2/">python的系统底层操作2——调用函数</option>
+      
+      <option value="/post/python/2013/python-window-1/">python的系统底层操作1——基础</option>
+      
+      <option value="/post/python/2013/salt-base64/">加盐base64算法（自创）(python)</option>
+      
+      <option value="/post/python/2013/some-code-about-python/">python的几个语法收集</option>
+      
+      <option value="/post/python/2013/gbk-to-utf8/">批量转换编码的python实现</option>
+      
+      <option value="/post/python/2013/ip-to-int/">转IP地址为长整数的脚本(python)</option>
+      
+      <option value="/post/python/2013/birthday-paradox/">计算生日悖论(python)</option>
+      
+      <option value="/post/theory/2013/arp-rarp/">ARP地址解析协议、RARP逆地址解析协议</option>
+      
+      <option value="/post/theory/2013/ip-intro/">IP，网际协议</option>
+      
+    </optgroup>
+  </select>
+</div>
+
+
+      <div class="unit three-fourths">
+        
+  <article>
+  <h2>
+    <a href="/post/draft/2015/git-re-commit-brand-new-code/">
+      git全新版本代码如何提交（不覆盖原代码）
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      01 Jun 2015
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>有时会遇到这种情况，在做一个项目时，要改版，发现原来的代码不能用了，全新的搭了一套框架，重新开始写，这时的代码跟原来的就完全不一样了，提交的话，会直接把原来的代码覆盖掉，虽然从历史版本中可以找回，但也很麻烦。</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/select-distinct-only-one/">
+      select多个字段，但distinct一个字段的方法
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      09 May 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>比如select出a,b两个字段，但只想distinct a，方法：</p>
+<p>select a,b,count(distinct a) from xxx group by a;</p>
+<p>这样就可以达到目的。</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/uwsgi-libgcc_s-so-1-installed-pthread_cancel-work/">
+      uwsgi报错libgcc_s.so.1 must be installed for pthread_cancel to work
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      27 Apr 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>在uwsgi上跑django时，如果操作了数据库，就有可能会导致标题中说的错误。</p>
+<p>其实很简单，把--limit-as 改大一些就可以了，如1000</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/svn-to-git/">
+      把代码从svn搬到git上
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      26 Apr 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>先把目录里面的svn信息都干掉：</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">find . -type d -name <span class="s2">&quot;.svn&quot;</span><span class="p">|</span>xargs rm -rf</code></pre></div>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/mac-eclipse-tips/">
+      mac上eclipse的一些使用技巧记录
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      26 Apr 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>1、竖向选择</p>
+
+<p>cmd+option+a，这样就可以进行竖向选择了。再按一次这个组合可以退出。</p>
+
+<p>2、缩进，向左缩进，都和window上一样。</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/uwsgi_django_nginx/">
+      uwsgi+django+nginx，报internal server error的可能原因
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      13 Apr 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>1、如果不是用–vhost形式跑的报这个错，换用这个虚拟模式试试</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/stop-visit-via-htaccess/">
+      用htaccess禁止访问目录
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      08 Apr 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>apache服务器中，不想让用户直接访问某个文件夹，只需要在这个文件夹里面新建一个.htaccess文件，然后写入deny from all</p>
+
+<p>这样直接访问就访问不到这个文件夹了。</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/nginx-redis-visit/">
+      nginx把资源存入redis访问
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      16 Mar 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>一些特别常用的资源，每次访问都得去读IO，量小还好，如果访问量超大的时候，IO估计会成为瓶颈。如果把资源内容放Redis里，配置nginx来访问，同时还可以gzip。</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/redis-error-jemalloc-h-file-directory/">
+      redis编译报错jemalloc/jemalloc.h: No such file or directory
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      15 Mar 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>确认你安装了jemalloc</p>
+
+<p>然后：</p>
+
+<p>make MALLOC=libc</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/wp-ftp-error/">
+      wp中出现插件安装提示ftp登录的问题排查（nginx）
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      15 Mar 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>安装、卸载插件时，就直接提示FTP登录，那你不用想了，就是权限的问题。</p>
+
+<p>首先看word-press目录及里面的所有文件的owner是不是你配置的那个owner。nginx的这个配置在/etc/nginx/nginx.conf里面，第一行就是要运行nginx的用户，这个用户必须跟你的wp目录的所有者一致。不一样就修改，可以用chown修改目录权限，也可以直接修改nginx的这个配置，然后重启nginx就可以。如果这两个地方一致了（比如都改成jsongo用户），你就可以再去试下。</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/nginx-php-download/">
+      nginx中的php文件老是变成下载的一种情况
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      08 Mar 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>不是site-available里面没加上location .\php$，这个问题很好解决。也不是因为没装fast-cgi，或者fast-cgi没启动。</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/clean-linux-space/">
+      清理linux服务器上的磁盘空间
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      03 Mar 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>今天服务器反应异常地慢，有些进程甚至挂了。各种找原因，最后发现是磁盘满了，很多IO操作都被阻塞了。</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/mac-linux-boot-usb/">
+      mac上制作linux启动安装盘
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      19 Feb 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>在mac上制作linux启动盘很简单，一个命令就可以了。</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo dd <span class="k">if</span><span class="o">=</span>/Volumes/jsongo/kali-linux-1.0.5-amd64.iso <span class="nv">of</span><span class="o">=</span>/dev/disk2 <span class="nv">bs</span><span class="o">=</span>1m</code></pre></div>
+
+<p>其中if=后面的参数是你的linux镜像文件的位置，of是你的盘，/dev/目录下，至于怎么确定是disk几，可以用下面的命令查看：</p>
+
+<p>diskutil list
+在列出的磁盘信息中，就可以找到你的u盘了。</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/msf-ruby-version/">
+      msf更换ruby版本
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      16 Feb 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>msf和ruby2.0兼容貌似不是很好，在mac安装时，运行msfconsole总是运行不起来。网上查了下，是和ruby2.0的兼容问题。官方是声称可以支持2.0，不过是有不少问题。所以干脆把版本切换回1.9</p>
+
+<p>先安装rvm，即ruby version manager，用来管理ruby的版本的。教程很多，不列举了。</p>
+
+<p>然后运行rvm 1.9.3-p484 –default</p>
+
+<p>写这篇文章时，msf最新开发版引用的是ruby的这个版本。</p>
+
+<p>之后再bundle install一下，再运行msf，可能之前的问题就消失了！</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/brew-cant-root/">
+      brew 报错，无法用root执行
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      16 Feb 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>mac下brew install 报错</p>
+
+<p>Password:
+Error: Cowardly refusing to `sudo brew install’
+You can use brew with sudo, but only if the brew executable is owned by root.
+However, this is both not recommended and completely unsupported so do so at
+your own risk.</p>
+
+<p>原因是这个brew的权限不正确
+修改一下这个brew的权限chown root:wheel /usr/local/bin/brew</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/mac-brew/">
+      mac里的apt-get
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      27 Jan 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>mac系统也可以像ubuntu里的apt-get一样安装系统软件包或库，brew。 
+https://github.com/Homebrew/homebrew用git clone下来之后，安装，然后就可以用了： 
+brew search [表达式] 
+用来搜索想着的软件包，如brew search apache 
+安装： 
+brew install [软件名] 
+卸载： 
+brew uninstall [软件名]</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/mac-linux-terminal-keys/">
+      mac/linux终端里的几个快捷键
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      23 Jan 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>Ctrl + A 将光标跳到行头 
+Ctrl + E 将光标跳到行尾 
+Ctrl + L 清屏 
+Ctrl + R 搜索以前执行过的命令 
+Ctrl + C 终止正在运行的程序 
+Ctrl + D 退出 Terminal（这里建议使用 Command ＋ W 来完成） 
+Ctrl + Z 将当前程序放置于后台运行，可以用 fg 来恢复</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2014/redis-redmon/">
+      redis监控
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      19 Jan 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>监控redis的实时情况和总体数据，界面：</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/python/2014/django-redis/">
+      django+redis
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft and python
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      18 Jan 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>需要django-redis插件：https://django-redis.readthedocs.org/<br />
+不过安装它之前得先安装redis-py：https://github.com/andymccurdy/redis-py/<br />
+git clone下来后，运行python setup.py install 就ok了</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/vi/2014/vim-advance/">
+      vim高级使用技巧
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft and vi
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      12 Jan 2014
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>1、点.用来重复上一个操作<br />
+2、f{char}用来在同一行中找char字符，如f+，会在行中找+号。<br />
+3、分号;会重复通过f找到字符这个动作，往后找。逗号,则会让它往前找。</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/redis-base/">
+      redis简单操作
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      31 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>Redis的命令可以在<a href="http://redis.io/commands">http://redis.io/commands</a>这里面查<br />
+一、string<br />
+1、set name json   把name这个key的值设置成’json’<br />
+2、get name 取值<br />
+  del name  删除</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/shell-base/">
+      shell基础 笔记
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      22 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>1、case流程控制</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/no-module-mysqldb/">
+      ImportError: No module named MySQLdb（python）
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      13 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>python连接数据库时，报错：</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/postgressql-learning1/">
+      postgressql学习
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      11 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>psql连接上去，后面可以跟库名<br />
+\l 可以列出所有的数据库（list）<br />
+\c 可以切换当前数据库<br />
+\d 列出当前所有的表和序列<br />
+\dt 列表当前所有的表<br />
+\d table_name 可以查看这个表的所有字段详细</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/postgresql-init/">
+      postgresql刚安装完登录不上的问题
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      08 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>因为没有密码，postgresql不让登录，所以要先给postgresql的默认账户postgres设置一个密码。<br />
+先修改/etc/postgresql/9.1/main/pg_hba.conf，加入</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/openerp-install/">
+      OpenERP安装配置
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      08 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>先装postgresql:<br />
+ubuntu上安装奶简单，sudo apt-get install postgresql，其它平台的怎么装就不说了。<br />
+安装openerp时，先加下面的源（/etc/apt/sources.list）</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/vim-ctags-javascript/">
+      vim中强化ctags对javascript的支持
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      04 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>到http://www.vim.org/scripts/script.php?script_id=1491下载javascript.vim，它可以更好地支持oop风格的js语法高亮。<br />
+把它拷贝到.vim/syntax里面就可以了<br />
+vi .vimrc，加入如下一行：</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/ubuntu-weinre/">
+      ubuntu上配置weinre，远程调试页面脚本
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      03 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>先安装nodejs</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">apt-get install nodejs</code></pre></div>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/linux-vim/">
+      linux vim学习汇总
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      02 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>一、简单改造，更适合编程<br />
+1、ctags<br />
+先装ctags，用来给代码生成索引</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">apt-get install ctags</code></pre></div>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/php-qrcode/">
+      PHP生成二维码（phpQRcode）
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      02 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>不用google的开放接口来生成，可以用php-QRcode<br />
+地址：<a href="http://phpqrcode.sourceforge.net/">http://phpqrcode.sourceforge.net</a><br />
+网站提供了一些demo，最简单的一个就是先引入qrlib.php，然后加上：</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/call-undefined-function-imagecreate/">
+      Call to undefined function ImageCreate错误的解决
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      02 Dec 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>主要是因为缺少gd库，装一下就ok了：<br />
+apt-get install php5-gd<br />
+DONE</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/apache-ruby-on-rails-redmine/">
+      通过apache访问Ruby on Rails服务（redmine）
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      30 Nov 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>本文拿redmine来举例<br />
+1、用wget到http://www.redmine.org/projects/redmine/wiki/Download下载最新的redmine<br />
+解压到某个目录，如/var/redmine<br />
+其实这个里面就有安装说明：INSTALL这个文件，说明特别详细</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/ubuntu-reverse-proxy/">
+      ubuntu上配置apache的反向代理
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      30 Nov 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>把一个有个性端口号的服务转成一个二级域名，这个就是apache反向代理擅长干的事情。<br />
+ubuntu上的配置比较麻烦一些。</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/ubuntu-apache2-add-module/">
+      在ubuntu apache2上添加模块
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      29 Nov 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>在Ubuntu上，apache2的配置目录结构跟以往不太一样，变化很大，要加个自定义的模块很不容易。<br />
+自己测试了下，总结了几个步骤：<br />
+比如以前要配置passenger（让ruby on rails能在apache上运行的模块）</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/apt-get-subprocess-installed-post-installation-script-returned-error-exit-status-1/">
+      apt-get 出现 "subprocess installed post-installation script returned error exit status 1"
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      29 Nov 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>cd /var/lib/dpkg/info<br />
+把相应的报错的包都干掉就ok了<br />
+再不行就clean，升级<br />
+apt-get autoclean<br />
+apt-get autoremove<br />
+apt-get update<br />
+apt-get upgrade<br />
+DONE</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/gem-install-mysql_query-error/">
+      gem install 报错 checking for mysql_query() in -lmysqlclient... no
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      29 Nov 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>apt-get install libmysqlclient15-dev<br />
+DONE</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+  <article>
+  <h2>
+    <a href="/post/draft/2013/django-ubuntu/">
+      django在ubuntu上的安装
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      draft
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      28 Nov 2013
+    </span>
+    <a href="https://github.com/jsongo" class="post-author">
+      <img src="https://github.com/jsongo.png" class="avatar" alt="jsongo avatar" width="24" height="24">
+      jsongo
+    </a>
+  </div>
+  <div class="post-content">
+    
+    <p>先装下easy_install，它用来更方便地安装python的扩展包<br />
+1、apt-get install python-setuptools<br />
+2、easy_install -h 检查一下看有没有安装成功<br />
+3、easy_install django<br />
+DONE</p>
+
+
+    
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+      </div>
+
+      <div class="unit one-fourth hide-on-mobiles">
+  <aside>
+    <h4>Recent Releases</h4>
+    <ul>
+      
+      <li class="">
+        <a href="/post/draft/2015/git-re-commit-brand-new-code/"><span>git全新版本代码如何提交（不覆盖原代码）</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/markdown-syntax/"><span>Markdown 语法说明[转]</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/my-first-post/"><span>my first post, just chattering</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/other/2015/jekyll-3-0-0-beta1-released/"><span>Jekyll 3.0.0.beta1 Released</span></a>
+      </li>
+      
+      <li class="">
+        <a href="/post/security/2014/nginx-https/"><span>nginx的https设置</span></a>
+      </li>
+      
+    </ul>
+    <h4>Categories</h4>
+    <ul>
+      
+        <li class="">
+          <a href="/post/theory">theory</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/python">python</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/chatter">chatter</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/draft">draft</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/security">security</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/linux">linux</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/vi">vi</a>
+        </li>
+      
+        <li class="">
+          <a href="/post/other">other</a>
+        </li>
+      
+    </ul>
+  </aside>
+</div>
+
+
+      <div class="clear"></div>
+
+    </div>
+  </section>
+
+
+  <footer role="contentinfo">
+  <div class="grid">
+    <div class="unit half center-on-mobiles">
+      <p>The contents of this website are &copy;&nbsp;2015 <br/>
+      Jsongo&nbsp;
+        <a class="twitter-follow-button" href="https://twitter.com/js0ng0" data-size="middle">@Twitter</a>&nbsp;&nbsp;
+        <a class="facebook-follow-button" href="https://facebook.com/js0ng0" data-size="middle">@Facebook</a></p>
+    </div>
+    <div class="unit half align-right center-on-mobiles">
+      <p>
+        Proudly hosted by
+        <a href="https://github.com">
+          <img src="/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+        </a>
+      </p>
+    </div>
+    <div class="follow-btns">
+    </div>
+  </div>
+</footer>
+
+  <script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<span class=\"sr-only\">Permalink</span><i class=\"fa fa-link\"></i>";
+    anchor.title = "Permalink";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("news")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+
+  
+  <!-- Gauges (http://gaug.es/) -->
+  <script>
+    var _gauges = _gauges || [];
+    (function() {
+      var t   = document.createElement('script');
+      t.type  = 'text/javascript';
+      t.async = true;
+      t.id    = 'gauges-tracker';
+      t.setAttribute('data-site-id', '503c5af6613f5d0f19000027');
+      t.src = '//secure.gaug.es/track.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(t, s);
+    })();
+  </script>
+
+
+
+
+
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?35812f595e2a9532207151e3c2bb34af";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+      })();
+  </script>
+
+
+</body>
+</html>
