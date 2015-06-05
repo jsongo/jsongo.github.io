@@ -73,8 +73,8 @@ class Tree:
             elif not node.left:
                 node.parent.right = node.right
             else: # the node has two child
-                largest_at_left = 0
-                smallest_at_right = 0
+                largest_at_left = None
+                smallest_at_right = None
                 ori_node = node
                 # find the largest in the left or the smallest in the right
                 node = ori_node.left
