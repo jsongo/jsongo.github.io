@@ -9,7 +9,10 @@ categories: [python, theory]
 tags: [python, masterpiece]
 comments: []
 ---
-Binary tree written in python
+Binary tree written in python  
+add, delete, contains
+
+
 {% highlight python %}
 # -*- coding: utf-8 -*-
 
