@@ -11,6 +11,7 @@ comments: []
 ---
 We could make our own fraction class though there is already one in python with the class name of Fractions. Now let's try it out.
 
+
 {% highlight python %}
 # -*- coding: utf-8 -*-
 
