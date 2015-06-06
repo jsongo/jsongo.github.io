@@ -1,0 +1,50 @@
+---
+layout: post_item
+status: publish
+published: true
+title: The simplest fraction
+author: jsongo
+date: '2015-06-06 23:40:48'
+categories: [theory, python]
+tags: [theory, python, algorithm]
+comments: []
+---
+We could make our own fraction class though there is already one in python with the class name of Fractions. Now let's try it out.
+
+{% highlight python %}
+# -*- coding: utf-8 -*-
+
+class Fraction:
+    def __init__(self, num = 0, den = 1):
+        if num:
+            gcd = self.gcd(num, den)
+            num //= gcd
+            den //= gcd
+        self.den = den
+        self.num = num
+
+    def __str__(self):
+        return '%d/%d' % (self.num, self.den)
+
+    def __add__(self, other):
+        new_num = self.num * other.den + self.den * other.num
+        new_den = self.den * other.den
+        return Fraction(new_num, new_den)
+
+    def __mul__(self, other):
+        new_num = self.num * other.num
+        new_den = self.den * other.den
+        return Fraction(new_num, new_den)
+
+    def __eq__(self, other):
+        return self.num == other.num and self.den == other.den
+
+    def gcd(self, num1, num2): # the greatest common divisor
+        while num1%num2 != 0:
+            tmp = num1
+            num1 = num2
+
+            num2 = tmp%num2
+        return num2
+{% endhighlight %}
+
