@@ -42,4 +42,12 @@ brew install opencv
 {% endhighlight %}
 And it will really take some time.  
 
+After opencv is installed, it's not finished yet. There is a last step, make the soft link of the lib file.
+{% highlight bash %}
+cd /Library/Python/2.7/site-packages/
+ln -s /usr/local/Cellar/opencv/2.4.11_1/lib/python2.7/site-packages/cv.py cv.py
+/usr/local/Cellar/opencv/2.4.11_1/lib/python2.7/site-packages/cv2.so cv2.so
+{% endhighlight %}
+And of course, when you're reading this post, the version of opencv may have been changed. So the path up there may be differet. Change it according to your opencv installed.
+
 Done.
