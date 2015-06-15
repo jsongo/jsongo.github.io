@@ -30,9 +30,9 @@ brew update
 {% endhighlight %}
 More unfortunately, this fails again, you'll have to take this step to force this update working.  
 {% highlight bash %}
-cd /usr/local; 
-git fetch; 
-git reset --hard origin/master; 
+cd /usr/local
+git fetch
+git reset --hard origin/master
 brew update
 {% endhighlight %}
 
