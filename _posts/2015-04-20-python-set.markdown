@@ -9,6 +9,9 @@ categories: [python]
 tags: [python]
 comments: []
 ---
+Directly comes the code.
+
+
 {% highlight python %}
 >>> mySet
 {False, 4.5, 3, 6, 'cat'}
