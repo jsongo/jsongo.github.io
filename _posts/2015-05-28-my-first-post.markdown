@@ -3,7 +3,7 @@ layout: post_item
 title: "my first post, just chattering"
 date: "2013-09-01 00:00:02"
 author: jsongo
-version: 1.0.0
+version: 1.0.1
 categories: [other]
 ---
 Hey! 
