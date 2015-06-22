@@ -15,7 +15,7 @@ I've been using svn for the past three years and git for several months, which a
 
 &nbsp;&nbsp;So now let's begin. And this is the catalogue:   
 [1. How to pull files](#sec1)  
-[2. How to add files](#sec2)  
+[2. How to add files and commit](#sec2)  
 [3. How to update files](#sec3)  
 [4. How to delete files](#sec4)  
 [5. How to check info](#sec5)  
@@ -35,7 +35,7 @@ First of all, say you're familiar with svn, there's something different you've g
 This post is mainly for coders, so, below I'll talk about codes instead of files.  
 <a id="sec1"></a>
 
-> How to pull files  
+> 1# How to pull files  
 
 ## [1]. with svn
 {% highlight bash %}
@@ -68,6 +68,23 @@ And the last command can be replaced with `git pull origin master`. But they're 
 
 <a id="sec2"></a>
 
-> How to add files  
+> 2# How to add files and commit  
 
 ## [1]. with svn
+{% highlight bash %}
+svn add xxx  (if all, run `svn add *`)
+svn ci -m 'xxx'
+{% endhighlight %}
+`ci` is short for commit, you can type `commit` too. They're the same.  
+
+## [2]. with git
+{% highlight bash %}
+git add xxx  (if all, run `git add --all`)
+git commit -m 'xxx'
+{% endhighlight %}
+Notice that, after commit, it's not finish yet. The changes stay at local repo and haven't been sync with the remote git server.  You've got to run push command to push the changes up there.  
+{% highlight bash %}
+git push -u origin master
+{% endhighlight %}
+
+> 3# How to update files
