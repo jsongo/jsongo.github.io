@@ -32,7 +32,7 @@ I've been using svn for the past three years and git for several months, which a
 
 ---
 
-> 1. How to pull files
+> 1. How to pull files  
 
 ## [1]. with svn
 {% highlight bash %}
@@ -50,4 +50,4 @@ In some cases, if you submit your code for the first time, svn will ask for your
 
 ## [2]. with git
 
-> 2. How to add files  
+> 2. How to add files 
