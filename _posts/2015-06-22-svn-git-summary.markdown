@@ -396,6 +396,11 @@ That's simple. Step into your sub-directory, and run `git clone https://xxx/path
 <a id="sec15"></a>
 
 > ## 15# Why we use git
-## [1]. with svn
 
-## [2]. with git
+1. If you're trapped somewhere disconnected from the internet, or to say you're on the plane, basement or elevator, you can still committing, reverting etc.  
+2. Branch is really branch, and tag is really tag.  
+&nbsp;&nbsp;It's only a normal directory of branches or tags for svn. They're not different from trunk actually. But this is not the case for git. They're seperated and quite different for they've got different commands to reach different goals.  
+3. Svn operates by files while git by elements.  
+&nbsp;&nbsp;When you have one trunk or master and several branches or tags, svn stores them separately in different directories so it has several copies of a file. But git only stores the master files, as for branches or tags, git stores the difference between them and master.  
+And on the other hand, did you find that '.svn' is quite larger then '.git' ?  That's the result of the different ways svn and git store the files info.  
+4. (There is still 5 points to write. I'll finish it later when I have time. )
