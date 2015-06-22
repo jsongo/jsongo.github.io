@@ -37,7 +37,7 @@ This post is mainly for coders, so, below I'll talk about codes instead of files
 
 <a id="sec1"></a>
 
-# > 1# How to pull files  
+> ## 1# How to pull files  
 
 ## [1]. with svn
 {% highlight bash %}
@@ -70,7 +70,7 @@ And the last command can be replaced with `git pull origin master`. But they're 
 
 <a id="sec2"></a>
 
-> # 2# How to add files and commit  
+> ## 2# How to add files and commit  
 
 ## [1]. with svn
 {% highlight bash %}
@@ -91,7 +91,7 @@ git push -u origin master
 
 <a id="sec3"></a>
 
-> 3# How to update files
+> ## 3# How to update files
 
 ## [1]. with svn
 {% highlight bash %}
@@ -110,7 +110,7 @@ git pull origin master
 
 <a id="sec4"></a>
 
-> 4# How to delete files
+> ## 4# How to delete files
 
 If you delete in some ways without svn/git command, named `rm test.py`, by accident, svn will know nothing about that. It's not aware of the changes you've made to its files. You have to explicitly tell it. And next time you run `svn up` will it check the difference of his file-tree from last version, and will it fetch the deleted files back, without warning you what it have done. You'll know nothing until you check the logs.  
 But git won't act that way. It'll warn you with red mark and you'll clearly see what had happended.
@@ -138,7 +138,7 @@ Interesting, right? Push nothing to the my_branch of remote 'origin'. It means t
 
 <a id="sec5"></a>
 
-> 5# How to check info
+> ## 5# How to check info
 
 Check the current working status and info, branch or tag or trunk info, log info, etc.
 
@@ -197,7 +197,7 @@ Trunk in svn means the main branch, as is the same as master in git.
 
 <a id="sec6"></a>
 
-> 6# How to compare files
+> ## 6# How to compare files
 
 ## [1]. with svn
 {% highlight bash %}
@@ -221,7 +221,7 @@ And this will compare the working directory with the remote newest version.
 
 <a id="sec7"></a>
 
-> 7# How to merge
+> ## 7# How to merge
 
 ## [1]. with svn
 {% highlight bash %}
@@ -235,7 +235,7 @@ git merge other_branch
 
 <a id="sec8"></a>
 
-> 8# Branch and Tags
+> ## 8# Branch and Tags
 
 ## [1]. with svn
 
@@ -284,7 +284,7 @@ git checkout -b newBrach origin/master
 
 <a id="sec9"></a>
 
-> 9# Remote operation
+> ## 9# Remote operation
 Actually, svn doesn't seperate what remote or local operation is. As the old saying goes, it's the same. 
 
 ## [1]. with svn
@@ -325,7 +325,7 @@ This will only affect your local repo.
 
 <a id="sec10"></a>
 
-> 10# Roll back
+> ## 10# Roll back
 
 ## [1]. with svn
 Most of the time, we only have to discard local modification to solve problems.  
@@ -349,7 +349,7 @@ Excellent. It's really a rollback operation instead of several different steps i
 
 <a id="sec11"></a>
 
-> 11# How to resolve conflict
+> ## 11# How to resolve conflict
 
 ## [1]. with svn
 
@@ -357,7 +357,7 @@ Excellent. It's really a rollback operation instead of several different steps i
 
 <a id="sec12"></a>
 
-> 12# How to relocate
+> ## 12# How to relocate
 
 ## [1]. with svn
 
@@ -365,7 +365,7 @@ Excellent. It's really a rollback operation instead of several different steps i
 
 <a id="sec13"></a>
 
-> 13# How to set external links
+> ## 13# How to set external links
 An external link means you can set a different svn repo link in your sub-directory.  
 For example, you're working in dir_a, but you want your sub-directory, dir_b, to synchronized with the code from another repo, then you cat set a external link in dir_b.  
 
@@ -385,7 +385,7 @@ That's simple. Step into your sub-directory, and run `git clone https://xxx/path
 
 <a id="sec14"></a>
 
-> 14# Why we use svn
+> ## 14# Why we use svn
 
 ## [1]. with svn
 
@@ -393,7 +393,7 @@ That's simple. Step into your sub-directory, and run `git clone https://xxx/path
 
 <a id="sec15"></a>
 
-> 15# Why we use git
+> ## 15# Why we use git
 ## [1]. with svn
 
 ## [2]. with git
