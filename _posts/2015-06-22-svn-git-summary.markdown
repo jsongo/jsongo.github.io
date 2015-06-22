@@ -188,16 +188,38 @@ Trunk in svn means the main branch, as is the same as master in git.
 > 6# How to compare files
 
 ## [1]. with svn
+{% highlight bash %}
+svn diff [-rxxx:yyy] [file_name]
+{% endhighlight %}
 
 ## [2]. with git
+{% highlight bash %}
+git diff [file_name]
+{% endhighlight %}
+This command of git will only compare the files before commited with the lastest version locally. 
+{% highlight bash %}
+git diff --cached
+{% endhighlight %}
+This time, it compare the local newest version with HEAD which means the lastest version remotely.
+{% highlight bash %}
+git diff HEAD
+{% endhighlight %}
+And this will compare the working directory with the remote newest version.  
+[Here](http://git-scm.com/docs/git-diff) are the detail use of git diff.   
 
 <a id="sec7"></a>
 
 > 7# How to merge
 
 ## [1]. with svn
+{% highlight bash %}
+svn merge svn://xxx/other_path
+{% endhighlight %}
 
-## [2]. with git
+## [2]. with git 
+{% highlight bash %}
+git merge other_branch
+{% endhighlight %}
 
 <a id="sec8"></a>
 
@@ -205,7 +227,39 @@ Trunk in svn means the main branch, as is the same as master in git.
 
 ## [1]. with svn
 
+* create branch
+{% highlight bash %}
+svn cp svn://xxx/path/trunk svn://xxx/path/branches/branch_xxx -m 'xxx'
+{% endhighlight %}
+
+* create tag
+{% highlight bash %}
+svn cp svn://xxx/path/trunk svn://xxx/path/tags/tag_xxx -m 'xxx'
+{% endhighlight %}
+
+Find that? They are nearly the same. Actually, branches, tags, and trunk, they are just like different folders. In [Why we use git](#sec15) below, I'll tell you the big difference between svn and git. Imagine you've got 10,000 files in your trunk or branch (say you've got only one branch). Gonna checkout the trunk and branch? Sorry, svn tell you, you have to download 20,000 files. >_< Painful...
+
+command to checkout the branch or tag? The same too.
+{% highlight bash %}
+svn co svn://xxx/path/branches/branch_xxx
+{% endhighlight %}
+
 ## [2]. with git
+
+* create branch
+{% highlight bash %}
+git branch the_name -m 'xxx'
+{% endhighlight %}
+
+* create tag
+{% highlight bash %}
+git tag the_name -m 'xxx'
+{% endhighlight %}
+
+* pull the branch
+{% highlight bash %}
+git checkout -b newBrach origin/master
+{% endhighlight %}
 
 <a id="sec9"></a>
 
