@@ -32,10 +32,10 @@ I've been using svn for the past three years and git for several months, which a
 
 ---
 First of all, say you're familiar with svn, there's something different you've got to know about git. Git has two repositories for every project you clone to your local directory. One is the remote repo which can be shared with different people, the other is local repo which could only be access by yourself but could be used when you're disconnected from the internet.  
-This post if mainly for coders, so, below I'll talk about codes instead of files.  
+This post is mainly for coders, so, below I'll talk about codes instead of files.  
 <a id="sec1"></a>
 
-> 1. How to pull files  
+> How to pull files  
 
 ## [1]. with svn
 {% highlight bash %}
@@ -68,4 +68,6 @@ And the last command can be replaced with `git pull origin master`. But they're 
 
 <a id="sec2"></a>
 
-> 2. How to add files 
+> How to add files  
+
+## [1]. with svn
