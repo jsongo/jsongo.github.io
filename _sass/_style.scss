@@ -30,6 +30,9 @@ h1, h2, h3 {
 h1, h2, h3 {
   margin-bottom: 15px;
 }
+article blockquote h2 {
+  margin-bottom: 0;
+}
 
 .clear {
   display: block;
