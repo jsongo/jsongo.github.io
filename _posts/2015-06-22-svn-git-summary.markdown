@@ -32,12 +32,13 @@ I've been using svn for the past three years and git for several months, which a
 
 ---
 
-## 1. How to pull files  
+# 1. How to pull files  
 
-# [1]. with svn
+* [1]. with svn
 {% highlight bash %}
 svn co svn://xxx/path [local_dir]
 {% endhighlight %}
-But if you just want to pull files without .svn directories, just do exporting.  
+
+-- But if you just want to pull files without .svn directories, just do exporting.  
 
 ## 2. How to add files  
