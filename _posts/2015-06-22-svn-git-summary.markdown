@@ -265,9 +265,9 @@ git branch the_name -m 'xxx'
 
 * create tag
 {% highlight bash %}
-git tag -a the_name -m 'xxx'
+git tag -s the_name -m 'xxx'
 {% endhighlight %}
-`-a` is a signature operation. Read more about it in my early posts.   
+`-s` is a signature operation. You can read more about it [here](http://pragmatictim.blogspot.jp/2012/11/creating-signed-tags-in-git-from-scratch.html). And a commit can also be signitured using `-S`. Learn more [here](https://ariejan.net/2014/06/04/gpg-sign-your-git-commits/).   
 Now you can push it using:
 {% highlight bash %}
 git push origin tag_name
@@ -310,7 +310,8 @@ And `git show tag_version` is working. Checkout using:
 {% highlight bash %}
 git checkout -b local_tag_name remote_tag
 {% endhighlight %}
-Then you can operate on it like a branch, ie. `git checkout local_tag_name`, except that you cannot commit to the remote existing tag. If you try to, it'll throw out an exception with the words of 'tag already exists in the remote'. Actually you can make by force with params of `--force`. But I recommend you not doing that unless you really have to and really know what you're doing.  
+Then you can operate on it like a branch, ie. `git checkout local_tag_name`, except that you cannot commit to the remote existing tag. If you try to, it'll throw out an exception with the words of 'tag already exists in the remote'. Actually you can make by force with params of `--force` or `-f`. But I recommend you not doing that unless you really have to and really know what you're doing.  
+If you checkout to a tag, the `git branch` command will tell you that your current working copy is 'detached from tag_name_xxx'.  
 You can make a tag of the history version too, using:
 {% highlight bash %}
 git tag -a tag_version history_label 
@@ -327,8 +328,24 @@ This will only affect your local repo.
 > 10# Roll back
 
 ## [1]. with svn
+Most of the time, we only have to discard local modification to solve problems.  
+{% highlight bash %}
+svn revert [--recursive] file_or_dir_name
+{% endhighlight %}
+But there's still some time, that we commit by accident or find the recent commits of no use. Then we could solve this problem by merging.  
+{% highlight bash %}
+svn merge --dry-run -r:version_new:version_old http://xxx/path
+svn merge -r:version_new:version_old http://xxx/path
+svn commit -m "Reverted to revision version_old."
+{% endhighlight %}
+The first command about will perform a dry run and show you what the merge will produce. Learn more about this [here](https://aralbalkan.com/1381/).  
 
 ## [2]. with git
+To discard local modifications recently made before commit or to rollback to a particular version
+{% highlight bash %}
+git reset --hard <tag/branch/commit id>
+{% endhighlight %}
+Excellent. It's really a rollback operation instead of several different steps in svn. Rather convenient and clear.  
 
 <a id="sec11"></a>
 
@@ -349,10 +366,22 @@ This will only affect your local repo.
 <a id="sec13"></a>
 
 > 13# How to set external links
+An external link means you can set a different svn repo link in your sub-directory.  
+For example, you're working in dir_a, but you want your sub-directory, dir_b, to synchronized with the code from another repo, then you cat set a external link in dir_b.  
+
+dir_a     <-- codes form svn://xxx/path1
+  |-- dir_b     <-- codes form svn://xxx/path2
+  |-- ...
+  ...
 
 ## [1]. with svn
+{% highlight bash %}
+svn propset svn:externals 'dir_name svn://xxx/path' .
+svn up
+{% endhighlight %}
 
 ## [2]. with git
+That's simple. Step into your sub-directory, and run `git clone https://xxx/path.git`, and it's done.  
 
 <a id="sec14"></a>
 
