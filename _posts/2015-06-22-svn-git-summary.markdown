@@ -27,8 +27,8 @@ I've been using svn for the past three years and git for several months, which a
 [11. How to resolve conflict](#sec11)  
 [12. How to relocate](#sec12)  
 [13. How to set external links](#sec13)  
-[* 14. Why we use svn](#sec14)  
-[* 15. Why we use git](#sec15)  
+[14. Why we use svn](#sec14)  
+[15. Why we use git](#sec15)  
 
 ---
 First of all, say you're familiar with svn, there's something different you've got to know about git. Git has two repositories for every project you clone to your local directory. One is the remote repo which can be shared with different people, the other is local repo which could only be access by yourself but could be used when you're disconnected from the internet.  
