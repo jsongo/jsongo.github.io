@@ -53,13 +53,13 @@ svn export [-r version] svn://xxx/path [local_dir]
 In some cases, if you submit your code for the first time, svn will ask for your name and password. There is way to void that. You could use `--username xxx --password xxx` params when you run the svn commands. But it's not recommended to type your password in the command line. So, don't do it. Only use `--username`.  
 
 ## [2]. with git
-{% highlight git %}
+{% highlight bash %}
 git clone https://xxx/path.git [local_dir]
 {% endhighlight %}
 With git, you cannot take co for short of clone. You'll have to type the whole word, as well as the other commands in git, except `rm` which is special and can only be written in this way.   
 When cloned, the default remote tag is origin, and the default branch master.  
 Well, with git, clone will pull down the code of all the branches, which is also the case of svn. So with git, if you only want the codes on branch of master, method below will do it. And this is the recommended way of pulling code in git.  
-{% highlight git %}
+{% highlight bash %}
 git init
 git remote add origin https://xxx/path.git
 git fetch origin master
