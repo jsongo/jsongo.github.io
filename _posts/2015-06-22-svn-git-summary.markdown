@@ -32,13 +32,22 @@ I've been using svn for the past three years and git for several months, which a
 
 ---
 
-# 1. How to pull files  
+> 1. How to pull files
 
-* [1]. with svn
+## [1]. with svn
 {% highlight bash %}
 svn co svn://xxx/path [local_dir]
 {% endhighlight %}
+But if you just want to pull files without {% highlight raw %}.svn{% endhighlight %} directories, just do exporting.  
+{% highlight bash %}
+svn export svn://xxx/path [local_dir]
+{% endhighlight %}
+And you can export any version of files. The simple syntax is:
+{% highlight bash %}
+svn export [-r version] svn://xxx/path [local_dir]
+{% endhighlight %}
+In some cases, if you submit your code for the first time, svn will ask for your name and password. There is way to void that. You could use {% highlight raw %}--username xxx --password xxx{% endhighlight %} params when you run the svn commands. But it's not recommended to type your password in the command line. So, don't do it. Only use `--username`.
 
--- But if you just want to pull files without .svn directories, just do exporting.  
+## [2]. with git
 
-## 2. How to add files  
+> 2. How to add files  
