@@ -12,6 +12,7 @@ comments: []
 This is the summary of how I use svn and now git.  
 I've been using svn for the past three years and git for several months, which are exactly not long enough to write a deepgoing article about these two tools. Well, if you're new to one of them, this post may be of some use. I'll just talk about how, not much why. Any question, leave some comments at the following comment box, I'll answer it as soon as I find it, and as long as I Know How To Reply >_<. Any way, there may be some mistakes below. Tell me when you find it. Much appreciate about that.  
 
+
 So now let's begin. I'll . And this is the catalogue:
 1. How to pull files
 2. How to add files
