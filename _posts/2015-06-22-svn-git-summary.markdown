@@ -285,6 +285,7 @@ git checkout -b newBrach origin/master
 <a id="sec9"></a>
 
 > ## 9# Remote operation
+
 Actually, svn doesn't seperate what remote or local operation is. As the old saying goes, it's the same. 
 
 ## [1]. with svn
@@ -357,22 +358,15 @@ Excellent. It's really a rollback operation instead of several different steps i
 
 <a id="sec12"></a>
 
-> ## 12# How to relocate
+> ## 12# How to set external links
 
-## [1]. with svn
-
-## [2]. with git
-
-<a id="sec13"></a>
-
-> ## 13# How to set external links
 An external link means you can set a different svn repo link in your sub-directory.  
 For example, you're working in dir_a, but you want your sub-directory, dir_b, to synchronized with the code from another repo, then you cat set a external link in dir_b.  
 
-dir_a     <-- codes form svn://xxx/path1
-  |-- dir_b     <-- codes form svn://xxx/path2
-  |-- ...
-  ...
+dir_a     <-- codes form svn://xxx/path1  
+  |-- dir_b     <-- codes form svn://xxx/path2  
+  |-- ...  
+  ...  
 
 ## [1]. with svn
 {% highlight bash %}
@@ -382,6 +376,14 @@ svn up
 
 ## [2]. with git
 That's simple. Step into your sub-directory, and run `git clone https://xxx/path.git`, and it's done.  
+
+<a id="sec13"></a>
+
+> ## 13# How to relocate
+
+## [1]. with svn
+
+## [2]. with git
 
 <a id="sec14"></a>
 
