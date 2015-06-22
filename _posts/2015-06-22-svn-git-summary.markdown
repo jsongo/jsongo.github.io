@@ -33,6 +33,8 @@ I've been using svn for the past three years and git for several months, which a
 ---
 First of all, say you're familiar with svn, there's something different you've got to know about git. Git has two repositories for every project you clone to your local directory. One is the remote repo which can be shared with different people, the other is local repo which could only be access by yourself but could be used when you're disconnected from the internet.  
 This post is mainly for coders, so, below I'll talk about codes instead of files.  
+`[]` in commands below means the part is optional.  
+
 <a id="sec1"></a>
 
 > 1# How to pull files  
@@ -56,7 +58,7 @@ In some cases, if you submit your code for the first time, svn will ask for your
 {% highlight bash %}
 git clone https://xxx/path.git [local_dir]
 {% endhighlight %}
-With git, you cannot take co for short of clone. You'll have to type the whole word, as well as the other commands in git, except `rm` which is special and can only be written in this way.   
+With git, you cannot take co for short of clone. You'll have to type the whole word, as well as the other commands in git, except `rm` or `mv` which are special and can only be written in this way.   
 When cloned, the default remote tag is origin, and the default branch master.  
 Well, with git, clone will pull down the code of all the branches, which is also the case of svn. So with git, if you only want the codes on branch of master, method below will do it. And this is the recommended way of pulling code in git.  
 {% highlight bash %}
@@ -87,4 +89,175 @@ Notice that, after commit, it's not finish yet. The changes stay at local repo a
 git push -u origin master
 {% endhighlight %}
 
+<a id="sec3"></a>
+
 > 3# How to update files
+
+## [1]. with svn
+{% highlight bash %}
+svn up
+{% endhighlight %}
+`up` is short for `update`.
+
+## [2]. with git
+{% highlight bash %}
+git fetch origin master
+{% endhighlight %}
+or
+{% highlight bash %}
+git pull origin master
+{% endhighlight %}
+
+<a id="sec4"></a>
+
+> 4# How to delete files
+
+If you delete in some ways without svn/git command, named `rm test.py`, by accident, svn will know nothing about that. It's not aware of the changes you've made to its files. You have to explicitly tell it. And next time you run `svn up` will it check the difference of his file-tree from last version, and will it fetch the deleted files back, without warning you what it have done. You'll know nothing until you check the logs.  
+But git won't act that way. It'll warn you with red mark and you'll clearly see what had happended.
+
+## [1]. with svn
+{% highlight bash %}
+svn del xxx
+{% endhighlight %}
+
+## [2]. with git
+{% highlight bash %}
+git rm xxx
+{% endhighlight %}
+
+<a id="sec5"></a>
+
+> 5# How to check info
+
+Check the current working status and info, branch or tag or trunk info, log info, etc.
+
+## [1]. with svn
+
+* current status
+{% highlight bash %}
+svn st
+{% endhighlight %}
+`st` is short for `status`.
+
+* current info
+{% highlight bash %}
+svn info
+{% endhighlight %}
+
+* log info  
+{% highlight bash %}
+svn log [file_name]
+{% endhighlight %}
+
+* trunk or branches or tags info  
+It's boring for the commands are similar.  
+{% highlight bash %}
+svn ls svn://xxx/path/trunks
+svn ls svn://xxx/path/branch
+svn ls svn://xxx/path/tags
+{% endhighlight %}
+
+## [2]. with git
+
+* current status and info
+{% highlight bash %}
+git status
+{% endhighlight %}
+{% highlight bash %}
+git show
+{% endhighlight %}
+This command will only show you the last modifications at your local repo.  
+And for git, there is still many infos of current remote repos, which I'll talked about later in the [Remote operation](#sec9). 
+* log info
+{% highlight bash %}
+git log [file_name]
+{% endhighlight %}
+
+* branches or tags info  
+{% highlight bash %}
+git branch      # which will show you the local branch info
+git branch -v   # which will show you the remote branch info
+git branch -a   # which will show you both the local and remote branch info
+git tag         # tag info
+{% endhighlight %}
+And `git show` can also be used to show the info of some branch or tag. Try it by yourself.  
+Trunk in svn means the main branch, as is the same as master in git.  
+
+<a id="sec6"></a>
+
+> 6# How to compare files
+
+## [1]. with svn
+
+## [2]. with git
+
+<a id="sec7"></a>
+
+> 7# How to merge
+
+## [1]. with svn
+
+## [2]. with git
+
+<a id="sec8"></a>
+
+> 8# Branch and Tags
+
+## [1]. with svn
+
+## [2]. with git
+
+<a id="sec9"></a>
+
+> 9# Remote operation
+
+## [1]. with svn
+
+## [2]. with git
+
+<a id="sec10"></a>
+
+> 10# Roll back
+
+## [1]. with svn
+
+## [2]. with git
+
+<a id="sec11"></a>
+
+> 11# How to resolve conflict
+
+## [1]. with svn
+
+## [2]. with git
+
+<a id="sec12"></a>
+
+> 12# How to relocate
+
+## [1]. with svn
+
+## [2]. with git
+
+<a id="sec13"></a>
+
+> 13# How to set external links
+
+## [1]. with svn
+
+## [2]. with git
+
+<a id="sec14"></a>
+
+> 14# Why we use svn
+
+## [1]. with svn
+
+## [2]. with git
+
+<a id="sec15"></a>
+
+> 15# Why we use git
+## [1]. with svn
+
+## [2]. with git
