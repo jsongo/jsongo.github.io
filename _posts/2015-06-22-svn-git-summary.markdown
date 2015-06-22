@@ -9,11 +9,11 @@ categories: [tools]
 tags: [masterpiece]
 comments: []
 ---
-This is the summary of how I use svn and now git.  
+&nbsp;&nbsp;This is the summary of how I use svn and now git.  
 I've been using svn for the past three years and git for several months, which are exactly not long enough to write a deepgoing article about these two tools. Well, if you're new to one of them, this post may be of some use. I'll just talk about how, not much why. Any question, leave some comments at the following comment box, I'll answer it as soon as I find it, and as long as I Know How To Reply >_<. Anyway, there may be some mistakes below. Tell me when you find it. Much appreciate about that.  
 
 
-So now let's begin. And this is the catalogue:  
+&nbsp;&nbsp;So now let's begin. And this is the catalogue:  
 1. How to pull files  
 2. How to add files  
 3. How to update files  
@@ -34,4 +34,10 @@ So now let's begin. And this is the catalogue:
 
 ## 1. How to pull files  
 
-##2. How to add files  
+# [1]. with svn
+{% highlight bash %}
+svn co svn://xxx/path [local_dir]
+{% endhighlight %}
+But if you just want to pull files without .svn directories, just do exporting.  
+
+## 2. How to add files  
