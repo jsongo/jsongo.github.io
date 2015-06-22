@@ -66,5 +66,6 @@ git fetch origin master
 {% endhighlight %}
 And the last command can be replaced with `git pull origin master`. But they're different. `fetch` only means copying the code to local while `pull` will additionally merge the fetched code with existing file at local. There's a detailed disscussion about that, named [GIT: FETCH AND MERGE, DON’T PULL](http://longair.net/blog/2009/04/16/git-fetch-and-merge/).  
 
-<a id="sec2"></a>  
+<a id="sec2"></a>
+
 > 2. How to add files 
