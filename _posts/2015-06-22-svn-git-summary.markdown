@@ -125,6 +125,17 @@ svn del xxx
 git rm xxx
 {% endhighlight %}
 
+So how to delete a remote repo ?
+with svn, you could just do this:
+{% highlight bash %}
+svn del xxx
+{% endhighlight %}
+Year, it's the same as files. Because there are only directories and files in svn repo. But in git, you'll have to do it like this:
+{% highlight bash %}
+git push origin :my_branch
+{% endhighlight %}
+Interesting, right? Push nothing to the my_branch of remote 'origin'. It means to delete a repo. But notice that, you can't simply delete master in such an easy way, it is protected for the default branch. You've got to do some settings at the remote platform, for example, GitHub or GitLab.  Change the default branch from master to other branch, and then could you delete the master.  
+
 <a id="sec5"></a>
 
 > 5# How to check info
@@ -174,9 +185,10 @@ git log [file_name]
 {% endhighlight %}
 
 * branches or tags info  
+<a id="branchRemote"></a>
 {% highlight bash %}
 git branch      # which will show you the local branch info
-git branch -v   # which will show you the remote branch info
+git branch -r   # which will show you the remote branch info
 git branch -a   # which will show you both the local and remote branch info
 git tag         # tag info
 {% endhighlight %}
@@ -253,7 +265,16 @@ git branch the_name -m 'xxx'
 
 * create tag
 {% highlight bash %}
-git tag the_name -m 'xxx'
+git tag -a the_name -m 'xxx'
+{% endhighlight %}
+`-a` is a signature operation. Read more about it in my early posts.   
+Now you can push it using:
+{% highlight bash %}
+git push origin tag_name
+{% endhighlight %}
+If you wanna push all tags, just use this:
+{% highlight bash %}
+git push origin --tags
 {% endhighlight %}
 
 * pull the branch
@@ -264,10 +285,42 @@ git checkout -b newBrach origin/master
 <a id="sec9"></a>
 
 > 9# Remote operation
+Actually, svn doesn't seperate what remote or local operation is. As the old saying goes, it's the same. 
 
 ## [1]. with svn
+So let's skip this for it's the same step as operation on trunk. Such as:
+{% highlight bash %}
+svn ls svn://xxx/path
+{% endhighlight %}
 
 ## [2]. with git
+(Ok, I may make some mistakes below for I'm not that familiar with tags operation with git. So if you find some, just tell me. I'll be much thankful to correct them. )
+{% highlight bash %}
+git remote -v     # To check the remote name and urls, ie. origin https://xxx/path.git
+git remote show   # To display the information about current remote name
+git remote add test_repo https://xxx/other_path.git   # To add another remote repo info which you can push your code there.
+{% endhighlight %}
+And it's awesome that in one directory you could manage several remote repo. Just imagine what you can do with it. Pull codes form one place, modify it, then submit to another place. Cool, isn't it? What you have to do is add a remote repo with one command. Of course, you can delete remote repo with `git remote rm test_repo`, rename with `git remote rename test_repo new_repo`.  
+Remote branch discussed above can be reached [here](#branchRemote).   
+But when we talk about tags, it's not that simple. 'Cause the tags are some kind of  protected. It's different from the branches including the master. With the lastest version of git, remote tags can't be listed with `git branch -a` or `git branch -r`. (My version is '1.9.5 (Apple Git-50.3)' ). But you can list you local tags using:
+{% highlight bash %}
+git tag -l
+{% endhighlight %}
+And `git show tag_version` is working. Checkout using: 
+{% highlight bash %}
+git checkout -b local_tag_name remote_tag
+{% endhighlight %}
+Then you can operate on it like a branch, ie. `git checkout local_tag_name`, except that you cannot commit to the remote existing tag. If you try to, it'll throw out an exception with the words of 'tag already exists in the remote'. Actually you can make by force with params of `--force`. But I recommend you not doing that unless you really have to and really know what you're doing.  
+You can make a tag of the history version too, using:
+{% highlight bash %}
+git tag -a tag_version history_label 
+{% endhighlight %}
+'history_label' is the SHA-1 checksum git generated for every commit you made. You can find it with `git log` as well as other methods.  
+Anyway, you can operate freely on your local tags. For example, deleting using:
+{% highlight bash %}
+git tag -d your_local_tag_name
+{% endhighlight %}
+This will only affect your local repo. 
 
 <a id="sec10"></a>
 
