@@ -37,7 +37,7 @@ This post is mainly for coders, so, below I'll talk about codes instead of files
 
 <a id="sec1"></a>
 
-> 1# How to pull files  
+# > 1# How to pull files  
 
 ## [1]. with svn
 {% highlight bash %}
@@ -70,7 +70,7 @@ And the last command can be replaced with `git pull origin master`. But they're 
 
 <a id="sec2"></a>
 
-> 2# How to add files and commit  
+> # 2# How to add files and commit  
 
 ## [1]. with svn
 {% highlight bash %}
