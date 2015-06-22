@@ -13,7 +13,7 @@ comments: []
 I've been using svn for the past three years and git for several months, which are exactly not long enough to write a deepgoing article about these two tools. Well, if you're new to one of them, this post may be of some use. I'll just talk about how, not much why. Any question, leave some comments at the following comment box, I'll answer it as soon as I find it, and as long as I Know How To Reply >_<. Anyway, there may be some mistakes below. Tell me when you find it. Much appreciate about that.  
 
 
-&nbsp;&nbsp;So now let's begin. And this is the catalogue:  
+&nbsp;&nbsp;So now let's begin. And this is the catalogue:   
 [1. How to pull files](#sec1)  
 [2. How to add files](#sec2)  
 [3. How to update files](#sec3)  
@@ -64,7 +64,7 @@ git init
 git remote add origin https://xxx/path.git
 git fetch origin master
 {% endhighlight %}
-And the last command can be replaced with `git pull origin master`. But they're different. `fetch` only means copying the code to local while `pull` will additionally merge the fetched code with existing file at local. There's a detailed disscussion about that, named [`GIT: FETCH AND MERGE, DON’T PULL`](http://longair.net/blog/2009/04/16/git-fetch-and-merge/).  
+And the last command can be replaced with `git pull origin master`. But they're different. `fetch` only means copying the code to local while `pull` will additionally merge the fetched code with existing file at local. There's a detailed disscussion about that, named [GIT: FETCH AND MERGE, DON’T PULL](http://longair.net/blog/2009/04/16/git-fetch-and-merge/).  
 
 <a id="sec2"></a>  
 > 2. How to add files 
