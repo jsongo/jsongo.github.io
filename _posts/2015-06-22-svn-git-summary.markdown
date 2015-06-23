@@ -33,9 +33,11 @@ I've been using svn for the past three years and git for several months, which a
 
 ---
 First of all, say you're familiar with svn, there's something different you've got to know about git. Git has two repositories for every project you clone to your local directory. One is the remote repo which can be shared with different people, the other is local repo which could only be access by yourself but could be used when you're disconnected from the internet.  
-This post is mainly for coders, so, below I'll talk about codes instead of files.  
+This post is mainly for coders, so, below I'll talk about codes instead of files in some places.  
 `[]` in commands below means the part is optional.  
 'repo' is short for 'repository' which performs the server and storage for svn or git.  
+Also, there is a different meaning of 'checkout' between svn and git.  
+In svn, 'checkout' means pulling down the codes while in git, it means swithing among branches in your working directory. I'll talk more about that bellow.   
 
 <a id="sec1"></a>
 
@@ -409,4 +411,36 @@ On the other hand, did you find that '.svn' is quite smaller then '.git'?  That'
 &nbsp;&nbsp;What would happend to svn and git? How will they resume the remote repo?  
 Sorry, svn can't make it. It has to build a new remote repo, delete your local '.svn' directories, and then submit your local code to the new-build repo with all the history lost. You'll never restore a history version.  
 And what about git? You could still work. Submitting, rolling back, merging, deleting, branches or tags creating, etc, except sharing with others.   
-You don't have to ask the system manager for history and you're the manager. You have everything locally. Anyone who has ever pulled down the code can rebuild the remote repo easily.
+You don't have to ask the system manager for history and you're the manager. You have everything locally. Anyone who has ever pulled down the code can rebuild the remote repo easily. Take the three steps bellow: 
+{% highlight bash %}
+git remote rm origin
+git remote add origin https://new_repo_path
+git rebase
+{% endhighlight %}
+As you can see, there is an interesting command named `rebase`. It's magical. It can restore all the histories you've got to some branch. [Here](http://git-scm.com/docs/git-rebase) is the document for it.  
+So from this aspect of view, svn is 'single' while git is 'distributed'. There are backups everywhere for git.  
+5. See how svn and git do rollback operation [above](#sec10).  
+6. If you've changed many files, svn will commit all of them if you run `svn ci`. So what will git do?  
+&nbsp;&nbsp;You can only submit the files you want using `git add` and then `git submit`. It's rather helpful when you just want to submit some files instead of all.  
+7. With git, you can manage many branches and remote repos in one directory.   
+&nbsp;&nbsp;Quite convenient. Ok, this is my favorite part of git.  
+Switch from different branches or tags using:
+{% highlight bash %}
+git checkout xxx
+{% endhighlight %}
+Here I'm gonna talk about another interesting command of `git stash`.  
+Imagine one case that you're in middle of something, your leader comes in, and ask you to fix one emergency bug. Normally what will you do? Commit your current changes to a temporary branch and return to your original branch to fix the bug. But with 'stash' you can simplify these steps.  
+{% highlight bash %}
+git stash     # now your working directory has the codes of HEAD.
+# ... do some fixing ... and when you're finished, just do: 
+git stash pop
+{% endhighlight %}
+Yeah, that's all.  
+Now if you're still not clear about what `git stash` is, check [this](http://git-scm.com/docs/git-stash) for details.  
+8. 'svn update' will change your local codes even when there are conflicts.  
+&nbsp;&nbsp;It marks the conflicts by modifying you local codes without asking and so forces you to resolve it.  
+As for git, `git pull` refuses to overwrite your local codes. Only when you run `git merge` will git modify your codes. And the remained step are discribed [above](sec11).   
+9. Ignore files.  
+&nbsp;&nbsp;It's simple for git to ignore some kinds of files when submitting using '.gitignore' file. But for svn, there is no easy way to make it.  
+10. Platform and UI interaction.  
+&nbsp;&nbsp;Almost all of us have heard about GitHub or GitLab. There are too many convenient things we can use for developing. You know, visual interaction is clearer and easier.  
