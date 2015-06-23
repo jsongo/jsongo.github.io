@@ -357,8 +357,14 @@ Excellent. It's really a rollback operation instead of several different steps i
 > ## 11# How to resolve conflict
 
 ## [1]. with svn
+When updated, svn will mark the conflicts with different files and with '======' inside files. So search for the conflict parts, modify them and delete the backup files created by svn. Then run:  
+{% highlight bash %}
+svn resolved file_name
+{% endhighlight %}
+This will tell svn that the conflicts in this file is resolved.  
 
 ## [2]. with git
+Git will sometimes produce conflicts when merging. Modify the marked parts like svn and the submit. Git will find that it's resolved and you don't have to tell it.   
 
 <a id="sec12"></a>
 
@@ -386,8 +392,16 @@ That's simple. Step into your sub-directory, and run `git clone https://xxx/path
 > ## 13# How to relocate
 
 ## [1]. with svn
+{% highlight bash %}
+svn sw --relocate svn://url1/path1 svn://url2/path2
+{% endhighlight %}
+And 'sw' is short for switch.  
 
 ## [2]. with git
+{% highlight bash %}
+git remote rm origin
+git remote add origin https://xxx/new_path.git
+{% endhighlight %}
 
 <a id="sec14"></a>
 
