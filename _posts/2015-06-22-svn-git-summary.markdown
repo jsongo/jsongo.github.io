@@ -409,12 +409,4 @@ On the other hand, did you find that '.svn' is quite smaller then '.git'?  That'
 &nbsp;&nbsp;What would happend to svn and git? How will they resume the remote repo?  
 Sorry, svn can't make it. It has to build a new remote repo, delete your local '.svn' directories, and then submit your local code to the new-build repo with all the history lost. You'll never restore a history version.  
 And what about git? You could still work. Submitting, rolling back, merging, deleting, branches or tags creating, etc, except sharing with others.   
-You don't have to ask the system manager for history and you're the manager. You have everything locally. Anyone who has ever pulled down the code can rebuild the remote repo easily.  Take the three steps bellow: 
-{% highlight bash %}
-git remote rm origin
-git remote add origin https://new_repo_path
-git rebase
-{% endhighlight %}
-As you can see, there is an interesting command named `rebase`. It's magic. It can restore all the histories you've got to some branch. [Here](http://git-scm.com/docs/git-rebase) is the document for it.    
-So from this aspect of view, svn is 'single' while git is 'distributed'. 
-5. 
+You don't have to ask the system manager for history and you're the manager. You have everything locally. Anyone who has ever pulled down the code can rebuild the remote repo easily.
