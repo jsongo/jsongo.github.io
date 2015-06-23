@@ -407,10 +407,10 @@ git remote add origin https://xxx/new_path.git
 
 > ## 14# Why we use svn
 
-1. Svn is much more simpler.  
-2. `svn co` can pull a single directory deep in a file sub-tree which git fails to.  
+1. Svn is much simpler and easier.  
+2. `svn co` can pull a single directory deep inside a sub-tree which git fails to.  
 3. Git is hard to learn.  
-4. Git has a really scathing authentication rules. You have to generate a pair of rsa keys and set the pub-key to the remote platform and then can submit your codes for the first time.  
+4. Git has a really scathing authentication rules. For example, you have to generate a pair of rsa keys and set the pub-key to the remote platform and then can submit your codes for the first time.  
 5. In window, git tools is not as many or as good as svn.  
 
 <a id="sec15"></a>
