@@ -417,7 +417,7 @@ git remote add origin https://xxx/new_path.git
 
 > ## 15# Why we use git
 
-<a>1#</a> If you're trapped somewhere disconnected from the internet, or to say you're on the plane, basement or elevator, you can still committing, reverting etc.  
+<a>1#</a> If you're trapped somewhere disconnected from the internet, or to say you're on the plane, basement or elevator, you can still commit, or revert, etc.  
 
 <a>2#</a> Branch is really branch, and tag is really tag.  
 &nbsp;&nbsp;It's only a normal directory of branches or tags for svn. They're not different from trunk actually. But this is not the case for git. They're seperated and quite different for they've got different commands to reach different goals.  
