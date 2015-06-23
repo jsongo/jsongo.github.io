@@ -450,8 +450,8 @@ Now if you're still not clear about what `git stash` is, check [this](http://git
 &nbsp;&nbsp;It marks the conflicts by modifying you local codes without asking and so forces you to resolve it.  
 As for git, `git pull` refuses to overwrite your local codes. Only when you run `git merge` will git modify your codes. And the remained step are discribed [above](sec11).   
 
-9# Ignore files.  
+*9#* Ignore files.  
 &nbsp;&nbsp;It's simple for git to ignore some kinds of files when submitting using '.gitignore' file. But for svn, there is no easy way to make it.  
 
-10# Platform and UI interaction.  
+**10#** Platform and UI interaction.  
 &nbsp;&nbsp;Almost all of us have heard about GitHub or GitLab. There are too many convenient things we can use for developing. You know, visual interaction is clearer and easier.  
