@@ -70,7 +70,8 @@ git init
 git remote add origin https://xxx/path.git
 git fetch origin master
 {% endhighlight %}
-And the last command can be replaced with `git pull origin master`. But they're different. `fetch` only means copying the code to local while `pull` will additionally merge the fetched code with existing file at local. There's a detailed disscussion about that, named [GIT: FETCH AND MERGE, DON’T PULL](http://longair.net/blog/2009/04/16/git-fetch-and-merge/).  
+And the last command can be replaced with `git pull origin master`. But they're different. `fetch` only means copying the code to local while `pull` will additionally merge the fetched code with existing file at local. There's a detailed discussion about that, named [GIT: FETCH AND MERGE, DON’T PULL](http://longair.net/blog/2009/04/16/git-fetch-and-merge/).   
+'fork', you must have heard about this word more or less. So what does it mean in git? Normally, you see a brilliant project on GitHub collecting all kinds of web develop skills, and you find yourself can supplement with some good ideas. So you can fork it to another branch, write your own codes and submit and push to it. Then you could send a merge request asking the project owner to merge your codes. So, fork means when you can't directly push to the master branch of some project, you can create another one and ask to be merged later on. So GitHub acts brilliantly in open source project development and it borns for it. 
 
 <a id="sec2"></a>
 
@@ -466,6 +467,16 @@ As for git, `git pull` refuses to overwrite your local codes. Only when you run 
 
 <a>9#</a> Ignore files.  
 &nbsp;&nbsp;It's simple for git to ignore some kinds of files when submitting using '.gitignore' file. But for svn, there is no easy way to make it.  
+Wanna stop tracking some file? Use this: 
+{% highlight bash %}
+git update-index --assume-unchanged file_path
+{% endhighlight %}
+Then git will not track the changes of the file again whatever you run `git add --all` or `git status`. And resume tracking using: 
+{% highlight bash %}
+git update-index --no-assume-unchanged file_path
+{% endhighlight %}
 
 <a>10#</a> Platform and UI interaction.  
 &nbsp;&nbsp;Almost all of us have heard about GitHub or GitLab. There are too many convenient things we can use for developing. You know, visual interaction is clearer and easier.  
+
+All in all, 'where Git really shines is branching and working with other people'.   
