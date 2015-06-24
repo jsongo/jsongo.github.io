@@ -188,6 +188,7 @@ And for git, there is still many infos of current remote repos, which I'll talke
 {% highlight bash %}
 git log [file_name]
 {% endhighlight %}
+With `--pretty=oneline` you'll get pretty printed logs. You can search git history. [This](http://git-scm.com/book/ch2-3.html) article will help you.   
 
 * branches or tags info  
 <a id="branchRemote"></a>
