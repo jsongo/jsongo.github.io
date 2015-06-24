@@ -25,9 +25,9 @@ I've been using svn for the past three years and git for several months, which a
 [8. Branch and Tags](#sec8)  
 [9. Remote operation](#sec9)  
 [10. Roll back](#sec10)  
-[11. How to resolve conflict](#sec11)  
-[12. How to relocate](#sec12)  
-[13. How to set external links](#sec13)  
+[11. How to resolve conflict](#sec11) 
+[12. How to set external links](#sec12)   
+[13. How to relocate](#sec13)  
 [14. Why we use svn](#sec14)  
 [15. Why we use git](#sec15)  
 
