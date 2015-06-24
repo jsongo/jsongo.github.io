@@ -356,7 +356,7 @@ Excellent. It's really a rollback operation instead of several different steps i
 
 <a id="sec11"></a>
 
-> ## 11# How to resolve conflict
+> ## 11# How to resolve conflicts
 
 ## [1]. with svn
 When updated, svn will mark the conflicts with different files and with '======' inside files. So search for the conflict parts, modify them and delete the backup files created by svn. Then run:  
@@ -366,7 +366,7 @@ svn resolved file_name
 This will tell svn that the conflicts in this file is resolved.  
 
 ## [2]. with git
-Git will sometimes produce conflicts when merging. Modify the marked parts like svn and then submit. Git will find that it's resolved and you don't have to tell it.   
+Git will sometimes produce conflicts when merging. Modify the marked parts like svn and run `git add repaired_file_name` and then submit. Git will find that it's resolved and you don't have to tell it.   
 
 <a id="sec12"></a>
 
