@@ -364,7 +364,7 @@ svn resolved file_name
 This will tell svn that the conflicts in this file is resolved.  
 
 ## [2]. with git
-Git will sometimes produce conflicts when merging. Modify the marked parts like svn and the submit. Git will find that it's resolved and you don't have to tell it.   
+Git will sometimes produce conflicts when merging. Modify the marked parts like svn and then submit. Git will find that it's resolved and you don't have to tell it.   
 
 <a id="sec12"></a>
 
