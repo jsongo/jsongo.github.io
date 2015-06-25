@@ -345,7 +345,7 @@ svn merge --dry-run -r:version_new:version_old http://xxx/path
 svn merge -r:version_new:version_old http://xxx/path
 svn commit -m "Reverted to revision version_old."
 {% endhighlight %}
-The first command about will perform a dry run and show you what the merge will produce. Learn more about this [here](https://aralbalkan.com/1381/).  
+The first command above will perform a dry run and show you what the merge will produce. Learn more about this [here](https://aralbalkan.com/1381/).  
 
 ## [2]. with git
 To discard local modifications recently made before commit or to rollback to a particular version
