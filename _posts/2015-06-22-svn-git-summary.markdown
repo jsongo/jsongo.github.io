@@ -32,7 +32,7 @@ I've been using svn for the past three years and git for several months, which a
 [15. Why we use git](#sec15)  
 
 ---
-First of all, say you're familiar with svn, there's something different you've got to know about git. Git has two repositories for every project you clone to your local directory. One is the remote repo which can be shared with different people, the other is local repo which could only be access by yourself but could be used when you're disconnected from the internet.  
+First of all, say you're familiar with svn, there's something different you've got to know about git. Git has two repositories for every project you clone to your local directory. One is the remote repo which can be shared with different people, the other is local repo which could only be accessed by yourself but could be used when you're disconnected from the internet.  
 This post is mainly for coders, so, below I'll talk about codes instead of files in some places.  
 `[]` in commands below means the part is optional.  
 'repo' is short for 'repository' which performs the server and storage for svn or git.  
