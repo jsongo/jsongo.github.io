@@ -23,7 +23,7 @@ comments: []
 
 具体操作示例：  
 {% highlight bash %}
-git tag -s -a v1.3.1 -m '修改页面风格，增加当地活动、向导服务、交通服务，修复之前录入版本的两个交互问题'
+git tag -s -a v1.3.1 -m 'xxxxxxxx'
 {% endhighlight %}
 其中，如果用-s签名遇到问题，请查阅：《[git对commit或tag签名](http://jsongo.github.io/post/git/2015/sign-a-git-commit/)》  
 
