@@ -2,7 +2,7 @@
 layout: post_item
 status: publish
 published: true
-title: Briefly intro of svn and git
+title: Brief Introduction to SVN and Git
 author: jsongo
 date: '2015-06-22 12:08:41'
 categories: [tools]
