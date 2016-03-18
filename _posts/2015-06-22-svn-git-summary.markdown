@@ -11,10 +11,10 @@ comments: []
 ---
 &nbsp;&nbsp;This is the summary of how I use svn and now git.  
 **But, git isn't better or worse than Subversion, it's different.**  
-I've been using svn for the past three years and git for several months, which are exactly not long enough to write a deepgoing article about these two tools. Well, if you're new to one of them, this post may be of some use. I'll just talk about how, not much why. Any question, leave some comments at the following comment box, I'll answer it as soon as I find it, and as long as I Know How To Reply >_<. Anyway, there may be some mistakes below. Tell me when you find it. Much appreciate about that.  
+I've been using svn for the past three years and git for several months, which are exactly not long enough to write a deepgoing article about these two tools. Well, if you're new to one of them, this post may be of some use. I would just talk about how instead of why. Any questions, leave some comments at the following comment box, I'll reply them as soon as I see it, and as long as I Know How To Answer >_<. Anyway, there may be some mistakes below. Tell me when you find them. Much appreciation about that.  
 
 
-&nbsp;&nbsp;So now let's begin. And this is the catalogue:   
+&nbsp;&nbsp;So now let's begin. This is the catalogue:   
 [1. How to pull files](#sec1)  
 [2. How to add files and commit](#sec2)  
 [3. How to update files](#sec3)  
@@ -25,7 +25,7 @@ I've been using svn for the past three years and git for several months, which a
 [8. Branch and Tags](#sec8)  
 [9. Remote operation](#sec9)  
 [10. Roll back](#sec10)  
-[11. How to resolve conflict](#sec11) 
+[11. How to resolve conflict](#sec11)   
 [12. How to set external links](#sec12)   
 [13. How to relocate](#sec13)  
 [14. Why we use svn](#sec14)  
@@ -33,11 +33,11 @@ I've been using svn for the past three years and git for several months, which a
 
 ---
 First of all, say you're familiar with svn, there's something different you've got to know about git. Git has two repositories for every project you clone to your local directory. One is the remote repo which can be shared with different people, the other is local repo which could only be accessed by yourself but could be used when you're disconnected from the internet.  
-This post is mainly for coders, so, below I'll talk about codes instead of files in some places.  
+This post is mainly for coders.   
 `[]` in commands below means the part is optional.  
 'repo' is short for 'repository' which performs the server and storage for svn or git.  
 Also, there is a different meaning of 'checkout' between svn and git.  
-In svn, 'checkout' means pulling down the codes while in git, it means swithing among branches in your working directory. I'll talk more about that bellow.   
+In svn, 'checkout' means pulling down the codes while in git, it means swithing among branches in your working directory. I'll talk more about that later.   
 
 <a id="sec1"></a>
 
