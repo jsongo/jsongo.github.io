@@ -47,12 +47,12 @@ In svn, 'checkout' means pulling down the codes while in git, it means swithing 
 {% highlight bash %}
 svn co svn://xxx/path [local_dir]
 {% endhighlight %}
-`co` is short for commit.  
-But if you just want to pull files without `.svn` directories, just do exporting.  
+`co` is short for checkout.  
+But if you just want to pull files without `.svn` directories, just try exporting.  
 {% highlight bash %}
 svn export svn://xxx/path [local_dir]
 {% endhighlight %}
-And you can export any version of files. The simple syntax is:
+And you can export any version of files. A simple way is like this:
 {% highlight bash %}
 svn export [-r version] svn://xxx/path [local_dir]
 {% endhighlight %}
@@ -62,15 +62,15 @@ In some cases, if you submit your code for the first time, svn will ask for your
 {% highlight bash %}
 git clone https://xxx/path.git [local_dir]
 {% endhighlight %}
-With git, you cannot take co for short of clone. You'll have to type the whole word, as well as the other commands in git, except `rm` or `mv` which are special and can only be written in this way.   
-When cloned, the default remote tag is origin, and the default branch master.  
+With git, you cannot take co for short of anything. You'll have to type the whole word, as well as the other commands in git, except `rm` or `mv` which are special and can only be written in this way.   
+When cloned, the default remote name is origin, and the default branch, master.  
 Well, with git, clone will pull down the code of all the branches, which is also the case of svn. So with git, if you only want the codes on branch of master, method below will do it. And this is the recommended way of pulling code in git.  
 {% highlight bash %}
 git init
 git remote add origin https://xxx/path.git
 git fetch origin master
 {% endhighlight %}
-And the last command can be replaced with `git pull origin master`. But they're different. `fetch` only means copying the code to local while `pull` will additionally merge the fetched code with existing file at local. There's a detailed discussion about that, named [GIT: FETCH AND MERGE, DON’T PULL](http://longair.net/blog/2009/04/16/git-fetch-and-merge/).   
+And the last command can be replaced with `git pull origin master`. But they're different. `fetch` only means copying the code to local while `pull` will additionally merge the fetched code with existing files at local. There's a detailed discussion about that, named [GIT: FETCH AND MERGE, DON’T PULL](http://longair.net/blog/2009/04/16/git-fetch-and-merge/).   
 'fork', you must have heard about this word more or less. So what does it mean in git? Normally, you see a brilliant project on GitHub collecting all kinds of web develop skills, and you find yourself can supplement with some good ideas. So you can fork it to another branch, write your own codes and submit and push to it. Then you could send a merge request asking the project owner to merge your codes. So, fork means when you can't directly push to the master branch of some project, you can create another one and ask to be merged later on. So GitHub acts brilliantly in open source project development and it borns for it. 
 
 <a id="sec2"></a>
