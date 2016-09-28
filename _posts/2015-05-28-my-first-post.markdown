@@ -20,4 +20,4 @@ Hey!
   I love coding. Not only 'cause it could make a living, But it is also mostly the meaning of my life. It could do everything you can imagine, as well as those you cannot. It offers me much fun.  
   
   I'm not good at sharing. But this time, I'll try the best to change myself. And I love GitHub very much for the spirit of sharing. Hope to learning more from here and I'll share more out here.  
-  Find me by <a href="mailto:jsongo@jsongo.com">jsongo@jsong.com</a>.
+  Find me by <a href="mailto:jsongo@jsongo.com">jsongo@jsongo.com</a>.
