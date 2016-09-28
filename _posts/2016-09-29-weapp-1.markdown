@@ -33,10 +33,12 @@ comments: [微信小程序开发•系列文章]
 > 一、开发工具  
 
 **1、开发工具其实是用js开发的。（目前版本：0.9.092300）**  
+
     很多人可能不知道js还能开发窗口应用。有兴趣的读者可以先了解下Electron，用nodejs写桌面应用，其原理还是类似chrominum浏览器，也就是在外套一层壳，里面是个网页，只不过做了些优化请用户感知不到是个网页，而更像个窗口应用。它提供了非常丰富的操作系统层面的api然后用js来调用并创建桌面应用程序。  
     这一次开放的这个微信小程序的开发工具，跟之前的公众号开发调试工具一样体验上非常相似，网上也有牛人分析这些工具就是基于Electron开发的。跟之前一样，这个工具也是要扫码登录，玩微信小程序开发的读者，大部分应该之前或多或少做过公众号开发的，至少有一定的js基础，如果没有，倒是建议您学习一下js开发，由于h5的盛行，和nodejs后台服务开发的兴起，及跨平台的移动开发（如react native）的流行等，js已经成为了是个程序员就应该至少掌握一点的语言。  
     
 **2、下载好工具**  
+
     如果你手中已经有一个微信小程序的内测资格，或者读者在看这篇文章的时候权限已经放开的话，那么你可以跳过这一段，直接点开上面的工具下载地址下载打开就可以了。上面给出了一个破解方法的地址，读者可以用它来突破微信内测资格的限制。替换相应的文件即可。破解其实不难，因为上面提到过这个工具是用js开发的，js是不用编译就可以运行的语言，所以代码藏不住。怎么查看代码？window用户可以进入程序目录，查看package.nw\app\dist。mac用户可以点开应用程序目录，右击->显示包内容->Contents->Resources->app.nw->app->dist，这里就是工具的源代码。做过react + flux开发的读者一眼看到这目录结构，可能会觉得很熟悉（actions, components, dispatcher, stores...），没错，它就是用react + flux架构开发的，具体的结构本篇文章暂不讨论，笔者正在准备一篇关于typescript + react + flux的文章，之前做过这方面的开发，对它的开发方式非常推崇。回到本文的主题上来，这篇文章主要是一个入门和准备。读者打开上文提到的[破解文件地址](https://github.com/jsongo/weApp-ide)后，下载相应的文件替换到相应的目录即可。如果你碰巧也在用mac，那可以直接下载我的版本：https://pan.baidu.com/s/1pL6Kysb 直接使用就可以。  
     
 > 二、跑起第一个微信小程序  
@@ -54,13 +56,13 @@ App生成的对象是全局的，可以通过```var appInstance = getApp();```�
 当onShow被调用后，全局就至少会有一个页面了，这时可以通过```var curPage = getCurrentPage();```来拿到当前显示在用户眼前的页面。这里要注意一个地方，onLaunch只是数据的初始化，还没有页面生成，所以这个函数里不要去调用getCurrentPage函数。  
 
 （2）app.json用来定义全局的一些配置参数  
-{% highlight js %}
+{% highlight json %}
 {
-  "pages":[ // 定义一些页面的位置，这样程序才能找到这些页面
+  "pages": [ // 定义一些页面的位置，这样程序才能找到这些页面
     "pages/index/index"
   ],
-  "window":{
-    "backgroundTextStyle":”light",  // 下拉背景字体、loading 图的样式，仅支持 dark/light
+  "window": {
+    "backgroundTextStyle": "light",  // 下拉背景字体、loading 图的样式，仅支持 dark/light
     "navigationBarBackgroundColor": "#fff", // 导航栏背景颜色
     "navigationBarTitleText": "techzto", // 导航栏标题文字内容
     "navigationBarTextStyle": "black" // 导航栏标题颜色，仅支持 black/white
