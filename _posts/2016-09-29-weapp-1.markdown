@@ -30,7 +30,7 @@ comments: [微信小程序开发•系列文章]
 《[微信小程序，一个有局限的类似 React Native 轮子！](http://www.jianshu.com/p/060c6f3dd4e8)》  
 《[看起来很 Q 的微信小程序，背后藏着什么样的野心？](http://www.geekpark.net/topics/216788)》  
 
-> 一、开发工具  
+> # 一、开发工具  
 
 **1、开发工具其实是用js开发的。（目前版本：0.9.092300）**  
 
