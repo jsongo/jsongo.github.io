@@ -575,7 +575,7 @@ aside {
 }
 
 .docs-nav-mobile select {
-  color: #000;
+  color: #c0c0c0;
   width: 100%;
 }
 
@@ -1025,6 +1025,15 @@ code.output {
   }
   a .show-on-mobiles {
     display: inline !important;
+  }
+  a.st-ui-search-tab {
+    top: 10px;
+    right: 0px;
+    width: 0px;
+    overflow: hidden;
+    padding: 0;
+    padding-left: 39px;
+    border-radius: 5px;
   }
 }
 
