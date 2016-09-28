@@ -5,7 +5,7 @@ published: true
 title: 【微信小程序开发•系列文章一】入门
 author: jsongo
 date: '2016-09-29 00:12:40'
-categories: [python]
+categories: [js]
 tags: [weapp,wechat,js]
 comments: [微信小程序开发•系列文章]
 ---
