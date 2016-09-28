@@ -16,6 +16,7 @@ comments: [微信小程序开发•系列文章]
 微信小程序的开发，用的主要还是js语言，微信为自己定义了一套框架专门用来做小程序的开发，叫MINA。接下去我们要一起学习的就是这个框架。  
 
 先记录几个网址：  
+
 > 1. 官方简易教程、和API说明：https://mp.weixin.qq.com/debug/wxadoc/dev/  
 > 2. 开发工具的下载地址：https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html  
 > 3. 下载完后要破解：https://github.com/jsongo/weApp-ide  
