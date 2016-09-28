@@ -56,7 +56,7 @@ App生成的对象是全局的，可以通过```var appInstance = getApp();```�
 当onShow被调用后，全局就至少会有一个页面了，这时可以通过```var curPage = getCurrentPage();```来拿到当前显示在用户眼前的页面。这里要注意一个地方，onLaunch只是数据的初始化，还没有页面生成，所以这个函数里不要去调用getCurrentPage函数。  
 
 （2）app.json用来定义全局的一些配置参数  
-{% highlight json %}
+{% highlight js %}
 {
   "pages": [ // 定义一些页面的位置，这样程序才能找到这些页面
     "pages/index/index"
