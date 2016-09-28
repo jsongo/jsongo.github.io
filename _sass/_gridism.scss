@@ -45,11 +45,6 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-@media screen and (max-width: 568px) {
-  .wrap header {
-    display: none;
-  }
-}
 
 
 /* Width classes also have shorthand versions numbered as fractions
@@ -117,6 +112,10 @@
   }
   .hide-on-mobiles {
     display: none !important;
+  }
+  
+  .wrap header {
+    display: none;
   }
 }
 
