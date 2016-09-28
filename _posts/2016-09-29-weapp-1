@@ -1,0 +1,27 @@
+---
+layout: post_item
+status: publish
+published: true
+title: 【微信小程序开发•系列文章一】入门
+author: jsongo
+date: '2016-09-29 00:12:40'
+categories: [H5-JS-CSS3]
+tags: [weapp,wechat,js]
+comments: [微信小程序开发•系列文章]
+---
+
+目前微信还没有完全开放所有公众号的开发权限，不过没关系，我们有办法来学习、开发。  
+
+微信小程序，简单的开发，却接近app的体验，无需下载，扫码打开，推广成本大大降低，手机上还不用安装太多应用，相信不久后，各家做得好些的app都会开发微信小程序。这是新一轮的竞争的开始。如果你正在学习react native之类的跨平台app开发的话，不妨先花点时间来学习下微信小程序的开发，或许过段时间后，你会想丢掉原来react native之类的想法。  
+微信小程序的开发，用的主要还是js语言，微信为自己定义了一套框架专门用来做小程序的开发，叫MINA。接下去我们要一起学习的就是这个框架。  
+
+先记录几个网址：  
+> 1. 官方简易教程、和API说明：https://mp.weixin.qq.com/debug/wxadoc/dev/  
+> 2. 开发工具的下载地址：https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html  
+> 3. 下载完后要破解：https://github.com/jsongo/weApp-ide  
+> 4. 可以参考和学习别人的代码：https://github.com/xiehui999/SmallAppForQQ  
+
+关于微信小程序的介绍本文就不再多说了，既然读者点进来阅读本文，说明你已经有了一定的兴趣和了解，这里就不占篇幅解释了，贴几个介绍上来有兴趣的读者可以自己看看。
+《[微信小程序是谁的“通往财富自由之路”？](http://mp.weixin.qq.com/s?__biz=MzAxNzI4MTMwMw==&mid=2651630318&idx=1&sn=6dcbbf3b8c5f56a39a73a4ffdfc8b46a)》
+《微信小程序，一个有局限的类似 React Native 轮子！》
+《看起来很 Q 的微信小程序，背后藏着什么样的野心？》
