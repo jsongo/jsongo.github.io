@@ -19,10 +19,10 @@ comments: [微信小程序开发•系列文章]
 微信小程序的开发，用的主要还是js语言，微信为自己定义了一套框架专门用来做小程序的开发，叫MINA。接下去我们要一起学习的就是这个框架。  
 
 先记录几个网址：  
-1. 官方简易教程、和API说明：https://mp.weixin.qq.com/debug/wxadoc/dev/  
-2. 开发工具的下载地址： https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html  
-3. 下载完后要破解：https://github.com/jsongo/weApp-ide  
-4. 可以参考和学习别人的代码：https://github.com/xiehui999/SmallAppForQQ  
+1. [官方简易教程、和API说明](https://mp.weixin.qq.com/debug/wxadoc/dev/)  
+2. [开发工具的下载地址](https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html)  
+3. [下载完后要破解](https://github.com/jsongo/weApp-ide)  
+4. [可以参考和学习别人的代码](https://github.com/xiehui999/SmallAppForQQ)  
 
 
   关于微信小程序的介绍本文就不再多说了，既然读者点进来阅读本文，说明你已经有了一定的兴趣和了解，这里就不占篇幅解释了，贴几个介绍上来有兴趣的读者可以自己看看。  
@@ -39,12 +39,12 @@ comments: [微信小程序开发•系列文章]
     
 **2、下载好工具**  
 
-    如果你手中已经有一个微信小程序的内测资格，或者读者在看这篇文章的时候权限已经放开的话，那么你可以跳过这一段，直接点开上面的工具下载地址下载打开就可以了。上面给出了一个破解方法的地址，读者可以用它来突破微信内测资格的限制。替换相应的文件即可。破解其实不难，因为上面提到过这个工具是用js开发的，js是不用编译就可以运行的语言，所以代码藏不住。怎么查看代码？window用户可以进入程序目录，查看package.nw\app\dist。mac用户可以点开应用程序目录，右击->显示包内容->Contents->Resources->app.nw->app->dist，这里就是工具的源代码。做过react + flux开发的读者一眼看到这目录结构，可能会觉得很熟悉（actions, components, dispatcher, stores...），没错，它就是用react + flux架构开发的，具体的结构本篇文章暂不讨论，笔者正在准备一篇关于typescript + react + flux的文章，之前做过这方面的开发，对它的开发方式非常推崇。回到本文的主题上来，这篇文章主要是一个入门和准备。读者打开上文提到的[破解文件地址](https://github.com/jsongo/weApp-ide)后，下载相应的文件替换到相应的目录即可。如果你碰巧也在用mac，那可以直接下载我的版本：https://pan.baidu.com/s/1pL6Kysb 直接使用就可以。  
+如果你手中已经有一个微信小程序的内测资格，或者读者在看这篇文章的时候权限已经放开的话，那么你可以跳过这一段，直接点开上面的工具下载地址下载打开就可以了。上面给出了一个破解方法的地址，读者可以用它来突破微信内测资格的限制。替换相应的文件即可。破解其实不难，因为上面提到过这个工具是用js开发的，js是不用编译就可以运行的语言，所以代码藏不住。怎么查看代码？window用户可以进入程序目录，查看package.nw\app\dist。mac用户可以点开应用程序目录，右击->显示包内容->Contents->Resources->app.nw->app->dist，这里就是工具的源代码。做过react + flux开发的读者一眼看到这目录结构，可能会觉得很熟悉（actions, components, dispatcher, stores...），没错，它就是用react + flux架构开发的，具体的结构本篇文章暂不讨论，笔者正在准备一篇关于typescript + react + flux的文章，之前做过这方面的开发，对它的开发方式非常推崇。回到本文的主题上来，这篇文章主要是一个入门和准备。读者打开上文提到的[破解文件地址](https://github.com/jsongo/weApp-ide)后，下载相应的文件替换到相应的目录即可。如果你碰巧也在用mac，那可以直接下载我的版本：https://pan.baidu.com/s/1pL6Kysb 直接使用就可以。  
     
 > 二、跑起第一个微信小程序  
 
 **1、创建项目：**   
-<p align="center"><img src="/img/201609/weapp1.jpg" alter="创建项目" width="70%"/></p>
+<p align="center"><img src="/img/201609/weapp1.jpg" alter="创建项目" width="80%"/></p>
 点击添加项目，下一步，如果是已经有微信小程序的appId的用户（请用官方提供的原版，不需要用破解版）填入appId，用破解版的用户appId随便填都行。然后写上项目名，再选个目录就可以创建一个demo了。  
 进入项目后，开发工具会自动编译、运行demo，这时展现在读者眼前的就是第一个hello world程序了。  
 
@@ -80,13 +80,13 @@ wxss文件就相当于css文件，用来定义一些页面的样式。理解这�
 **4、开发工具的其它说明**
 上文中已经讲了不少跟这个工具相关的使用，这里再来补充几点工具的介绍吧。  
 这是一个集成了coding，编译调试运行、简单项目管理的一个工具，可以把它当成一个编辑器来用，网上有人推荐用sublime等外部工具，不过笔者不太建议。不管怎么说，切换来切换去的也怪麻烦，而且微信开发这个工具，要集成coding的功能，自然有它自己的想法，可能是要定义一套比较完整的开发流程，让开发者不用为开发工具烦恼。如下图：
-<p align="center"><img src="/img/201609/weapp2.jpg" alter="创建项目" width="70%"/></p>
+<p align="center"><img src="/img/201609/weapp2.jpg" alter="创建项目" width="85%"/></p>
 左侧有几个tab，第一个，“编辑”就是给开发者管理文件、编写代码的，coding时还会有代码提示，这功能已经足够强大了。如果你之前已经习惯了用gulp、webpack之类的集成工具的话，也没关系，因为这个工具已经帮你做好这些事情了。你不用去写一堆gulpfile等的配置文件，这工具已经有一个集成化的功能，点击编译就可以完成所有的编译操作，可能你会说，没办法watch，这个我也还没找到方法，可能得去改它的源码吧。后面有机会再去研究，有结果，还会继续分享给大家。  
 
-<p align="center"><img src="/img/201609/weapp3.jpg" alter="创建项目" width="70%"/></p>
+<p align="center"><img src="/img/201609/weapp3.jpg" alter="创建项目" width="85%"/></p>
 第二个tab，非常像一个小型的chrome浏览器，只是没有地址栏。熟悉前端开发的读者一看右边的调试就会感觉非常亲切，这不就是chrome的调试器吗...  这个tab被激活时，最左侧下方会多出几个按钮，第一个是重启，就是重新编译的功能、及模拟小程序重新被打开的过程；第二个按钮，切换到后台，这个就可以模拟我们上面讲到的onShow，和onHide的生命周期；第三个按钮用来清除缓存。  
 
-<p align="center"><img src="/img/201609/weapp4.jpg" alter="创建项目" width="70%"/></p>
+<p align="center"><img src="/img/201609/weapp4.jpg" alter="创建项目" width="85%"/></p>
 最后，介绍一下第三个tab，它就是用来处理最后的流程：打包、发布。后面讲到发布流程的时候，会回来讲到这个界面。  
 
 到这里，第一篇文章就结束了。欢迎读者继续一起学习这一系列文章的第二篇。  
