@@ -39,4 +39,6 @@ comments: [微信小程序开发•系列文章]
 > 二、跑起第一个微信小程序  
 
 **1、创建项目：**  
-<p align="center">![创建项目](img/weapp1.jpg)</p>
+<p align="center">
+![创建项目](/201609/img/weapp1.jpg)
+</p>
