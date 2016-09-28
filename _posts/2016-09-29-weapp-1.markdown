@@ -18,12 +18,12 @@ comments: [微信小程序开发•系列文章]
 
 微信小程序的开发，用的主要还是js语言，微信为自己定义了一套框架专门用来做小程序的开发，叫MINA。接下去我们要一起学习的就是这个框架。  
 
-先记录几个网址：
-```1. 官方简易教程、和API说明：https://mp.weixin.qq.com/debug/wxadoc/dev/  
+先记录几个网址：  
+1. 官方简易教程、和API说明：https://mp.weixin.qq.com/debug/wxadoc/dev/  
 2. 开发工具的下载地址： https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html  
 3. 下载完后要破解：https://github.com/jsongo/weApp-ide  
 4. 可以参考和学习别人的代码：https://github.com/xiehui999/SmallAppForQQ  
-```  
+
 
   关于微信小程序的介绍本文就不再多说了，既然读者点进来阅读本文，说明你已经有了一定的兴趣和了解，这里就不占篇幅解释了，贴几个介绍上来有兴趣的读者可以自己看看。  
 《[微信小程序是谁的“通往财富自由之路”？](http://mp.weixin.qq.com/s?__biz=MzAxNzI4MTMwMw==&mid=2651630318&idx=1&sn=6dcbbf3b8c5f56a39a73a4ffdfc8b46a)》  
@@ -54,7 +54,8 @@ App生成的对象是全局的，可以通过```var appInstance = getApp();```�
 当onShow被调用后，全局就至少会有一个页面了，这时可以通过```var curPage = getCurrentPage();```来拿到当前显示在用户眼前的页面。这里要注意一个地方，onLaunch只是数据的初始化，还没有页面生成，所以这个函数里不要去调用getCurrentPage函数。  
 
 （2）app.json用来定义全局的一些配置参数  
-<pre><code>{
+{% highlight js %}
+{
   "pages":[ // 定义一些页面的位置，这样程序才能找到这些页面
     "pages/index/index"
   ],
@@ -64,7 +65,8 @@ App生成的对象是全局的，可以通过```var appInstance = getApp();```�
     "navigationBarTitleText": "techzto", // 导航栏标题文字内容
     "navigationBarTextStyle": "black" // 导航栏标题颜色，仅支持 black/white
   }
-}</code></pre>
+}
+{% endhighlight %}
 相关的参数及意义，上方已经在注释里说明，更新的配置说明，可以参考微信官方文档的配置详情。在这文档里，参看几个字段和它的含意就行，下方的tabBar之类的，在之后的文章中会详细介绍。  
 
 （3）app.wxss则是全局的样式定义  
