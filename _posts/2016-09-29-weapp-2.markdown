@@ -44,8 +44,8 @@ App跟Page的关系是，App在整个小程序中只能有一个，唯一的一�
 
 **（1）相关组件**  
 首先，这里会涉及到三种文件：wxml / wxss 和 js。index.wxml代码：  
+{% highlight xml %}
 {% raw %}
-
 <view class="container">
   <scroll-view scroll-y="true" bindscrolltoupper="upper"
     bindscrolltolower="lower" bindscroll="scroll" class="scroll-wrapper">
@@ -62,7 +62,8 @@ App跟Page的关系是，App在整个小程序中只能有一个，唯一的一�
   </scroll-view>
 </view>
 {% endraw %}
-view元素就相当于HTML中的<div>元素。重点介绍一下scroll-view组件，点击查看官网文档。它用来定义一个可滚动的视图区域，相当于ios开发中的UIScrollView。里面的内容如果超过这个区域的宽或高时，就会出现滚动条。上面定义的class为scroll-view-item的view就是一个36Kr的新闻项，一条新闻，布局很直观，左侧一个image，右侧一个新闻标题的<text>，加上补充信息。<text>相当于<p>标签，用来包裹文本内容。<image>就是图片元素，相当于HTML中的<img>标签。scroll-view有一些属性，重点介绍几个，它默认是不允许滚动的，用scroll-x来设置横向滚动（默认false），scroll-y设置竖直滚动（默认false）。bindscrolltoupper，这个属性用来设置滚动到顶部/左边时，触发 scrolltoupper 事件，用这个来做刷新。bindscrolltolower用来设置滚动到底部/右边时，触发 scrolltolower 事件，可以用来做加载更多的操作。本例子中没有用到这两个，不过加到代码中用来做使用说明。bindscroll用来绑定滚动时触发，这个可以用来做用户手势的判断等。其它属性，读者可以参数官方文档。  
+{% endhighlight %}
+view元素就相当于HTML中的&lt;div>元素。重点介绍一下scroll-view组件，点击查看官网文档。它用来定义一个可滚动的视图区域，相当于ios开发中的UIScrollView。里面的内容如果超过这个区域的宽或高时，就会出现滚动条。上面定义的class为scroll-view-item的view就是一个36Kr的新闻项，一条新闻，布局很直观，左侧一个image，右侧一个新闻标题的&lt;text>，加上补充信息。&lt;text>相当于&lt;p>标签，用来包裹文本内容。&lt;image>就是图片元素，相当于HTML中的&lt;img>标签。scroll-view有一些属性，重点介绍几个，它默认是不允许滚动的，用scroll-x来设置横向滚动（默认false），scroll-y设置竖直滚动（默认false）。bindscrolltoupper，这个属性用来设置滚动到顶部/左边时，触发 scrolltoupper 事件，用这个来做刷新。bindscrolltolower用来设置滚动到底部/右边时，触发 scrolltolower 事件，可以用来做加载更多的操作。本例子中没有用到这两个，不过加到代码中用来做使用说明。bindscroll用来绑定滚动时触发，这个可以用来做用户手势的判断等。其它属性，读者可以参数官方文档。  
 
 **（2）数据绑定**  
 数据绑定，在wxml文件里通过{{…}} 两层大括号来定义，里面的内容会被解析成js代码，并把相关的变量绑定到相应的地方。  
