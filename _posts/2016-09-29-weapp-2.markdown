@@ -111,7 +111,8 @@ wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一
   <view> {{item}} </view>
 </block>
 {% endraw %}
-{% endhighlight %}
+{% endhighlight %}  
+
 
 **（3）事件绑定**  
 
