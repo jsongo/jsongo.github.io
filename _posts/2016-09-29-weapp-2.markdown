@@ -37,7 +37,7 @@ App跟Page的关系是，App在整个小程序中只能有一个，唯一的一�
 
 下面我们先来总体分析一下这个小例子。上图：  
 <p align="center"><img src="/img/201609/weapp2-2.jpg" alter="demo界面" width="280"/></p>
-借用36Kr网站的内容来做个很简单的小程序，新闻列表，点击查看内容。代码放在：https://github.com/jsongo/weapp-tutorial-2 这里。  
+借用36Kr网站的内容来做个很简单的小程序，新闻列表，点击查看内容。代码放在：[https://github.com/jsongo/weapp-tutorial-2](https://github.com/jsongo/weapp-tutorial-2) 这里。  
 本章的内容写死了数据，下一篇文章中我们会来介绍如何发起网络请求去取数据。  
 
 > 3、wxml代码分析  
@@ -63,7 +63,7 @@ App跟Page的关系是，App在整个小程序中只能有一个，唯一的一�
 </view>
 {% endraw %}
 {% endhighlight %}
-view元素就相当于HTML中的&lt;div>元素。重点介绍一下scroll-view组件，点击查看官网文档。它用来定义一个可滚动的视图区域，相当于ios开发中的UIScrollView。里面的内容如果超过这个区域的宽或高时，就会出现滚动条。上面定义的class为scroll-view-item的view就是一个36Kr的新闻项，一条新闻，布局很直观，左侧一个image，右侧一个新闻标题的&lt;text>，加上补充信息。&lt;text>相当于&lt;p>标签，用来包裹文本内容。&lt;image>就是图片元素，相当于HTML中的&lt;img>标签。scroll-view有一些属性，重点介绍几个，它默认是不允许滚动的，用scroll-x来设置横向滚动（默认false），scroll-y设置竖直滚动（默认false）。bindscrolltoupper，这个属性用来设置滚动到顶部/左边时，触发 scrolltoupper 事件，用这个来做刷新。bindscrolltolower用来设置滚动到底部/右边时，触发 scrolltolower 事件，可以用来做加载更多的操作。本例子中没有用到这两个，不过加到代码中用来做使用说明。bindscroll用来绑定滚动时触发，这个可以用来做用户手势的判断等。其它属性，读者可以参数官方文档。  
+view元素就相当于HTML中的&lt;div>元素。重点介绍一下scroll-view组件，[点击查看官网文档](https://mp.weixin.qq.com/debug/wxadoc/dev/component/scroll-view.html)。它用来定义一个可滚动的视图区域，相当于ios开发中的UIScrollView。里面的内容如果超过这个区域的宽或高时，就会出现滚动条。上面定义的class为scroll-view-item的view就是一个36Kr的新闻项，一条新闻，布局很直观，左侧一个image，右侧一个新闻标题的&lt;text>，加上补充信息。&lt;text>相当于&lt;p>标签，用来包裹文本内容。&lt;image>就是图片元素，相当于HTML中的&lt;img>标签。scroll-view有一些属性，重点介绍几个，它默认是不允许滚动的，用scroll-x来设置横向滚动（默认false），scroll-y设置竖直滚动（默认false）。bindscrolltoupper，这个属性用来设置滚动到顶部/左边时，触发 scrolltoupper 事件，用这个来做刷新。bindscrolltolower用来设置滚动到底部/右边时，触发 scrolltolower 事件，可以用来做加载更多的操作。本例子中没有用到这两个，不过加到代码中用来做使用说明。bindscroll用来绑定滚动时触发，这个可以用来做用户手势的判断等。其它属性，读者可以参数官方文档。  
 
 **（2）数据绑定**  
 数据绑定，在wxml文件里通过{{…}} 两层大括号来定义，里面的内容会被解析成js代码，并把相关的变量绑定到相应的地方。  
@@ -87,17 +87,20 @@ Page({
 {% endhighlight %}
 data字段，用来定义当前页面的所有的数据，可以理解为数据层，刚刚的wxml是view层，而Page({…})里的其它地方就是逻辑层。一个完整的MVC模型就很好理解了。  
 
-wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一个个取出数据，并赋给item变量，里面就可以通过{{item.xxx}}来引用这些数据了。所以代码写起来非常简洁。类似wx:for的还有wx:if等等，wx:if用来定义一个条件判断，如果成立，就会解析当前标签及其子标签。{{…}}这里面除了以上提到的用法外，还可以做四则运算、三目运算、逻辑大小判断、字符串相加等，甚至可以定义成一个json对象，如：{{a: 1, b: 2}}。还可以使用es6的语法，如{{...myJson}} ，用…把myJson这个对象解包展开平铺到这个地方。相关的官方文档。  
+wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一个个取出数据，并赋给item变量，里面就可以通过{{item.xxx}}来引用这些数据了。所以代码写起来非常简洁。类似wx:for的还有wx:if等等，wx:if用来定义一个条件判断，如果成立，就会解析当前标签及其子标签。{{…}}这里面除了以上提到的用法外，还可以做四则运算、三目运算、逻辑大小判断、字符串相加等，甚至可以定义成一个json对象，如：{{a: 1, b: 2}}。还可以使用es6的语法，如{{...myJson}} ，用…把myJson这个对象解包展开平铺到这个地方。[相关的官方文档](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxml/data.html)。  
 
-有wx:if，那就应该有wx:else了。这里给个官方的例子，看下就明白了：  
+有wx:if，那就应该有wx:else了。这里给个[官方的例子](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxml/conditional.html)，看下就明白了：  
+{% highlight xml %}
 {% raw %}
 <view wx:if="{{length > 5}}"> 1 </view>
 <view wx:elif="{{length > 2}}"> 2 </view>
 <view wx:else> 3 </view>
 {% endraw %}
+{% endhighlight %}
 文档除了介绍if之外，还讲了另一个类似功能的 hidden，使用：<view hidden="true"> ... </view> 当为true的时候，这个标签及其子标签会被隐藏。这个表述跟上面说到wx:if时的表述是有区别的，wx:if是条件为真时才会去解析，而hidden是无论如何都会去解析代码，只是不显示这些标签而已。  
 
-<block>标签。这是一个不会显示出来的辅助标签，在wx:if时，如果你想作用于几个并列在一起的标签，那就可以用block把它们包起来。同样，如果你在用wx:for时，遇到没有外层标签的情况，只有几个标签并排着，这时也可以用block把它们包起来。  
+<block>标签。这是一个不会显示出来的辅助标签，在wx:if时，如果你想作用于几个并列在一起的标签，那就可以用block把它们包起来。同样，如果你在用wx:for时，遇到没有外层标签的情况，只有几个标签并排着，这时也可以用block把它们包起来。   
+{% highlight xml %}
 {% raw %}
 <block wx:if="{{true}}">
   <view> view1 </view>
@@ -108,22 +111,33 @@ wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一
   <view> {{item}} </view>
 </block>
 {% endraw %}
+{% endhighlight %}
 
 **（3）事件绑定**  
 列表中每个item都有一个事件的绑定，catchtap="bindItemTap"，绑定在用户点击时做页面的切换。  
 
-组件的事件有很多种，每个组件都有自己定义的组件，如&lt;input>有input事件，&lt;form>有submit事件等，详见各组件。不过有一些大部分组件都共同的事件，主要有：touchstart、touchmove、touchend、touchcancel、longtap、tap。前三个都很熟悉了，其它几个，touchcancel指的是用户的触摸事件被其它东西打断，比如突然弹窗，或者突然有个电话进来。longtap就是长按事件，微信官网解释是指超过350ms的touch。tap就类似于pc浏览器上的click点击事件。这六个事件都是会冒泡的事件，（如果没有js基础的朋友不太理解冒泡，这里帮你们找了些文章来理解这个《解析Javascript事件冒泡机制》《javascript 的事件冒泡与捕获及冒泡优势》）除了这六个事件之外 ，其它事件都是非冒泡事件。事件绑定的方式就是用bind或catch这两个词，再加上事件的名称（全小写）就可以了。如bindtap, catchtap。他们的差别是，bind允许冒泡传递，而catch会阻止冒泡，就是把所有的事件都变成非冒泡事件。每个事件的响应函数一般会有个event参数，事件对象，这个参数的event.targe指向触发事件的组件，里面有它的一些属性值，而event.currentTarget则指向当前事件所在的组件，currentTarget是因为事件冒泡机制而设置的，它指向事件当前指向的组件，不一定是我们设置bindtap属性的那个组件，而target就永远都是指向这个绑定的原组件。  
+组件的事件有很多种，每个组件都有自己定义的组件，如&lt;input>有input事件，&lt;form>有submit事件等，[详见各组件](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxml/event.html)。不过有一些大部分组件都共同的事件，主要有：touchstart、touchmove、touchend、touchcancel、longtap、tap。前三个都很熟悉了，其它几个，touchcancel指的是用户的触摸事件被其它东西打断，比如突然弹窗，或者突然有个电话进来。longtap就是长按事件，微信官网解释是指超过350ms的touch。tap就类似于pc浏览器上的click点击事件。  
 
-接下来讲下MINA设置的一个很有意思的属性集，event.dataset，这是一个event.target指向的组件里定义的data-xxx的属性数据的json对象，可以用event.dataset.xxx来引用，比如最上面我们本文demo的wxml代码中，在catchtap绑定的事件的标签里，有一个data-id属性，那么可以用event.dataset.id来引用这个id值。如果data-xxx里有大写，这里都会转化成小写，如data-myDemo，这时要用event.dataset.mydemo来引用；如果是类似data-abc-def这种格式的属性，则会变成abcDef，-减号后面的第一个字母会被大写。事件相关的官方文档在这。  
+这六个事件都是会冒泡的事件，如果没有js基础的朋友不太理解冒泡，这里帮你们找了些文章来理解这个  
+《[解析Javascript事件冒泡机制](http://blog.csdn.net/luanlouis/article/details/23927347)》  
+《[javascript 的事件冒泡与捕获及冒泡优势](http://www.111cn.net/wy/js-ajax/93133.htm)》  
+
+除了这六个事件之外 ，其它事件都是非冒泡事件。事件绑定的方式就是用bind或catch这两个词，再加上事件的名称（全小写）就可以了。如bindtap, catchtap。他们的差别是，bind允许冒泡传递，而catch会阻止冒泡，就是把所有的事件都变成非冒泡事件。每个事件的响应函数一般会有个event参数，事件对象，这个参数的event.targe指向触发事件的组件，里面有它的一些属性值，而event.currentTarget则指向当前事件所在的组件，currentTarget是因为事件冒泡机制而设置的，它指向事件当前指向的组件，不一定是我们设置bindtap属性的那个组件，而target就永远都是指向这个绑定的原组件。  
+
+接下来讲下MINA设置的一个很有意思的属性集，event.dataset，这是一个event.target指向的组件里定义的data-xxx的属性数据的json对象，可以用event.dataset.xxx来引用，比如最上面我们本文demo的wxml代码中，在catchtap绑定的事件的标签里，有一个data-id属性，那么可以用event.dataset.id来引用这个id值。如果data-xxx里有大写，这里都会转化成小写，如data-myDemo，这时要用event.dataset.mydemo来引用；如果是类似data-abc-def这种格式的属性，则会变成abcDef，-减号后面的第一个字母会被大写。[事件相关的官方文档在这](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxml/event.html)。  
 
 所以，讲到这里，希望读者能再回去读一下最开始的那个index.wxml代码，会有很多收获的。  
 
 > 4、js代码分析  
 
 上面提到的data不是一个普通的字段，它和用户界面绑定，改变它的值，界面里相应的地方也会自动跟着变。这模式是不是跟react很像？目测微信小程序内部包装了react的核心算法和思想。data里的值 ，跟react中的state一样，不要去直接用等号给它赋值或改变它的值，直接修改它是无效的，要调用setData(newObj)来修改，才能触发绑定的界面更新。传入的参数，定义你要改变的那个字段就行，比如data为{a: 1, b: 2, c: 3}，要修改a的值，可以这样调用：this.setData({a: 11})，这时界面中绑定a变量的值就会立马跟着变化。  
-react带来的一个很大的思想变革就是，不希望你通过id或class去取得或设置一个页面dom元素的值，这也是我很喜欢react的原因，其实做前端开发的朋友平时最痛苦的事情之一就是，获取dom节点然后做相应的界面更新，然后，当页面重构师把页面结构改掉的时候，前端开发的js代码就到处冒烟了。前端另一个比较推荐的框架是angular.js，它通过事件绑定的方式来减少dom操作，更新界面。（扯远了。）  
+
+react带来的一个很大的思想变革就是，不希望你通过id或class去取得或设置一个页面dom元素的值，这也是我很喜欢react的原因，其实做前端开发的朋友平时最痛苦的事情之一就是，获取dom节点然后做相应的界面更新，然后，当页面重构师把页面结构改掉的时候，前端开发的js代码就到处冒烟了。前端另一个比较推荐的框架是angular.js，它通过事件绑定的方式来减少dom操作，更新界面。（扯远了。）   
+
 MINA框架其实帮开发者做了非常多的事情，包括刚刚提到的数据绑定、界面更新的逻辑，还有页面切换的逻辑，它内部帮我们管理了整个小程序的页面路由（Page()函数什么时候调用？跳转的时候为什么不用new页面？），整个页面的生命周期（下面介绍）等等，开发者只需要把数据注入到框架中，并在相应的生命周期函数中填写相关的逻辑代码就可以了。  
-刚提到的页面切换方式，顺便介绍下链接跳转的方式，跟HTML不同的地方是，它不是用类似&lt;a>标签来实现的，而是通过事件来做的。页面跳转，通过 wx.navigateTo 这个接口来实现，点击进入官网api的说明。navigateTo会保留当前页面的条件下，切换到新页面，可以用wx.navigateBack 返回。然而还有另一个跳转的api，wx.redirectTo，它则不保留当前页面，会关闭它，官网没有提供这个跳转方式返回的api，或许这时候，要想回到之前的这个页面，就得去新建了。
+
+刚提到的页面切换方式，顺便介绍下链接跳转的方式，跟HTML不同的地方是，它不是用类似&lt;a>标签来实现的，而是通过事件来做的。页面跳转，通过 [wx.navigateTo](https://mp.weixin.qq.com/debug/wxadoc/dev/api/ui-navigate.html) 这个接口来实现，点击进入官网api的说明。navigateTo会保留当前页面的条件下，切换到新页面，可以用wx.navigateBack 返回。然而还有另一个跳转的api，wx.redirectTo，它则不保留当前页面，会关闭它，官网没有提供这个跳转方式返回的api，或许这时候，要想回到之前的这个页面，就得去新建了。  
+
 两个跳转函数的参数都是一个object，格式如下：  
 {% highlight js %}
 {
@@ -133,9 +147,9 @@ MINA框架其实帮开发者做了非常多的事情，包括刚刚提到的数�
     complete: callback // 可选，无论调用成功失败，都会执行
 }
 {% endhighlight %}
-一般带上一个url就可以了。url格式：'../article/content’  是个相对地址，指向新页面的位置，注意不要写后缀。  
+一般带上一个url就可以了。url格式：'../article/content'  是个相对地址，指向新页面的位置，注意不要写后缀。   
 
-> 5、Page函数
+> 5、Page函数  
 
 跟介绍App函数一样，先来理解一下Page的生命周期。  
 ```初始化数据->页面加载完onLoad->页面渲染完onReady->页面显示onShow->页面隐藏onHide->页面卸载onUnload```  
