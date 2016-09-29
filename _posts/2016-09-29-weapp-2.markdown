@@ -154,7 +154,9 @@ MINA框架其实帮开发者做了非常多的事情，包括刚刚提到的数�
 > 5、Page函数  
 
 跟介绍App函数一样，先来理解一下Page的生命周期。  
-```初始化数据->页面加载完onLoad->页面渲染完onReady->页面显示onShow->页面隐藏onHide->页面卸载onUnload```  
+```初始化数据->页面加载完onLoad  
+->页面渲染完onReady->页面显示onShow  
+->页面隐藏onHide->页面卸载onUnload```  
 数据可以随便定义在Page({ … })里成为一个属性，类似于react的props，而data属性里定义的数据就要注意些，它类似于react的state，用来实际绑定界面数据用的，它是一个json格式的数据。  
 onLoad、onReady、onShow这几个回调的关系相对比较复杂，后面会有一篇文章专门用来分析程序生命周期的文章，这里就先不多说了。后面写完后，会把链接贴过来。  
 事件的绑定函数，也是定义在Page里，成为它的一个“成员函数”。比如，上面我用曾定义了一个catchtap=“bindItemTap”，这里的bindItemTap定义在这里：  
