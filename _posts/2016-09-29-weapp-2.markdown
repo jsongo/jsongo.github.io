@@ -96,10 +96,10 @@ wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一
 <view wx:elif="{{length > 2}}"> 2 </view>
 <view wx:else> 3 </view>
 {% endraw %}
-{% endhighlight %}
-文档除了介绍if之外，还讲了另一个类似功能的 hidden，使用：<view hidden="true"> ... </view> 当为true的时候，这个标签及其子标签会被隐藏。这个表述跟上面说到wx:if时的表述是有区别的，wx:if是条件为真时才会去解析，而hidden是无论如何都会去解析代码，只是不显示这些标签而已。  
+{% endhighlight %}  
+文档除了介绍if之外，还讲了另一个类似功能的 hidden，使用：```<view hidden="true"> ... </view>``` 当为true的时候，这个标签及其子标签会被隐藏。这个表述跟上面说到wx:if时的表述是有区别的，wx:if是条件为真时才会去解析，而hidden是无论如何都会去解析代码，只是不显示这些标签而已。  
 
-<block>标签。这是一个不会显示出来的辅助标签，在wx:if时，如果你想作用于几个并列在一起的标签，那就可以用block把它们包起来。同样，如果你在用wx:for时，遇到没有外层标签的情况，只有几个标签并排着，这时也可以用block把它们包起来。   
+&lt;block>标签。这是一个不会显示出来的辅助标签，在wx:if时，如果你想作用于几个并列在一起的标签，那就可以用block把它们包起来。同样，如果你在用wx:for时，遇到没有外层标签的情况，只有几个标签并排着，这时也可以用block把它们包起来。   
 {% highlight xml %}
 {% raw %}
 <block wx:if="{{true}}">
@@ -114,6 +114,7 @@ wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一
 {% endhighlight %}
 
 **（3）事件绑定**  
+
 列表中每个item都有一个事件的绑定，catchtap="bindItemTap"，绑定在用户点击时做页面的切换。  
 
 组件的事件有很多种，每个组件都有自己定义的组件，如&lt;input>有input事件，&lt;form>有submit事件等，[详见各组件](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxml/event.html)。不过有一些大部分组件都共同的事件，主要有：touchstart、touchmove、touchend、touchcancel、longtap、tap。前三个都很熟悉了，其它几个，touchcancel指的是用户的触摸事件被其它东西打断，比如突然弹窗，或者突然有个电话进来。longtap就是长按事件，微信官网解释是指超过350ms的touch。tap就类似于pc浏览器上的click点击事件。  
