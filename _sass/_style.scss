@@ -577,7 +577,12 @@ aside {
 .docs-nav-mobile select {
   color: #c0c0c0;
   width: 100%;
+  display: none;
 }
+.docs-nav-mobile {
+  display: none;
+}
+  
 
 /* News */
 
