@@ -36,7 +36,7 @@ App跟Page的关系是，App在整个小程序中只能有一个，唯一的一�
 > 2、例子简介
 
 下面我们先来总体分析一下这个小例子。上图：  
-<p align="center"><img src="/img/201609/weapp2-2.jpg" alter="demo界面" width="50%"/></p>
+<p align="center"><img src="/img/201609/weapp2-2.jpg" alter="demo界面" width="280"/></p>
 借用36Kr网站的内容来做个很简单的小程序，新闻列表，点击查看内容。代码放在：https://github.com/jsongo/weapp-tutorial-2 这里。  
 本章的内容写死了数据，下一篇文章中我们会来介绍如何发起网络请求去取数据。  
 
@@ -112,7 +112,7 @@ wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一
 **（3）事件绑定**  
 列表中每个item都有一个事件的绑定，catchtap="bindItemTap"，绑定在用户点击时做页面的切换。  
 
-组件的事件有很多种，每个组件都有自己定义的组件，如<input>有input事件，<form>有submit事件等，详见各组件。不过有一些大部分组件都共同的事件，主要有：touchstart、touchmove、touchend、touchcancel、longtap、tap。前三个都很熟悉了，其它几个，touchcancel指的是用户的触摸事件被其它东西打断，比如突然弹窗，或者突然有个电话进来。longtap就是长按事件，微信官网解释是指超过350ms的touch。tap就类似于pc浏览器上的click点击事件。这六个事件都是会冒泡的事件，（如果没有js基础的朋友不太理解冒泡，这里帮你们找了些文章来理解这个《解析Javascript事件冒泡机制》《javascript 的事件冒泡与捕获及冒泡优势》）除了这六个事件之外 ，其它事件都是非冒泡事件。事件绑定的方式就是用bind或catch这两个词，再加上事件的名称（全小写）就可以了。如bindtap, catchtap。他们的差别是，bind允许冒泡传递，而catch会阻止冒泡，就是把所有的事件都变成非冒泡事件。每个事件的响应函数一般会有个event参数，事件对象，这个参数的event.targe指向触发事件的组件，里面有它的一些属性值，而event.currentTarget则指向当前事件所在的组件，currentTarget是因为事件冒泡机制而设置的，它指向事件当前指向的组件，不一定是我们设置bindtap属性的那个组件，而target就永远都是指向这个绑定的原组件。  
+组件的事件有很多种，每个组件都有自己定义的组件，如&lt;input>有input事件，&lt;form>有submit事件等，详见各组件。不过有一些大部分组件都共同的事件，主要有：touchstart、touchmove、touchend、touchcancel、longtap、tap。前三个都很熟悉了，其它几个，touchcancel指的是用户的触摸事件被其它东西打断，比如突然弹窗，或者突然有个电话进来。longtap就是长按事件，微信官网解释是指超过350ms的touch。tap就类似于pc浏览器上的click点击事件。这六个事件都是会冒泡的事件，（如果没有js基础的朋友不太理解冒泡，这里帮你们找了些文章来理解这个《解析Javascript事件冒泡机制》《javascript 的事件冒泡与捕获及冒泡优势》）除了这六个事件之外 ，其它事件都是非冒泡事件。事件绑定的方式就是用bind或catch这两个词，再加上事件的名称（全小写）就可以了。如bindtap, catchtap。他们的差别是，bind允许冒泡传递，而catch会阻止冒泡，就是把所有的事件都变成非冒泡事件。每个事件的响应函数一般会有个event参数，事件对象，这个参数的event.targe指向触发事件的组件，里面有它的一些属性值，而event.currentTarget则指向当前事件所在的组件，currentTarget是因为事件冒泡机制而设置的，它指向事件当前指向的组件，不一定是我们设置bindtap属性的那个组件，而target就永远都是指向这个绑定的原组件。  
 
 接下来讲下MINA设置的一个很有意思的属性集，event.dataset，这是一个event.target指向的组件里定义的data-xxx的属性数据的json对象，可以用event.dataset.xxx来引用，比如最上面我们本文demo的wxml代码中，在catchtap绑定的事件的标签里，有一个data-id属性，那么可以用event.dataset.id来引用这个id值。如果data-xxx里有大写，这里都会转化成小写，如data-myDemo，这时要用event.dataset.mydemo来引用；如果是类似data-abc-def这种格式的属性，则会变成abcDef，-减号后面的第一个字母会被大写。事件相关的官方文档在这。  
 
