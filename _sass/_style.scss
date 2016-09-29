@@ -1057,3 +1057,10 @@ a.st-ui-search-tab {
   bottom: inherit!important;
   top: 100px;
 }
+
+/* code for ``` */
+.highlighter-rouge {
+    width: 100%;
+    overflow: auto;
+    padding: 7px 15px;
+}
