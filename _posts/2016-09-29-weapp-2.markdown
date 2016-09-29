@@ -61,7 +61,7 @@ App跟Page的关系是，App在整个小程序中只能有一个，唯一的一�
     </view>
   </scroll-view>
 </view>
-{% raw %}
+{% endraw %}
 view元素就相当于HTML中的<div>元素。重点介绍一下scroll-view组件，点击查看官网文档。它用来定义一个可滚动的视图区域，相当于ios开发中的UIScrollView。里面的内容如果超过这个区域的宽或高时，就会出现滚动条。上面定义的class为scroll-view-item的view就是一个36Kr的新闻项，一条新闻，布局很直观，左侧一个image，右侧一个新闻标题的<text>，加上补充信息。<text>相当于<p>标签，用来包裹文本内容。<image>就是图片元素，相当于HTML中的<img>标签。scroll-view有一些属性，重点介绍几个，它默认是不允许滚动的，用scroll-x来设置横向滚动（默认false），scroll-y设置竖直滚动（默认false）。bindscrolltoupper，这个属性用来设置滚动到顶部/左边时，触发 scrolltoupper 事件，用这个来做刷新。bindscrolltolower用来设置滚动到底部/右边时，触发 scrolltolower 事件，可以用来做加载更多的操作。本例子中没有用到这两个，不过加到代码中用来做使用说明。bindscroll用来绑定滚动时触发，这个可以用来做用户手势的判断等。其它属性，读者可以参数官方文档。  
 
 **（2）数据绑定**  
@@ -89,15 +89,15 @@ data字段，用来定义当前页面的所有的数据，可以理解为数据�
 wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一个个取出数据，并赋给item变量，里面就可以通过{{item.xxx}}来引用这些数据了。所以代码写起来非常简洁。类似wx:for的还有wx:if等等，wx:if用来定义一个条件判断，如果成立，就会解析当前标签及其子标签。{{…}}这里面除了以上提到的用法外，还可以做四则运算、三目运算、逻辑大小判断、字符串相加等，甚至可以定义成一个json对象，如：{{a: 1, b: 2}}。还可以使用es6的语法，如{{...myJson}} ，用…把myJson这个对象解包展开平铺到这个地方。相关的官方文档。  
 
 有wx:if，那就应该有wx:else了。这里给个官方的例子，看下就明白了：  
-{% highlight xml %}
+{% raw %}
 <view wx:if="{{length > 5}}"> 1 </view>
 <view wx:elif="{{length > 2}}"> 2 </view>
 <view wx:else> 3 </view>
-{% endhighlight %}
+{% endraw %}
 文档除了介绍if之外，还讲了另一个类似功能的 hidden，使用：<view hidden="true"> ... </view> 当为true的时候，这个标签及其子标签会被隐藏。这个表述跟上面说到wx:if时的表述是有区别的，wx:if是条件为真时才会去解析，而hidden是无论如何都会去解析代码，只是不显示这些标签而已。  
 
 <block>标签。这是一个不会显示出来的辅助标签，在wx:if时，如果你想作用于几个并列在一起的标签，那就可以用block把它们包起来。同样，如果你在用wx:for时，遇到没有外层标签的情况，只有几个标签并排着，这时也可以用block把它们包起来。  
-{% highlight xml %}
+{% raw %}
 <block wx:if="{{true}}">
   <view> view1 </view>
   <view> view2 </view>
@@ -106,12 +106,15 @@ wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一
   <view> {{index}}: </view>
   <view> {{item}} </view>
 </block>
-{% endhighlight %}
+{% endraw %}
+
 **（3）事件绑定**  
 列表中每个item都有一个事件的绑定，catchtap="bindItemTap"，绑定在用户点击时做页面的切换。  
+
 组件的事件有很多种，每个组件都有自己定义的组件，如<input>有input事件，<form>有submit事件等，详见各组件。不过有一些大部分组件都共同的事件，主要有：touchstart、touchmove、touchend、touchcancel、longtap、tap。前三个都很熟悉了，其它几个，touchcancel指的是用户的触摸事件被其它东西打断，比如突然弹窗，或者突然有个电话进来。longtap就是长按事件，微信官网解释是指超过350ms的touch。tap就类似于pc浏览器上的click点击事件。这六个事件都是会冒泡的事件，（如果没有js基础的朋友不太理解冒泡，这里帮你们找了些文章来理解这个《解析Javascript事件冒泡机制》《javascript 的事件冒泡与捕获及冒泡优势》）除了这六个事件之外 ，其它事件都是非冒泡事件。事件绑定的方式就是用bind或catch这两个词，再加上事件的名称（全小写）就可以了。如bindtap, catchtap。他们的差别是，bind允许冒泡传递，而catch会阻止冒泡，就是把所有的事件都变成非冒泡事件。每个事件的响应函数一般会有个event参数，事件对象，这个参数的event.targe指向触发事件的组件，里面有它的一些属性值，而event.currentTarget则指向当前事件所在的组件，currentTarget是因为事件冒泡机制而设置的，它指向事件当前指向的组件，不一定是我们设置bindtap属性的那个组件，而target就永远都是指向这个绑定的原组件。  
 
 接下来讲下MINA设置的一个很有意思的属性集，event.dataset，这是一个event.target指向的组件里定义的data-xxx的属性数据的json对象，可以用event.dataset.xxx来引用，比如最上面我们本文demo的wxml代码中，在catchtap绑定的事件的标签里，有一个data-id属性，那么可以用event.dataset.id来引用这个id值。如果data-xxx里有大写，这里都会转化成小写，如data-myDemo，这时要用event.dataset.mydemo来引用；如果是类似data-abc-def这种格式的属性，则会变成abcDef，-减号后面的第一个字母会被大写。事件相关的官方文档在这。  
+
 所以，讲到这里，希望读者能再回去读一下最开始的那个index.wxml代码，会有很多收获的。  
 
 > 4、js代码分析  
