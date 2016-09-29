@@ -508,6 +508,7 @@ aside {
 .section-nav {
   text-align: center;
   position: relative;
+  width: 100%;
   background: url(../img/article-footer.png) top center no-repeat;
   margin: 40px -20px 10px;
 
@@ -1028,6 +1029,9 @@ code.output {
   .show-on-mobiles {
     display: block !important;
   }
+  .docs-nav-mobile {
+    display: none !important;
+  }
   a .show-on-mobiles {
     display: inline !important;
   }
@@ -1039,6 +1043,10 @@ code.output {
     padding: 0 !important;
     padding-left: 39px !important;
     border-radius: 5px !important;
+  }
+  /* mobile padding */
+  .grid .unit {
+    padding: 3;
   }
 }
 
