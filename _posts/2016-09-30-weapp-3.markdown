@@ -109,6 +109,7 @@ downloadFile的文件只能是image/audio/video这三种类型，即图片、音
 不过在测试downloadFile的时候，发现success一直没有被回调，跟踪了下代码，发现到底层源码在WeixinJSBridge.invoke(‘downloadFile’…)的时候就没反应了，可能要到真实的手机环境中才能使用，也或许目前的这个开发用的IDE有点问题。  
 
 > 3、本地存储  
+
 也是数据缓存。微信给每个小程序分配了5M的存储空间，对这个缓存的操作，其实跟H5的localStorage操作是一样的。  
 
 微信提供了三个主要的接口， wx.setStorage（wx.setStorageSync）、wx.getStorage（wx.getStorageSync）、wx.clearStorage（wx.clearStorageSync），括号里面的是方法是同步的方法，括号外面的方法是异步读写的方法。这两类方法调用时传入的参数大体差不多，只是异步的是通过传入回调函数的方式来取到数据，而同步的方法是直接返回数据。  
