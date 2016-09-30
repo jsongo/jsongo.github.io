@@ -4,7 +4,7 @@ status: publish
 published: true
 title: 【微信小程序开发•系列文章三】数据层
 author: jsongo
-date: '2016-09-29 19:32:31'
+date: '2016-09-30 18:21:47'
 categories: [js]
 tags: [weapp,wechat,js]
 comments: [微信小程序开发•系列文章]
@@ -144,3 +144,4 @@ wx.clearStorage()或wx.clearStorageSync()，直接调用就成。不过调用这
 不过同步比异步在使用的时候简单很多。如果用户在存储的数据很小的时候，基本确定不会有什么逻辑错误，可以直接用同步方法。  
 但如果觉得你的应用有可能会达到5M的空间的时候，再存就会抛错，这时同步方法就要注意try catch。  
 
+关于数据层的东东就讨论这么多。下一篇文章中会讨论一些关于模块化知识点。  
