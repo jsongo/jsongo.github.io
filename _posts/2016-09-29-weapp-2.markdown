@@ -97,7 +97,7 @@ wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一
 <view wx:else> 3 </view>
 {% endraw %}
 {% endhighlight %}  
-文档除了介绍if之外，还讲了另一个类似功能的 hidden，使用：```<view hidden="true"></view>``` 当为true的时候，这个标签及其子标签会被隐藏。这个表述跟上面说到wx:if时的表述是有区别的，wx:if是条件为真时才会去解析，而hidden是无论如何都会去解析代码，只是不显示这些标签而已。  
+文档除了介绍if之外，还讲了另一个类似功能的 hidden，使用：```<view hidden="{{flag ? true : false}}"> ... </view> ```当flag为true的时候，这个标签及其子标签会被隐藏，正好跟if相反，if是为true是解析、显示。另外hidden作用的表述跟上面说到wx:if时的表述是有区别的，wx:if是条件为真时才会去解析，而hidden是无论如何都会去解析代码，只是不显示这些标签而已。  
 
 &lt;block>标签。这是一个不会显示出来的辅助标签，在wx:if时，如果你想作用于几个并列在一起的标签，那就可以用block把它们包起来。同样，如果你在用wx:for时，遇到没有外层标签的情况，只有几个标签并排着，这时也可以用block把它们包起来。   
 {% highlight xml %}
