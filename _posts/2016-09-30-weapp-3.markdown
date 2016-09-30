@@ -1,0 +1,26 @@
+---
+layout: post_item
+status: publish
+published: true
+title: 【微信小程序开发•系列文章三】数据层
+author: jsongo
+date: '2016-09-29 19:32:31'
+categories: [js]
+tags: [weapp,wechat,js]
+comments: [微信小程序开发•系列文章]
+---
+
+关于数据层的一些基本应用，在上两篇文章中其实已经提过。一个是App({…}) 里定义的globalData，用来全局共享数据。另一个是每个Page自己的数据字段```data: { … }```。  
+本文分三块来讲，网络数据请求，文件操作，本地数据操作。涉及到的示例代码地址：[https://github.com/jsongo/weapp-tutorial-3](https://github.com/jsongo/weapp-tutorial-3)  
+
+
+# 1、网络请求
+
+**（1）需要一个数据接口来测试**  
+上篇文章中的数据，我们是写死在page的data里的。实际应用中肯定不会这么干，只能是从后台请求，或从本地存储中获取。  
+微信提供了一个接口用来发起请求：wx.request。而且它发起的请求，官方文档中说，只能是https请求，且一个微信小程序，同时只能有5个网络请求连接。  
+
+我们来修改一下上篇文章中用到的例子，我们把数据改成从36Kr那里获取。稍微研究下36Kr网站的页面，就会发现一个小接口，用来拉取列表数据：  
+API：Get http://36kr.com/api/info-flow/main_site/posts?b_id=5053833&per_page=20&_=1475166251729  
+url参数：b_id表示上次列表拉到第几条，那条的id；per_page表示要拉取多少条；最后的_下划线表示当前的时间戳，这个可以省略。  
+返回：json格式的数据，结构如下  
