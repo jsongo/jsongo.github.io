@@ -10,11 +10,11 @@ tags: [weapp,wechat,js]
 comments: [微信小程序开发•系列文章]
 ---
 
-关于数据层的一些基本应用，在上两篇文章中其实已经提过。一个是App({…}) 里定义的globalData，用来全局共享数据。另一个是每个Page自己的数据字段```data: { … }```。  
+关于数据层的一些基本应用，在上两篇文章中其实已经提过。一个是App({…}) 里定义的globalData，用来全局共享数据。另一个是每个Page自己的数据字段```data: { … }```  
 本文分三块来讲，网络数据请求，文件操作，本地数据操作。涉及到的示例代码地址：[https://github.com/jsongo/weapp-tutorial-3](https://github.com/jsongo/weapp-tutorial-3)  
 
 
-# 1、网络请求
+> 1、网络请求
 
 **（1）需要一个数据接口来测试**  
 上篇文章中的数据，我们是写死在page的data里的。实际应用中肯定不会这么干，只能是从后台请求，或从本地存储中获取。  
@@ -24,3 +24,123 @@ comments: [微信小程序开发•系列文章]
 API：Get http://36kr.com/api/info-flow/main_site/posts?b_id=5053833&per_page=20&_=1475166251729  
 url参数：b_id表示上次列表拉到第几条，那条的id；per_page表示要拉取多少条；最后的_下划线表示当前的时间戳，这个可以省略。  
 返回：json格式的数据，结构如下  
+<p align="center"><img src="/img/201609/weapp3-1.jpg" alter="36Kr返回列表数据" width="80%"/></p>
+其中，当code为0时，表示没有error，这时拿到的response.data.items就是我们要的数据列表，我们只取每一项里的几个数据就可以了。请求的地址不是https，不过可以发现，我们把地址改成https，也可以请求到数据，说明36Kr后台做了https的接入。  
+
+**（2）发起请求**  
+wx.request的用法其实跟ajax的调用很像。  
+{% highlight js %}
+…
+wx.request({
+  url: url,
+  data: {},
+  header: {
+      'Content-Type': 'application/json'
+  },
+  success: function(res) {
+    … // use res.data
+  }
+})
+…
+{% endhighlight %}
+它有几个主要的参数：url指定请求地址；data带上请求的数据，可能是json数据也可以是字符串；header设置请求的头部信息，如上面所示；method指定请求的方式，默认是GET，其它值有：OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT；另外，success用来指定请求成功的回调，fail是失败的回调，还有一个complete，成功或失败都会回调。  
+
+以上代码中，在success回调里拿到res是一个json数据，格式如：{data: xxx} ，res.data就可以拿到服务器返回的数据。完整代码可以参考[github上](https://github.com/jsongo/weapp-tutorial-3)的pages/index/index.js文件。  
+
+开发工具之前的破解版本，其实是发不了网络请求的。因为微信在工具里做了一些安全限制，所以这里为了开发，我们得再去破解开发工具。研究了下工具源码，找到一个地方会对网络请求的地址做验证的，把它改掉就Ok。最新工具破解方法参考[https://github.com/jsongo/weApp-ide](https://github.com/jsongo/weApp-ide) ，有兴趣的读者可以到app.nw/app/dist/weapp/appservice/asdebug.js 文件中，找到下面这行代码，把if条件改掉就可以用了，比较简单。  
+<p align="center"><img src="/img/201609/weapp3-2.jpg" alter="破解网络请求限制" width="70%"/></p>  
+
+**（3）demo功能分析**  
+简单几句话分析一下我们的36Kr新闻列表的demo。功能也挺简单，打开时从网络上请求36Kr的数据显示成一个列表，点击列表的每一项都可以进入查看这篇文章的正文内容（只是个demo，所以就没有去取内容，直接拿每个列表项的summary字段去当正文）。列表页在顶部下拉可以刷新列表，在最底部往上滑可以加载更多。  
+<p align="center"><img src="/img/201609/weapp3-3.jpg" alter="demo演示" width="70%"/></p>  
+
+**（4）demo数据分析**  
+列表的生成逻辑跟上篇文章的一样，只是数据的来源不同而已。主要代码的结构如下：  
+<p align="center"><img src="/img/201609/weapp3-4.jpg" alter="主代码" width="90%"/></p>  
+data里定义了两个属性，一个是news数组，用来绑定列表数据；refresh，用来决定上方的loading区域是否显示，只有用户在顶部下拉的时候，才会显示最顶部的loading...区域，view中通过&lt;view wx:if="{{refresh}}”>来绑定是否显示，在&lt;scroll-view>的bindscrolltoupper函数中用this.setData({refresh: true}) 把它显示出来。然后在数据请求回来的complete方法中，再把它隐藏掉。这样就简单的实现了，下拉刷新的功能。当然体验不是很好，读者可以自己想慢慢地优化软件的体验问题。  
+
+继续分析下我们的demo代码。  
+大家可能注意到了里定义了一个loading的属性，它是用来记录当前是否是在请求中，如果是就放弃请求。这主要用来防止同一时间发出多个请求。用户几个很快的动作可能会触发了几次数据加载，比如用户在顶部下拉的时候，网络不是很好，数据还没返回，用户可能会连续快速下拉好多次，这时用loading这个标识就可以过滤掉这些多余的操作。它在请求发出的之前设置为true，请求回来的时候，在complete回调中设置为false。  
+
+onLoad是生命周期函数，只做了一件事件，就是调用reqData方法发起第一屏列表数据的请求。  
+bindItemTap绑定了每个新闻列表项的点击事件，点击后，把当前的数据传入到App的globalData里，再切换到内容详情页面，然后从globalData取出数据来显示。在官方的文档中没有找到页面间传递数据的其它办法，笔者只想到两种方式，一是通过刚讨论的globalData，另一个是通过本地存储来传递，这个在下面会再讨论。  
+
+reqData方法封装了数据请求的过程，第三个参数用来指定是append（底部加载更多）还是refresh（顶部下拉刷新），因为这两个接口的请求地址等其它处理过程有些不太一样。  
+formatData函数，封装了把请求返回的数据转换成我们列表中用得到的数据，修改一些字段，拼装出每一个列表项数据。  
+renderData函数是我们重点要讨论的，先看看实现，30几行，也不多：  
+<p align="center"><img src="/img/201609/weapp3-5.jpg" alter="renderData函数代码" width="90%"/></p>  
+上方最开始的两个if，用来验证请求返回的数据。然后用formatData把它们转化成我们可以用的数据列表。接着对appendOrRefresh进行判断，如果是1的话，就是refresh；2的话，即为append，即在底部上滑时加载更多。都不是的话，就执行默认的加载第一屏数据，这个最简单，只要setData把数据设置到绑定列表的news这个数据段就可以了。而且对于加载更多，和刷新，这两个动作，则稍微复杂些。  
+
+先来看下appendOrRefresh，就是refresh，顶部下拉刷新。读者思考一下，其实就是把新数据，追加到原this.data.news列表里，由于index发生了变化，所以每一项的数据也会跟着变化，微信的文档中没有给出相应的解决方案，只能是整体更新整个列表，这会造成整个列表界面的整体刷新，效率会很低，希望后续MINA框架会有优化。当然，聪明的读者可能会想到优化的方案，其实可以在这个时候，把新数据列表的前10项设置给this.data.news，反正用户是在列表的顶部，第一屏也看不完这么多条。其它的数据则先存储到本地，等用户往下滑动的时候，再去检查本地存储是否有需要的数据。这要用户去做一些标记的逻辑，下面会讲到相关逻辑的实现。  
+
+再来看看底部上滑时加载更多，用过react的读者应该都知道facebook提供了[Immutable库](https://facebook.github.io/immutable-js/)来实现局部刷新，但这个在微信小程序的开发中还不知道怎么整合。不过没关系，我们有办法。[官方文档中有一句话](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/page.html#setdata-参数格式)提示了一种解决方法，它上面的例子是：  
+{% highlight js %}
+    this.setData({
+      'array[0].text':'changed data'
+    })
+{% endhighlight %}
+看到这个，有没有突然灵光一闪的感觉？没错，setData可以对数据进行局部的更新。所以我们的问题就得到了解决，其实也就是往this.data.news数组追加新数据而且不引起系统觉得整个数据都变了。如果只是简单的setData({news: newArr}) 这样用newArr来赋值，肯定不行，因为在内存的地址都变了。这里要实现的核心目标是，保持news在内存中的地址不变，MINA才不会去刷新整个列表。这个道理可能用过react的读者会比较好理解一些。。这里笔者就假装所有的读者都已经理解了（不理解的话就跳过吧，以后再回来看吧）。我们可以做一个for循环，用this.setData方法传入'array[xxx]': newItemXXX就行了。不过js里对json数据赋值时，key是不能用```'array['+index+']'```这样的方式来做的，会报错。所以可以像上面的代码一样用es6的语法，用[ ]中括号把key包起来。也或者也可以在上面定义一个变量newData，用```newData['array[' + index + ']'] = newItemXXX```这样的方式来赋值也行，再this.setData(newData)就可以了。  
+这个知识点讲的比较细些，有点啰嗦了。这一系列的文章是针对各种基础的开发者，所以讲得详细些。  
+
+**（5）接入列表刷新的接口**  
+现在顶部下拉实现更新，就差一个接口了。上面第一屏的数据和底部上滑加载更多的数据，我们有同一个接口可以获取，那刷新呢？  
+
+于是我们再去36Kr网站上找找，可惜的是没找到相应的刷新接口，不过找到了另一个替代品：  
+API: Get http://36kr.com/api/newsflash?b_id=26330&per_page=20&_=1475202501776  
+参数跟返回，跟本文介绍的第一个接口一样，不再赘述。这个接口用来取新闻快讯，没有图片，比较麻烦，本文只做demo演示，所以这些都不是重点，我们就暂且拿接口里的user的头像来当新闻图片吧。36Kr网如若看到本文，希望不要计较这些，这些接口谁都可以从网页请求中很容易得得到，本文只用它们来做一些demo演示，不做任何商业用途。当然如果读者本人有后台开发的能力，也可以自己写个接口来做demo的数据源。  
+
+到这里，我们已经实现了大部分功能，通过绑定事件来实现滑到询问时，加载各种数据，整个流程，从打开->加载数据->显示列表->用户操作时刷新或加载更多数据->点击查看正文，小麻雀就已经长了整个雏形了。  
+
+> 2、websocket和文件上传下载
+
+本文重点在数据层，websocket的知识点，在后面有一篇文章会专门讨论，这里先简单一句话带过。  
+而文件也是数据，在本文的讨论范围之内，下面分析两个基本操作。  
+
+**（1）文件上传**  
+其实也是一个post请求，微信封装了两个接口，wx.chooseImage选择文件，和wx.uploadFile指定上传的参数，这两个接口一起完成了文件上传的动作。贴一个[官方给的demo](https://mp.weixin.qq.com/debug/wxadoc/dev/api/network-file.html)读者自己看就行了，很简单，也没什么好分析的。要测试的小伙伴需要自己搭个后台并像网页正常的form文件上传一样，接收相应的参数和file data再写入文件就ok。  
+<p align="center"><img src="/img/201609/weapp3-6.jpg" alter="文件上传代码" width="70%"/></p>  
+
+**（2）文件下载**  
+调用wx.downloadFile接口，指定路径和文件的类型，就可以拿到文件，这时微信会帮你把文件保存在一个临时的目录，小程序退出时它就会被清掉。如果这是一个比较重要的文件，以后还会用的话，请开发者一定要调用[wx.saveFile](https://mp.weixin.qq.com/debug/wxadoc/dev/api/file.html)方法把文件保存到比较持久目录，微信不会随意把它清理掉。保存时也不需要指定要保存到哪里，微信会在保存成功后，在回调里传回给你它保存的路径。  
+
+downloadFile的文件只能是image/audio/video这三种类型，即图片、音频和视频文件。  
+在开者应用的时候，你可能会想保存登录用户的头像等文件信息，这就可以用到上面的saveFile的方法，不过也要先调用wx.downloadFile先存到临时目录，因为saveFile只支持从临时目录保存到永久目录。  
+
+不过在测试downloadFile的时候，发现success一直没有被回调，跟踪了下代码，发现到底层源码在WeixinJSBridge.invoke(‘downloadFile’…)的时候就没反应了，可能要到真实的手机环境中才能使用，也或许目前的这个开发用的IDE有点问题。  
+
+> 3、本地存储  
+也是数据缓存。微信给每个小程序分配了5M的存储空间，对这个缓存的操作，其实跟H5的localStorage操作是一样的。  
+
+微信提供了三个主要的接口， wx.setStorage（wx.setStorageSync）、wx.getStorage（wx.getStorageSync）、wx.clearStorage（wx.clearStorageSync），括号里面的是方法是同步的方法，括号外面的方法是异步读写的方法。这两类方法调用时传入的参数大体差不多，只是异步的是通过传入回调函数的方式来取到数据，而同步的方法是直接返回数据。  
+
+**（1）存入**  
+wx.setStorage，参数是个json，字段有key指定存储的键值，data指定存储的值，如  
+{% highlight js %}
+wx.setStorage({key: 'name', data: 'jason'});
+{% endhighlight %}
+同时 还可以传入success、fail和complete来取得数据或错误信息。  
+而wx.setStorageSync比较简单，参数是直接传的，如：  
+{% highlight js %}
+wx.setStorageSync('name', 'jason');
+{% endhighlight %}
+存入的data数据，可以是字符串，也可以是json格式的对象Object。如果存的是json，取的时候，也会是json格式的。这个用起来会非常方便。  
+<p align="center"><img src="/img/201609/weapp3-7.jpg" alter="文件上传代码" width="80%"/></p>  
+存入的数据，可以在调试工具的Storage里看到，如上图。  
+
+**（2）取出**  
+一样，wx.getStorage也是传入json，字段只要带一个key字符串就行，通过字段success回调来取得参数。  
+而wx.getStorageSync就非常简单，直接就可以取到返回值。  
+{% highlight js %}
+var value = wx.getStorageSync('key');
+{% endhighlight %}
+
+**（3）删除**  
+wx.clearStorage()或wx.clearStorageSync()，直接调用就成。不过调用这个方法要注意，它会清掉所有的数据。  
+那要怎么删除单个key的数据呢？很简单，就是通过setStorage或setStorageSync，把data设置成null就可以把数据清掉了，让它不占空间就可以了。  
+
+**为什么要分同步和异步呢？**  
+1是在存储的数据比较大的时候，同步方法会引起界面的卡顿，所以用异步好些，不影响界面。  
+2是异步方法的错误处理，是fail回调，出错一般是通过fail传出来的。而同步方法要加上try catch才能避免程序异常中断。  
+不过同步比异步在使用的时候简单很多。如果用户在存储的数据很小的时候，基本确定不会有什么逻辑错误，可以直接用同步方法。  
+但如果觉得你的应用有可能会达到5M的空间的时候，再存就会抛错，这时同步方法就要注意try catch。  
+
