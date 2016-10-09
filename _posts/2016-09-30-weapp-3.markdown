@@ -125,7 +125,7 @@ wx.setStorage({key: 'name', data: 'jason'});
 wx.setStorageSync('name', 'jason');
 {% endhighlight %}
 存入的data数据，可以是字符串，也可以是json格式的对象Object。如果存的是json，取的时候，也会是json格式的。这个用起来会非常方便。  
-<p align="center"><img src="/img/201609/weapp3-7.jpg" alter="文件上传代码" width="80%"/></p>  
+<p align="center"><img src="/img/201609/weapp3-7.jpg" alter="调度工具" width="80%"/></p>  
 存入的数据，可以在调试工具的Storage里看到，如上图。  
 
 **（2）取出**  
