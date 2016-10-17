@@ -4,7 +4,7 @@ status: publish
 published: true
 title: 【微信小程序开发•系列文章七】websocket
 author: jsongo
-date: '2016-10-13 20:36:02'
+date: '2016-10-13 10:36:02'
 categories: [js]
 tags: [weapp,wechat,js]
 comments: [微信小程序开发•系列文章]
