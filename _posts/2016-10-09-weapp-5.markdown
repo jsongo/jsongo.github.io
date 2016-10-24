@@ -109,7 +109,7 @@ X-Requested-With: XMLHttpRequest
 **4、图片播放的实现**  
 
 （1）点击跳转  
-列表里的每一项都加了navigator组件包裹着，它就相当于<a>标签，用来做跳转。  
+列表里的每一项都加了navigator组件包裹着，它就相当于&lt;a>标签，用来做跳转。  
 不过要注意的一点是，navigator的宽高都被框架设置成auto，所以在wxss里设置宽高没有用，但在元素里内嵌样式是可以的，这里我们换种做法。在navigator里放个view把它撑开，给它固定个宽高就可以了，这时对navigator里面元素的点击，事件都会冒泡到navigator元素上，就会触发它的页面跳转。  
 
 （2）播放哪张图？  
