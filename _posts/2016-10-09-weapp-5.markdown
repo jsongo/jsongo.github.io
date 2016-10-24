@@ -1,0 +1,308 @@
+---
+layout: post_item
+status: publish
+published: true
+title: 【微信小程序开发•系列文章五】主界面
+author: jsongo
+date: '2016-10-09 21:19:51'
+categories: [js]
+tags: [weapp,wechat,js]
+comments: [微信小程序开发•系列文章]
+---
+我们之前的demo中，页面都是很简单的一个主页面的结构。没有底部菜单，没在意页面的结构。而我们平时接触的app都有各种各样的页面交织组合在一起，所以这一篇文章中，我们开始来关注我们的页面结构。
+
+
+先来看看我们本文相关的demo，地址：https://github.com/jsongo/weApp-frame，三个页面：
+<p align="center"><img src="/img/201610/weapp5-1.png" alter="主界面" width="90%"/></p>  
+
+为了展示页面的主框架，这里做了三种风格的页面。第一个是个图片列表，从花瓣上抓的。第二个是个外卖的页面。第三个是个人中心页面。  
+
+> 一、页面功能简述  
+
+**1、花瓣图片列表**  
+用两列的瀑布流来展示，在顶部向下拉可以加载更多，滑动到底部可以加载更多图片。在网络请求数据的时候，会出现一个浮层，展示加载中的loading图标，顶部的title旁边也会出来加载中图标，等数据加载完，这两个图标都会消失。  
+这个页面还有个子页面，图片查看页，往后可以滑动到下一张，往前可以滑动到前一张。  
+<p align="center"><img src="/img/201610/weapp5-2.jpg" alter="主界面" width="60%"/></p>  
+
+列表数据来源：分析了下花瓣的网站，随便拿了个数据列表接口，通过传入不同参数来取得分页数据。  
+本页主要介绍：列表的排布、加载中图标的实现方式、下拉刷新的实现方式、滑动到底部加载更多的实现、navigator及参数传递的实现、引用传递的实现。  
+
+**2、外卖订餐页面**  
+页面顶部是个轮播图，几个图片轮流播放。下半部分是两个滑动的列表，菜品分类列表，和菜品详细列表，它们可以分开滑动。  
+本页主要介绍：轮播图组件、页面分区及各自列表滑动。  
+
+**3、个人中心页面**  
+上半部分是个人信息，下方是菜单列表。退出按钮点击后，可以从下方弹出菜单。  
+本页主要介绍：模态窗口、下文弹出菜单列表、toast  
+
+另外，还有下方tab菜单的实现方式。  
+
+> 二、图片列表的实现  
+
+**1、底部加载更多**  
+
+用户滑动到底部的时候，列表会自动加载下一页。  
+实现也比较简单，在scroll-view标签中的bindscrolltolower绑定个事件响应函数，当滑动到底部时，这个事件就会被触发。  
+不过这里有个问题要注意下，scroll-view要设置一个高度才行，要不然经常会滑到底部没反应，没触发。获取窗口的高度，把它设置给scroll-view就可以了：  
+{% highlight js %}
+wx.getSystemInfo({
+    success: ( res ) => { // 用这种方法调用，this指向Page
+        this.setData({
+            winH: res.windowHeight
+        });
+    }
+});
+{% endhighlight %}
+在界面中，把winH设置给scroll-view的height  
+{% highlight html %}
+<scroll-view …（省略其它属性）... style="height: {{winH}}px;">
+{% endhighlight %}
+这样scroll-view才能正常在滑动到底部的时候触发bindscrolltolower事件。加载完数据后，可以用之前我们在《[【微信小程序开发•系列文章三】数据层](http://www.jsongo.com/post/js/2016/weapp-3/)》里讲过方法来追加数据。下面我们再介绍一种方法来追加数据。  
+追加的时候，我们的主要目的是保证data里的items数组的地址不变。所以其实可以直接拿到这个items数组的引用，然后给它push数据，方法如下：  
+{% highlight js %}
+var arr = this.data.items;
+arr.push(…newList); // ...三个点是用了es6的解包的语法
+this.setData({items: arr}); // 一定要记得setData
+{% endhighlight %}
+这个方法比较hack，先用arr变量来保存this.data.items的引用，push操作不会改变原数组的地址，push完之后，还没更新界面，这时一定要记得再调用一下setData方法，用它来触发界面更新。所以这里，我们其实是把setData当然是UI update的方法来用。亲测了一下，整个列表没看到有全局刷新的问题。  
+
+**2、下拉刷新**  
+
+微信小程序提供了下拉刷新的样式。这个我们能修改的不多，只能配置内容和简单的修改几个地方的显示。  
+（1）配置  
+我们的程序中有一个app.json，在“window” 这一项里添加 enablePullDownRefresh: true ，小程序的页面在顶部下拉的时候，就会出现下拉刷新的样式。  
+
+（2）事件  
+当下拉被触发的时候，MINA框架会去找当前页面的page里是否有onPullDownRefresh这个事件响应函数，如果有就会调用。  
+所以这里在实现下拉刷新的时候，就要定义这个函数，然后在里面去做刷新。  
+
+（3）刷新的思路  
+当前列表数据可能不是最新的，如果这时重新去拉一次第一页的数据，可能会出现前面几项不在当前列表里，这些就是要刷新进来的数据。思路就是去比对id，先取原列表中第一个id，如果在列表里找到这个id的项，则停止，把这个项之前的数据都追回到列表里。但是如果在新加载的第一页中没找到这个id，说明这次加载的数量还不够，还要再加载一次。为了避免出bug时，或数据出问题的时候，无限加载的问题，我们设置一个MAX_PREPEND来限制最多加载的页数。  
+
+我们用数字来代表列表里的一项，简化下模型，让读者更容易理解。  
+比如我们第一次加载的列表是[0,1,2,3,4,5,6,7,8,9] 这10项（一次加载10项），第一个id是0。过了5个小时，列表数据有更新了，这时用户下拉刷新，我们拉到了[-28,-27,-26,-25,-24,-23,-22,-21,-20,-19] 这10项，这时我们发现，我们这次加载的新数据没有第一个id，即0，所以中间肯定还有一些项我们要再加载的。所以我们发了第二个请求，这次拉到了[-18,-17,-16,-15,-14,-13,-12,-11,-10,-9]，这里又没有出现0，所以发起第三个请求去拉数据，这时我们拿到了[-8,-7,-6,-5,-4,-3,-2,-1,0,1]，这次0这个id出现了。所以我们把0前面的8项也全都加入到新列表中。为了安全，我们设置了MAX_PREPEND，比如为3，表示最多发三个请求，如果这中个请求还没有拉到0这个id，那我们也不再发请求了。怕出现无限循环加载的情况，出现bug的时候可能会出现，或者后台把0这条数据删除了，后面这几次请求返回的列表里都不可能出现0，这时也会出现无限加载的情况。  
+
+当然上面这个逻辑还是有bug，假如真出现了后台把0这个项删除掉的时候，那我们加载的数据就可能会出现数据重复的现象。所以真正产品化的时候，如果有可能删除数据的情况，最好还是不要用拿第一个id的去对比的方法，因为可能会出现重复。这时要使用另一种算法，即，可以把所有的id都存到一个数组里，新数据拉回来的时候，一个个拿去数组里对比，没在数组中的就加载到界面中，有的话就忽略。然后出现全部项都在这个数组中的时候，就停止加载。有点复杂。  
+
+其实如果把这个逻辑放到后台去做，会简单很多，我们让id有序，有大小可以比较，或者用时间戳的方式来判断，前端做有点复杂。我们这个demo中能拿到的数据id也无序，时间也无序，情况远比上面的数字复杂很多，所以没办法只能暂时这么做。读者如果是自己的团队做后台的话，一定要把返回的数据按一定的规则有序化。  
+
+接下去讨论数据如果插入到界面中列表的前端去。  
+前面讨论追加列表数据的时候，说到了一种方法，取数组的引用，在保证数组地址不变的情况下，去往里面添加数据。push是一个不会改变地址的操作，不过是往数组后面添加的，那么要往前端插入，就要用unshift，它也会在保证数组地址不变的情况下，在前面添加新数据。  
+
+（4）停止刷新的样式  
+当我们加载完数据，刷新完的时候，要把微信帮我们做的加载图标隐藏掉，它自己不会正好在我们加载完数据的时候隐藏，虽然它有一个默认的隐藏时间。  
+框架给我们提供了一个wx.stopPullDownRefresh方法，我们在加载完数据，render完时，调用一下它就可以了。  
+
+（5）数据请求  
+关于数据请求，这里补充一点。  
+花瓣对请求做了点限制，直接请求地址会返回一个页面，需要加两个头部才行：  
+{% highlight raw %}
+X-Request: JSON
+X-Requested-With: XMLHttpRequest
+{% endhighlight %}
+而第二个头部，X-Requested-With，框架默认已经帮我们加了。我们只要在请求的时候，加上一个第一个header就行了。  
+另外，小程序开发工具一开始的时候，有一个头部重复的问题，不过从v0.10.101000开始，就修复了。  
+
+**3、图片列表**  
+图片列表其实就是传统网页的布局，没有用到flex，只是让元素浮动float，然后限制一下宽度和高度，它自然就排成两行了。有兴趣的读者可以尝试用flex或table去实现一下。  
+
+**4、图片播放的实现**  
+
+（1）点击跳转  
+列表里的每一项都加了navigator组件包裹着，它就相当于<a>标签，用来做跳转。  
+不过要注意的一点是，navigator的宽高都被框架设置成auto，所以在wxss里设置宽高没有用，但在元素里内嵌样式是可以的，这里我们换种做法。在navigator里放个view把它撑开，给它固定个宽高就可以了，这时对navigator里面元素的点击，事件都会冒泡到navigator元素上，就会触发它的页面跳转。  
+
+（2）播放哪张图？  
+很简单，在跳转的时候，给跳转的地址加个参数就可以了，参数带上点击的这张图在数组中的index。那么问题来了，在跳过去的页面怎么取得这个参数？  
+微信小程序官方文档里没有特别提到onLoad里，其实还可以传入一个参数options，它用来接收跳转时地址后面带的参数。这个就非常方便我们使用了。比如地址是 ../pic/pic?index=1，那么这里，我们用options.index就可以拿到1这个数据了。  
+onLoad拿到index数据后，setData来修改并指定当前图片列表播放这个index的图片就行了。  
+
+（3）播放的图片数据来源  
+播放图片，我们不是一张一张来显示的，因为如果只播放一张的话，用户在向左或向右滑动的时候，我们得去找这张图片的上一张图或下一张图来显示，这样做就比较复杂了。  
+所以我们在界面上放一个swiper组件，把当前列表里的所有图片全部设置到里面去。上面我们拿到的index，在这里就可以使用，swiper组件有个current属性用来指定当前显示哪一张图。  
+这个列表数据，我们不需要从index页面重新拷贝一份过来。数组，其实存一个引用就行了，这样的两个好处是：1节约内存，2更新的时候更新一个地方的数据就行。实现方式是，在index的onLoad方法里，把this.data.items的引用存到app的globalData里，再在图片播放页的onLoad方法里从app取出这个引用，把它设置给这个页面的data里就行。当前为了界面及时更新，我们把这个操作放到播放页面的onShow里好些，这样，每天切换到播放页来查看图片的时候，都会去更新图片列表，保证数据是最新的。  
+
+（4）播放页界面的实现  
+先加一个view组件，设置成整个页面大小，背景设置成顶部bar的颜色，这样看起来比较像一个整体。  
+上面提到，我们的图片是显示在swiper组件里的，因为这是一个可左右滑动的组件，不用我们自己去做滑动的事件处理。不过这个组件有个问题，它的高度也是在框架中固定死的，固定成150px，我们在wxss里改变它的值也没有作用。还好，在标签里内嵌样式可以把框架中定义的样式给覆盖掉。那么为了让图片垂直居中，我们第一想到的可能是，取到图片高度，把它设置给swiper的内嵌样式的height里，再用margin-top等方式让它居中。这里介绍另一种方式让图片居中。  
+
+当父元素被设置成 display:flex 时，加上几个center就可以让其内部元素自然水平和垂直居中：  
+{% highlight css %}
+display:flex;
+justify-content:center;
+align-items: center;
+text-align: center;
+{% endhighlight %}
+所以我们也把swiper组件的高度设置成整个窗口的高度，再用上面的方法把里的image元素自然居中就可以了。image元素的mode设置成aspectFit，它会保持原有的宽高比例，image只有这个mode值是保持图片完整的。更多mode属性可以看[官方文档](https://mp.weixin.qq.com/debug/wxadoc/dev/component/image.html)。  
+另外，图片播放页面是第二层弹出页面，没有底部菜单，这样就可以全屏。  
+
+**5、loading样式的实现**  
+微信小程序提供了两种loading的样式，一种是在顶部bar的标题旁边显示转动的图标，另一种是用浮层的形式在页面中间显示一个加载图标。  
+第一种的实现也比较简单  
+显示：  
+{% highlight js %}
+wx.showNavigationBarLoading
+{% endhighlight %}
+隐藏：  
+{% highlight js %}
+wx.hideNavigationBarLoading
+{% endhighlight %}
+第二种要wxml和js一起配合  
+wxml代码：  
+{% highlight html %}
+<loading hidden="{{!loading}}">
+    加载中...
+</loading>
+{% endhighlight %}
+js的代码做的事情就是用setData来修改上面的loading这个数据，设为true则显示加载图标，false不显示（注意wxml里的loading前面加了!感叹号）这个loading组件的样式微信已经帮我们做好了，其它的不用我们处理。  
+
+> 三、外卖页面的实现
+
+**1、页面布局**  
+外卖页面基本可以分为三部分，顶部轮播图组件、下半部分是两个横排的滑动列表，他们可以各自滑动。  
+轮播组件可查看[官方文档介绍](https://mp.weixin.qq.com/debug/wxadoc/dev/component/swiper.html)。几个关键的参数，autoplay设置是否自动播放，current设置当前播放第几张，indicator-dots设置是否显示面板上的指示点。在上面的图片播放页中，我们把autoplay和indicator-dots都设置成false。注意这些true/false都要写成 {{false}} 的形式。  
+在这个页面中，我们模仿美团外卖中的首页，自动轮播顶部的广告图片。除了autoplay和indicator-dots设置成true外，还可以修改interval参数来设置等多久再播放下一个，修改duration来设置滑动的时长。  
+
+**2、页面分区**  
+主要是用wxss来控制，这里依然用flex简单的布局方式，按1:5的比例来放置两边的滚动区域。  
+左边的列表，给每个项都添加一个事件，每次点击某个项的时候，它的底色要变。这里我们通过控制class来改变样式，在class里添加：  
+{% highlight js %}
+{{item.id==chosenType?'selected':''}}
+{% endhighlight %}
+当选中的项的id为choseType时，class就添加selected，这样，我们就可以通过choseType这个变量来改变列表选中的项的样式。  
+那怎么实现两个列表数据的联动呢？  
+我们在每个项中也埋下了data-id，点击的时候就知道当前项的id，再拿它去请求相关的列表数据，从而可以拿到右侧的餐品列表数据，再更新到右侧列表上去就可以了。  
+每个列表都是独立的，可以各自设置scroll-y让他们各自滚动，互不影响。  
+
+> 四、个人中心页面的实现  
+
+整体布局其实就是wxss完成的，也没什么可讲。这一部分主要讨论：模态窗口、下文弹出菜单列表、toast的实现。  
+
+**1、模态窗口**  
+其实也就是我们网页中的alert、confirm这些。当他们弹出来的时候，后面的窗口是不可以操作的，这类窗口称为模态窗口。  
+小程序框架只提供了一个组件：[modal组件](https://mp.weixin.qq.com/debug/wxadoc/dev/component/modal.html)。不过我们可以用它来实现alert / confirm / prompt。  
+<p align="center"><img src="/img/201610/weapp5-3.png" alter="modal组件" width="50%"/></p>  
+{% highlight html %}
+<modal title="标题" confirm-text="确定" cancel-text="取消" 
+    hidden="{{modalHidden}}" bindconfirm="modalChange" bindcancel="modalChange">
+    这是对话框的内容。
+</modal>
+{% endhighlight %}
+先看几个参数：  
+title设置上面的标题  
+标签中间的文本就是对话框中部灰色的内容  
+no-cancel 设置是否显示取消按钮  
+bindconfirm和bindcancel分别是两个按钮的事件  
+
+（1）alert框  
+只要把no-cancel设置成true就可以了  
+
+（2）confirm框  
+默认的就是confirm的样式  
+
+（3）prompt弹出输入框  
+modal组件中间是允许插入wxml标签的，所以我们如果插入一个input组件，它自然就成了prompt弹出框，如果需要用户输入的时候，可以用这个办法弹出。  
+
+（4）modal的显示与隐藏  
+上面的代码中，用modalHidden变量来控制是否hidden。我们在bindconfirm和bindcancel两个事件里面都加上一个setData，把modalHidden设置成true就可以隐藏了。同样的，要显示的时候，setData把modalHidden设置成true就可以了。  
+{% highlight js %}
+modalChange: function() {
+    this.setData({
+        modalHidden: !this.data.modalHidden
+    });
+}
+{% endhighlight %}
+
+**2、toast**  
+<p align="center"><img src="/img/201610/weapp5-4.png" alter="toast组件" width="50%"/></p>  
+默认样式，上面有个打钩图标，目前微信没有提供定制的属性。如果要显示打叉x的图标，恐怕还没法用。期待后面会更新。  
+{% highlight html %}
+<toast hidden="{{toastHidden}}" duration="3000" bindchange="toastChange">
+{{toastMsg}}
+</toast>
+{% endhighlight %}
+我们demo中用toast来提示注销成功。  
+这个toast组件还是需要我们自己写点代码的，如上，duration设置这个toast的显示时间，当时间到的时候，它不会主动消失，而是去调用bindchange绑定的回调函数，这时，我们得在这个回调中，去把toastHidden设置成true，才能把这个toast隐藏掉，可见这个toast的使用还不是很方便。那么我们可否把它打包成一个组件呢？可惜框架中没有提供自定义框架的办法，所以这里我们只能在每个用到的页面中，都写一遍相关的js代码，wxml是可以通过模板的形式引入达实现共用，js恐怕就比较难。  
+js实现代码如下：  
+{% highlight js %}
+data: {
+    toastHidden: true,
+    toastMsg: 'message'
+},
+toast: function(msg) {
+    this.setData({
+        toastHidden: false,
+        toastMsg: msg
+    });
+},
+toastChange: function(event) {
+    if (event.detail.value === false) {
+        this.setData({
+            toastHidden: true
+        });
+    }
+},
+{% endhighlight %}
+我们封装成一个toast方法，同个Page里面就可以通过this.toast( )来调用而直接弹出。可惜现在每个用到的页面都得拷贝一次上面这个代码，希望小程序的这个框架不久后能提供自定义组件的方法。  
+
+**3、action-sheet**  
+action-sheet就是下文往上弹出来的小菜单，实现方式也比较简单：  
+{% highlight html %}
+<action-sheet hidden="{{actionSheetHidden}}" bindchange="actionSheetChange">
+    <action-sheet-item class="item" bindtap="doLogout">
+    确定注销
+    </action-sheet-item>
+    <action-sheet-cancel class="cancel">取消</action-sheet-cancel>
+</action-sheet>
+{% endhighlight %}  
+<p align="center"><img src="/img/201610/weapp5-5.png" alter="toast组件" width="50%"/></p>  
+action-sheet 有一个 bindchange 方法，当用户点击上面半透明背景时，会被触发。  
+action-sheet-item标签可以用多个，它会从上往下依次排列。每个上面都可以单独绑定事件。  
+action-sheet-cancel标签用来是额外提供的，它跟action-sheet-item的差别是，它点击后会触发action-sheet的bindchange方法。当然这个标签也可以不使用。
+如果没有实现bindchange方法，点击背景时是不会把action-sheet隐藏起来的。所以我们需要实现它，很简单，也只需要setData把actionSheetHidden设置为true就行了。  
+
+> 五、其它  
+
+**1、各页面标题**  
+每个页面有不同的标题。在用v0.10.101400版本开发的时候，测试wx.setNavigationBarTitle方法设置的标题没有作用，会被改回去。  
+这里的wx.setNavigationBarTitle问题，怀疑是这个版本的工具问题，之前有个版本是可以的，更新后，在onLoad和onShow里设置title都会被覆盖回去。所以这里就只能在xxx.json里设置新的title把原来的覆盖。  
+demo代码中，除index页面外，其它页面都有一个xxx.json文件，内容大致如下：  
+{% highlight js %}
+{
+    "navigationBarTitleText": "图片详情",
+    "enablePullDownRefresh": false
+}
+{% endhighlight %}
+第一个设置标题，第二个enablePullDownRefresh的作用是，在不需要下拉刷新的页面中，覆盖window中的这个参数，让它下拉不了。  
+这个方法还可以用来覆盖其它参数，如页面背景，字体颜色等等。  
+
+**2、demo中的下文菜单**  
+这个是在app.json里设置的，跟window并列，添加一个tabBar：  
+{% highlight js %}
+  "tabBar": {
+      "list": [{
+        "pagePath": "pages/index/index",
+        "iconPath": "res/img/tab/home-off.png",
+        "text": "首页",
+        "selectedIconPath": "res/img/tab/home-on.png"
+      }, {
+        "pagePath": "pages/waimai/waimai",
+        "iconPath": "res/img/tab/wm-off.png",
+        "text": "外卖",
+        "selectedIconPath": "res/img/tab/wm-on.png"
+      }, {
+        "pagePath": "pages/my/my",
+        "iconPath": "res/img/tab/my-off.png",
+        "text": "我的",
+        "selectedIconPath": "res/img/tab/my-on.png"
+      }],
+      "color":"#174578",
+      "selectdColor":"#3cc51f",
+      "borderStyle":"white",
+      "backgroundColor":"#116fb6"
+  },
+{% endhighlight %}
+list定义tab信息，只能配置最少2个、最多5个。每个tab可以用pagePath指定页面，用iconPath指定选中前的图标，selectedIconPath指定选中后的图标，text指定tab名称。  
+样式的设置，跟list并列，用color设置文字颜色，用selectdColor设置选中时的文字颜色，borderStyle设置顶部边框颜色，而且只支持black/white，backgroundColor设置tab背景色。  
+子菜单还不支持。  
+
