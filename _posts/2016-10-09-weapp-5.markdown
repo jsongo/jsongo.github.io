@@ -54,9 +54,11 @@ wx.getSystemInfo({
 });
 {% endhighlight %}
 在界面中，把winH设置给scroll-view的height  
+{% raw %}
 {% highlight html %}
 <scroll-view …（省略其它属性）... style="height: {{winH}}px;">
 {% endhighlight %}
+{% endraw %}
 这样scroll-view才能正常在滑动到底部的时候触发bindscrolltolower事件。加载完数据后，可以用之前我们在《[【微信小程序开发•系列文章三】数据层](http://www.jsongo.com/post/js/2016/weapp-3/)》里讲过方法来追加数据。下面我们再介绍一种方法来追加数据。  
 追加的时候，我们的主要目的是保证data里的items数组的地址不变。所以其实可以直接拿到这个items数组的引用，然后给它push数据，方法如下：  
 {% highlight js %}
@@ -150,9 +152,11 @@ wx.hideNavigationBarLoading
 第二种要wxml和js一起配合  
 wxml代码：  
 {% highlight html %}
+{% raw %}
 <loading hidden="{{!loading}}">
     加载中...
 </loading>
+{% endraw %}
 {% endhighlight %}
 js的代码做的事情就是用setData来修改上面的loading这个数据，设为true则显示加载图标，false不显示（注意wxml里的loading前面加了!感叹号）这个loading组件的样式微信已经帮我们做好了，其它的不用我们处理。  
 
