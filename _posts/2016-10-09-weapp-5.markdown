@@ -167,7 +167,9 @@ js的代码做的事情就是用setData来修改上面的loading这个数据，�
 主要是用wxss来控制，这里依然用flex简单的布局方式，按1:5的比例来放置两边的滚动区域。  
 左边的列表，给每个项都添加一个事件，每次点击某个项的时候，它的底色要变。这里我们通过控制class来改变样式，在class里添加：  
 {% highlight js %}
+{% raw %}
 {{item.id==chosenType?'selected':''}}
+{% endraw %}
 {% endhighlight %}
 当选中的项的id为choseType时，class就添加selected，这样，我们就可以通过choseType这个变量来改变列表选中的项的样式。  
 那怎么实现两个列表数据的联动呢？  
