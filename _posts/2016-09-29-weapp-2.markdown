@@ -88,6 +88,8 @@ Page({
 data字段，用来定义当前页面的所有的数据，可以理解为数据层，刚刚的wxml是view层，而Page({…})里的其它地方就是逻辑层。一个完整的MVC模型就很好理解了。  
 
 wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一个个取出数据，并赋给item变量，里面就可以通过{{item.xxx}}来引用这些数据了。所以代码写起来非常简洁。类似wx:for的还有wx:if等等，wx:if用来定义一个条件判断，如果成立，就会解析当前标签及其子标签。{{…}}这里面除了以上提到的用法外，还可以做四则运算、三目运算、逻辑大小判断、字符串相加等，甚至可以定义成一个json对象，如：{{a: 1, b: 2}}。还可以使用es6的语法，如{{...myJson}} ，用…把myJson这个对象解包展开平铺到这个地方。[相关的官方文档](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxml/data.html)。  
+如果要指定key和value的话，可以在wx:for 后加个wx:for-item指定value，用wx:for-index指定key或者说index。如果没指定，默认的value叫item，默认的key是index。  
+另外，微信文档上没提到，还有一个wx:for-items，跟wx:for一样。  
 
 有wx:if，那就应该有wx:else了。这里给个[官方的例子](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxml/conditional.html)，看下就明白了：  
 {% highlight xml %}
