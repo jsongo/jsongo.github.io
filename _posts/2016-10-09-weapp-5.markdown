@@ -22,7 +22,7 @@ comments: [微信小程序开发•系列文章]
 **1、花瓣图片列表**  
 用两列的瀑布流来展示，在顶部向下拉可以加载更多，滑动到底部可以加载更多图片。在网络请求数据的时候，会出现一个浮层，展示加载中的loading图标，顶部的title旁边也会出来加载中图标，等数据加载完，这两个图标都会消失。  
 这个页面还有个子页面，图片查看页，往后可以滑动到下一张，往前可以滑动到前一张。  
-<p align="center"><img src="/img/201610/weapp5-2.jpg" alter="图片播放页" width="60%"/></p>  
+<p align="center"><img src="/img/201610/weapp5-2.jpg" alter="图片播放页" width="40%"/></p>  
 
 列表数据来源：分析了下花瓣的网站，随便拿了个数据列表接口，通过传入不同参数来取得分页数据。  
 本页主要介绍：列表的排布、加载中图标的实现方式、下拉刷新的实现方式、滑动到底部加载更多的实现、navigator及参数传递的实现、引用传递的实现。  
@@ -55,7 +55,9 @@ wx.getSystemInfo({
 {% endhighlight %}
 在界面中，把winH设置给scroll-view的height  
 {% highlight html %}
+{% raw %}
 <scroll-view …（省略其它属性）... style="height: {{winH}}px;">
+{% endraw %}
 {% endhighlight %}
 这样scroll-view才能正常在滑动到底部的时候触发bindscrolltolower事件。加载完数据后，可以用之前我们在《[【微信小程序开发•系列文章三】数据层](http://www.jsongo.com/post/js/2016/weapp-3/)》里讲过方法来追加数据。下面我们再介绍一种方法来追加数据。  
 追加的时候，我们的主要目的是保证data里的items数组的地址不变。所以其实可以直接拿到这个items数组的引用，然后给它push数据，方法如下：  
@@ -150,9 +152,11 @@ wx.hideNavigationBarLoading
 第二种要wxml和js一起配合  
 wxml代码：  
 {% highlight html %}
+{% raw %}
 <loading hidden="{{!loading}}">
     加载中...
 </loading>
+{% endraw %}
 {% endhighlight %}
 js的代码做的事情就是用setData来修改上面的loading这个数据，设为true则显示加载图标，false不显示（注意wxml里的loading前面加了!感叹号）这个loading组件的样式微信已经帮我们做好了，其它的不用我们处理。  
 
@@ -167,7 +171,9 @@ js的代码做的事情就是用setData来修改上面的loading这个数据，�
 主要是用wxss来控制，这里依然用flex简单的布局方式，按1:5的比例来放置两边的滚动区域。  
 左边的列表，给每个项都添加一个事件，每次点击某个项的时候，它的底色要变。这里我们通过控制class来改变样式，在class里添加：  
 {% highlight js %}
+{% raw %}
 {{item.id==chosenType?'selected':''}}
+{% endraw %}
 {% endhighlight %}
 当选中的项的id为choseType时，class就添加selected，这样，我们就可以通过choseType这个变量来改变列表选中的项的样式。  
 那怎么实现两个列表数据的联动呢？  
@@ -183,10 +189,12 @@ js的代码做的事情就是用setData来修改上面的loading这个数据，�
 小程序框架只提供了一个组件：[modal组件](https://mp.weixin.qq.com/debug/wxadoc/dev/component/modal.html)。不过我们可以用它来实现alert / confirm / prompt。  
 <p align="center"><img src="/img/201610/weapp5-3.png" alter="modal组件" width="50%"/></p>  
 {% highlight html %}
+{% raw %}
 <modal title="标题" confirm-text="确定" cancel-text="取消" 
     hidden="{{modalHidden}}" bindconfirm="modalChange" bindcancel="modalChange">
     这是对话框的内容。
 </modal>
+{% endraw %}
 {% endhighlight %}
 先看几个参数：  
 title设置上面的标题  
@@ -217,9 +225,11 @@ modalChange: function() {
 <p align="center"><img src="/img/201610/weapp5-4.png" alter="toast组件" width="50%"/></p>  
 默认样式，上面有个打钩图标，目前微信没有提供定制的属性。如果要显示打叉x的图标，恐怕还没法用。期待后面会更新。  
 {% highlight html %}
+{% raw %}
 <toast hidden="{{toastHidden}}" duration="3000" bindchange="toastChange">
 {{toastMsg}}
 </toast>
+{% endraw %}
 {% endhighlight %}
 我们demo中用toast来提示注销成功。  
 这个toast组件还是需要我们自己写点代码的，如上，duration设置这个toast的显示时间，当时间到的时候，它不会主动消失，而是去调用bindchange绑定的回调函数，这时，我们得在这个回调中，去把toastHidden设置成true，才能把这个toast隐藏掉，可见这个toast的使用还不是很方便。那么我们可否把它打包成一个组件呢？可惜框架中没有提供自定义框架的办法，所以这里我们只能在每个用到的页面中，都写一遍相关的js代码，wxml是可以通过模板的形式引入达实现共用，js恐怕就比较难。  
@@ -248,12 +258,14 @@ toastChange: function(event) {
 **3、action-sheet**  
 action-sheet就是下文往上弹出来的小菜单，实现方式也比较简单：  
 {% highlight html %}
+{% raw %}
 <action-sheet hidden="{{actionSheetHidden}}" bindchange="actionSheetChange">
     <action-sheet-item class="item" bindtap="doLogout">
     确定注销
     </action-sheet-item>
     <action-sheet-cancel class="cancel">取消</action-sheet-cancel>
 </action-sheet>
+{% endraw %}
 {% endhighlight %}  
 <p align="center"><img src="/img/201610/weapp5-5.png" alter="toast组件" width="50%"/></p>  
 action-sheet 有一个 bindchange 方法，当用户点击上面半透明背景时，会被触发。  
