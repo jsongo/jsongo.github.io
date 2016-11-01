@@ -103,7 +103,7 @@ wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一
 {% highlight xml %}
 {% raw %}
 <view hidden="{{flag ? true : false}}"> ... </view> 
-{% raw %}
+{% endraw %}
 {% endhighlight %}  
 当flag为true的时候，这个标签及其子标签会被隐藏，正好跟if相反，if是为true是解析、显示。另外hidden作用的表述跟上面说到wx:if时的表述是有区别的，wx:if是条件为真时才会去解析，而hidden是无论如何都会去解析代码，只是不显示这些标签而已。  
 
