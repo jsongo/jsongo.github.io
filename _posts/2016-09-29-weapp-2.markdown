@@ -66,7 +66,7 @@ App跟Page的关系是，App在整个小程序中只能有一个，唯一的一�
 view元素就相当于HTML中的&lt;div>元素。重点介绍一下scroll-view组件，[点击查看官网文档](https://mp.weixin.qq.com/debug/wxadoc/dev/component/scroll-view.html)。它用来定义一个可滚动的视图区域，相当于ios开发中的UIScrollView。里面的内容如果超过这个区域的宽或高时，就会出现滚动条。上面定义的class为scroll-view-item的view就是一个36Kr的新闻项，一条新闻，布局很直观，左侧一个image，右侧一个新闻标题的&lt;text>，加上补充信息。&lt;text>相当于&lt;p>标签，用来包裹文本内容。&lt;image>就是图片元素，相当于HTML中的&lt;img>标签。scroll-view有一些属性，重点介绍几个，它默认是不允许滚动的，用scroll-x来设置横向滚动（默认false），scroll-y设置竖直滚动（默认false）。bindscrolltoupper，这个属性用来设置滚动到顶部/左边时，触发 scrolltoupper 事件，用这个来做刷新。bindscrolltolower用来设置滚动到底部/右边时，触发 scrolltolower 事件，可以用来做加载更多的操作。本例子中没有用到这两个，不过加到代码中用来做使用说明。bindscroll用来绑定滚动时触发，这个可以用来做用户手势的判断等。其它属性，读者可以参数官方文档。  
 
 **（2）数据绑定**  
-数据绑定，在wxml文件里通过{{…}} 两层大括号来定义，里面的内容会被解析成js代码，并把相关的变量绑定到相应的地方。  
+数据绑定，在wxml文件里通过{% raw %}{{…}}{% endraw %} 两层大括号来定义，里面的内容会被解析成js代码，并把相关的变量绑定到相应的地方。  
 下面介绍下数据绑定。wxml代码就上面这么短，没有其它了，那它怎么做出整个完整的滚动列表这么多内容的？其实列表数据就定义在js文件里面：  
 {% highlight js %}
 Page({
@@ -87,7 +87,7 @@ Page({
 {% endhighlight %}
 data字段，用来定义当前页面的所有的数据，可以理解为数据层，刚刚的wxml是view层，而Page({…})里的其它地方就是逻辑层。一个完整的MVC模型就很好理解了。  
 
-wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一个个取出数据，并赋给item变量，里面就可以通过{% raw %}{{item.xxx}}{% endraw %}来引用这些数据了。所以代码写起来非常简洁。类似wx:for的还有wx:if等等，wx:if用来定义一个条件判断，如果成立，就会解析当前标签及其子标签。{% raw %}{{…}}{% endraw %}这里面除了以上提到的用法外，还可以做四则运算、三目运算、逻辑大小判断、字符串相加等，甚至可以定义成一个json对象，如：{{a: 1, b: 2}}。还可以使用es6的语法，如{{...myJson}} ，用…把myJson这个对象解包展开平铺到这个地方。[相关的官方文档](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxml/data.html)。  
+wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一个个取出数据，并赋给item变量，里面就可以通过{% raw %}{{item.xxx}}{% endraw %}来引用这些数据了。所以代码写起来非常简洁。类似wx:for的还有wx:if等等，wx:if用来定义一个条件判断，如果成立，就会解析当前标签及其子标签。{% raw %}{{…}}{% endraw %}这里面除了以上提到的用法外，还可以做四则运算、三目运算、逻辑大小判断、字符串相加等，甚至可以定义成一个json对象，如：{% raw %}{{a: 1, b: 2}}{% endraw %}。还可以使用es6的语法，如{% raw %}{{...myJson}}{% endraw %} ，用…把myJson这个对象解包展开平铺到这个地方。[相关的官方文档](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxml/data.html)。  
 如果要指定key和value的话，可以在wx:for 后加个wx:for-item指定value，用wx:for-index指定key或者说index。如果没指定，默认的value叫item，默认的key是index。  
 另外，微信文档上没提到，还有一个wx:for-items，跟wx:for一样。  
 
@@ -99,7 +99,7 @@ wxml里有个语法：wx:for，它会解析后面news这个数组，循环，一
 <view wx:else> 3 </view>
 {% endraw %}
 {% endhighlight %}  
-文档除了介绍if之外，还讲了另一个类似功能的 hidden，使用：```<view hidden="{{flag ? true : false}}"> ... </view> ```当flag为true的时候，这个标签及其子标签会被隐藏，正好跟if相反，if是为true是解析、显示。另外hidden作用的表述跟上面说到wx:if时的表述是有区别的，wx:if是条件为真时才会去解析，而hidden是无论如何都会去解析代码，只是不显示这些标签而已。  
+文档除了介绍if之外，还讲了另一个类似功能的 hidden，使用：```{% raw %}<view hidden="{{flag ? true : false}}"> ... </view> {% raw %}```当flag为true的时候，这个标签及其子标签会被隐藏，正好跟if相反，if是为true是解析、显示。另外hidden作用的表述跟上面说到wx:if时的表述是有区别的，wx:if是条件为真时才会去解析，而hidden是无论如何都会去解析代码，只是不显示这些标签而已。  
 
 &lt;block>标签。这是一个不会显示出来的辅助标签，在wx:if时，如果你想作用于几个并列在一起的标签，那就可以用block把它们包起来。同样，如果你在用wx:for时，遇到没有外层标签的情况，只有几个标签并排着，这时也可以用block把它们包起来。   
 {% highlight xml %}
