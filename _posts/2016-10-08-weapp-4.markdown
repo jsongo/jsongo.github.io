@@ -45,7 +45,9 @@ js的模块引用语法如下：
 {% highlight js %}
 //  a.js
 var xxx = require('xxx.js')
+{% endhighlight %}
 导出的语法，在每个文件里定义
+{% highlight js %}
 // b.js
 function yyy() {
     // ...
