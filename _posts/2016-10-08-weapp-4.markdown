@@ -98,7 +98,7 @@ wxml代码里也可以根据界面上不同的部分去分块。从主wxml文件
 **（3）wxss的模块化**  
 wxss也支持模块化，用@import来导入其它wxss文件到主wxss文件中。这个用法跟sass或less一样，后面记得加分号：  
 {% highlight css %}
-@import base.wxss
+@import base.wxss;
 {% endhighlight %}
 另外，这个@import语句要放在wxss文件的最上面，放中间和底部都没用，作者试过。官方文档中没有说明，不知道是工具的bug还是框架本身是这么设计的，总之开发者在使用的时候，注意下。  
 
