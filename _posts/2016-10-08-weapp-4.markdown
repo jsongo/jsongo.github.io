@@ -68,30 +68,39 @@ wxml代码里也可以根据界面上不同的部分去分块。从主wxml文件
 {% endhighlight %}
 使用：  
 {% highlight xml %}
+{% raw %}
 <template is="myTpl" data="{{…data}}"/>
+{% endraw %}
 {% endhighlight %}
 
 讲到模块化，这里我们就需要把template的定义分开，放到另外的wxml文件里，作为另一个wxml文件。在使用的时候，用import来引入。  
 假设我们的模板写在一个单独的文件item.wxml里，要在主页面中引入：  
 {% highlight xml %}
+{% raw %}
 <import src="item.wxml"/>
 <template is="myTpl" data="{{...data}}"/>
+{% endraw %}
 {% endhighlight %}
-这样就可以把独立的UI模块给拆分出来。上面传入data的时候，注意要用…三个点把data这个object平铺开，这个是微信文档中给的规定，读者可以测试下，后面在使用的时候多注意。  
+这样就可以把独立的UI模块给拆分出来。上面传入data的时候，注意要用…三个点把data这个object平铺开，官方文档时规定这里传入的数据必须是
+{% highlight js %}
+{% raw %}{{a: xxx, b: xxx}}{% endraw %}
+{% endhighlight %}
+这样的格式，跟wx:for还是有差别的，读者可以测试下，后面在使用的时候多注意。  
 
 另外，微信还提供了一个include操作。跟import的区别是，import是把相应的一个文件里定义的模板引入进来，让主wxml文件可以用这个模板。而include是直接把相关文件的源码、内容，原封不动的导入进来。  
-微信的官方说明在这里。  
+微信的官方说明在[这里](http://wxopen.notedown.cn/framework/view/wxml/import.html)。  
 使用上，读者可以这样简单地来区分：  
 用模板时，用import引入模板的定义；  
 不用模板时，用include直接把文件内容导入进来。  
 前者(import)可以理解为c语法里的引入头文件；后者可以理解为nginx里的ssi，帮你把一个大文件切分成多个内容块，放到几个小文件里。  
-给了一个非常简单的import和include的演示代码在这里。  
+给了一个非常简单的import和include的[演示代码在这里](https://github.com/jsongo/weapp-module)。  
 
 **（3）wxss的模块化**  
 wxss也支持模块化，用@import来导入其它wxss文件到主wxss文件中。这个用法跟sass或less一样，后面记得加分号：  
 {% highlight css %}
 @import base.wxss
 {% endhighlight %}
+另外，这个@import语句要放在wxss文件的最上面，放中间和底部都没用，作者试过。官方文档中没有说明，不知道是工具的bug还是框架本身是这么设计的，总之开发者在使用的时候，注意下。  
 
 > 3、模块化的几个小建议  
 
@@ -105,5 +114,4 @@ wxss也支持模块化，用@import来导入其它wxss文件到主wxss文件中�
 
 > 4、组件  
 
-MINA框架给我们提供了很多小组件，它们是视图层的基本组成单元，功能相对比较独立，而且组件风格跟微信保持得比较一致，各自有各自的特有的属性，当然也可以自定义属性（如data-xxx）。这里有所有组件的介绍。  
-后面有一个文章专门介绍几个常用的组件，本文就简单提一下组件。  
+MINA框架给我们提供了很多小组件，它们是视图层的基本组成单元，功能相对比较独立，而且组件风格跟微信保持得比较一致，各自有各自的特有的属性，当然也可以自定义属性（如data-xxx）。[这里](http://wxopen.notedown.cn/component/)有所有组件的介绍。  
