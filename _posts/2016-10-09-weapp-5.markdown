@@ -149,16 +149,15 @@ wx.showNavigationBarLoading
 {% highlight js %}
 wx.hideNavigationBarLoading
 {% endhighlight %}
-第二种要wxml和js一起配合  
-wxml代码：  
-{% highlight html %}
-{% raw %}
-<loading hidden="{{!loading}}">
-    加载中...
-</loading>
-{% endraw %}
+第二种也只需要调用一个函数就可以了  
+代码：   
+{% highlight js %}
+wx.showToast({
+    title: '加载中...',
+    icon: 'loading',
+    duration: 10000
+});
 {% endhighlight %}
-js的代码做的事情就是用setData来修改上面的loading这个数据，设为true则显示加载图标，false不显示（注意wxml里的loading前面加了!感叹号）这个loading组件的样式微信已经帮我们做好了，其它的不用我们处理。  
 
 > 三、外卖页面的实现
 
@@ -185,93 +184,72 @@ js的代码做的事情就是用setData来修改上面的loading这个数据，�
 整体布局其实就是wxss完成的，也没什么可讲。这一部分主要讨论：模态窗口、下文弹出菜单列表、toast的实现。  
 
 **1、模态窗口**  
-其实也就是我们网页中的alert、confirm这些。当他们弹出来的时候，后面的窗口是不可以操作的，这类窗口称为模态窗口。  
-小程序框架只提供了一个组件：[modal组件](https://mp.weixin.qq.com/debug/wxadoc/dev/component/modal.html)。不过我们可以用它来实现alert / confirm / prompt。  
+其实也就是我们网页中的alert、confirm这些弹出框。当他们弹出来的时候，后面的窗口是不可以操作的，这类窗口称为模态窗口。  
+小程序框架提供了一个wx.showModal，我们可以用它来实现alert / confirm / prompt。  
 <p align="center"><img src="/img/201610/weapp5-3.png" alter="modal组件" width="50%"/></p>  
-{% highlight html %}
-{% raw %}
-<modal title="标题" confirm-text="确定" cancel-text="取消" 
-    hidden="{{modalHidden}}" bindconfirm="modalChange" bindcancel="modalChange">
-    这是对话框的内容。
-</modal>
-{% endraw %}
+{% highlight js %}
+wx.showModal({
+    title: '关于',
+    content: '这是一个演示程序，不要在意这些细节'
+});
 {% endhighlight %}
 先看几个参数：  
 title设置上面的标题  
-标签中间的文本就是对话框中部灰色的内容  
-no-cancel 设置是否显示取消按钮  
-bindconfirm和bindcancel分别是两个按钮的事件  
+content就是对话框中部灰色的内容   
 
 （1）alert框  
-只要把no-cancel设置成true就可以了  
+添加一个字段：showCancel，设置成false就可以了    
 
 （2）confirm框  
-默认的就是confirm的样式  
+默认的就是confirm的样式，可以用cancelText字段设置取消文本，cancelColor设置它的字体颜色，confirmText设置确认文本，confirmColor设置它的字体颜色。  
 
 （3）prompt弹出输入框  
-modal组件中间是允许插入wxml标签的，所以我们如果插入一个input组件，它自然就成了prompt弹出框，如果需要用户输入的时候，可以用这个办法弹出。  
-
-（4）modal的显示与隐藏  
-上面的代码中，用modalHidden变量来控制是否hidden。我们在bindconfirm和bindcancel两个事件里面都加上一个setData，把modalHidden设置成true就可以隐藏了。同样的，要显示的时候，setData把modalHidden设置成true就可以了。  
+modal框中间的内容是允许插入wxml标签的，所以我们如果插入一个input组件，它自然就成了prompt弹出框，如果需要用户输入的时候，可以用这个办法弹出。   
+用success得到用户点击了哪个按钮，如果是确认按钮的时候，success回调里通过参数拿到：
 {% highlight js %}
-modalChange: function() {
-    this.setData({
-        modalHidden: !this.data.modalHidden
-    });
+success: function(res) {
+    if (res.confirm === 1) {
+        console.log('用户点击了确认按钮');
+    }
+    else {
+        console.log('用户点击了取消按钮');
+    }
 }
 {% endhighlight %}
+
+（4）modal的显示与隐藏  
+modal弹出框默认的就可以通过“取消”按钮来隐藏，暂还没有提供其它方式。  
 
 **2、toast**  
 <p align="center"><img src="/img/201610/weapp5-4.png" alter="toast组件" width="50%"/></p>  
 默认样式，上面有个打钩图标，目前微信没有提供定制的属性。如果要显示打叉x的图标，恐怕还没法用。期待后面会更新。  
-{% highlight html %}
-{% raw %}
-<toast hidden="{{toastHidden}}" duration="3000" bindchange="toastChange">
-{{toastMsg}}
-</toast>
-{% endraw %}
+{% highlight js %}
+wx.showToast({
+    title: '注销成功！',
+    icon: 'success',
+    duration: 3000
+});
 {% endhighlight %}
 我们demo中用toast来提示注销成功。  
-这个toast组件还是需要我们自己写点代码的，如上，duration设置这个toast的显示时间，当时间到的时候，它不会主动消失，而是去调用bindchange绑定的回调函数，这时，我们得在这个回调中，去把toastHidden设置成true，才能把这个toast隐藏掉，可见这个toast的使用还不是很方便。那么我们可否把它打包成一个组件呢？可惜框架中没有提供自定义框架的办法，所以这里我们只能在每个用到的页面中，都写一遍相关的js代码，wxml是可以通过模板的形式引入达实现共用，js恐怕就比较难。  
-js实现代码如下：  
-{% highlight js %}
-data: {
-    toastHidden: true,
-    toastMsg: 'message'
-},
-toast: function(msg) {
-    this.setData({
-        toastHidden: false,
-        toastMsg: msg
-    });
-},
-toastChange: function(event) {
-    if (event.detail.value === false) {
-        this.setData({
-            toastHidden: true
-        });
-    }
-},
-{% endhighlight %}
-我们封装成一个toast方法，同个Page里面就可以通过this.toast( )来调用而直接弹出。可惜现在每个用到的页面都得拷贝一次上面这个代码，希望小程序的这个框架不久后能提供自定义组件的方法。  
 
 **3、action-sheet**  
 action-sheet就是下文往上弹出来的小菜单，实现方式也比较简单：  
 {% highlight html %}
-{% raw %}
-<action-sheet hidden="{{actionSheetHidden}}" bindchange="actionSheetChange">
-    <action-sheet-item class="item" bindtap="doLogout">
-    确定注销
-    </action-sheet-item>
-    <action-sheet-cancel class="cancel">取消</action-sheet-cancel>
-</action-sheet>
-{% endraw %}
+wx.showActionSheet({
+    itemList: ['确定注销'],
+    success: (res)=> {
+        if (!res.cancel) {
+            if (res.tapIndex == 0) { // 确定注销
+                this.doLogout();
+            }
+        }
+    }
+});
 {% endhighlight %}  
 <p align="center"><img src="/img/201610/weapp5-5.png" alter="toast组件" width="50%"/></p>  
-action-sheet 有一个 bindchange 方法，当用户点击上面半透明背景时，会被触发。  
-action-sheet-item标签可以用多个，它会从上往下依次排列。每个上面都可以单独绑定事件。  
-action-sheet-cancel标签用来是额外提供的，它跟action-sheet-item的差别是，它点击后会触发action-sheet的bindchange方法。当然这个标签也可以不使用。
-如果没有实现bindchange方法，点击背景时是不会把action-sheet隐藏起来的。所以我们需要实现它，很简单，也只需要setData把actionSheetHidden设置为true就行了。  
+itemList用来设置上面的菜单列表，从左往右，从0开始编号，从上往下显示，最下页的是取消按钮，它不用在itemList里面写，默认会有。也可以通过cancel这个字段来去掉空上取消按钮。  
+取消按钮默认会有点击事件，点击会把整个actionSheet隐藏，点击半透明灰黑的地方也可以把它隐藏，这些都是这个组件默认帮我们做好的。  
+组件里success用来做点击的事件响应。如果用户点击取消按钮的话，res.cancel就为true，点击其它按钮则会通过res.tapIndex通知我们 用户点击的是哪个编号的按钮，从而我们可以根据它来做出相应的响应。  
 
 > 五、其它  
 
