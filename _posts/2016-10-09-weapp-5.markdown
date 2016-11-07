@@ -98,7 +98,7 @@ this.setData({items: arr}); // 一定要记得setData
 （5）数据请求  
 关于数据请求，这里补充一点。  
 花瓣对请求做了点限制，直接请求地址会返回一个页面，需要加两个头部才行：  
-{% highlight raw %}
+{% highlight http %}
 X-Request: JSON
 X-Requested-With: XMLHttpRequest
 {% endhighlight %}
@@ -109,6 +109,15 @@ X-Requested-With: XMLHttpRequest
 图片列表其实就是传统网页的布局，没有用到flex，只是让元素浮动float，然后限制一下宽度和高度，它自然就排成两行了。有兴趣的读者可以尝试用flex或table去实现一下。  
 
 **4、图片播放的实现**  
+
+官方其实提供了一个图片预览的api，可以用来实现图片的播放，实现也很简单：  
+{% highlight js %}
+wx.previewImage({
+    current: '', // 当前显示图片的http链接
+    urls: [ ] // 需要预览的图片http链接列表
+});
+{% endhighlight %}
+在urls里传入图片列表就可以了，不过这个功能比较简单，没法定制，比如想在图片播放的时候，能显示些图片说明文字，这个功能就没法做到了。所以下面我们来讨论下如何实现自己定义图片播放的功能。  
 
 （1）点击跳转  
 列表里的每一项都加了navigator组件包裹着，它就相当于&lt;a>标签，用来做跳转。  
