@@ -254,8 +254,8 @@ itemList用来设置上面的菜单列表，从左往右，从0开始编号，�
 > 五、其它  
 
 **1、各页面标题**  
-每个页面有不同的标题。在用v0.10.101400版本开发的时候，测试wx.setNavigationBarTitle方法设置的标题没有作用，会被改回去。  
-这里的wx.setNavigationBarTitle问题，怀疑是这个版本的工具问题，之前有个版本是可以的，更新后，在onLoad和onShow里设置title都会被覆盖回去。所以这里就只能在xxx.json里设置新的title把原来的覆盖。  
+每个页面有不同的标题。在用v0.10.101400版本开发的时候，测试wx.setNavigationBarTitle方法设置的标题没有作用，会被改回去。不过v0.10.102800版本修复了这个问题。  
+如果wx.setNavigationBarTitle方法失效的话，还有一个办法可以改标题，在xxx.json里设置新的title就可以把原来的覆盖。  
 demo代码中，除index页面外，其它页面都有一个xxx.json文件，内容大致如下：  
 {% highlight js %}
 {
